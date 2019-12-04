@@ -68,7 +68,6 @@ public class PlayIconView extends View {
      * @return 矩形条的top值
      */
     private float getRectTop(int i) {
-        // TODO:@lhf getRectTop: 根据具体需求来实现
         return (float) (Math.random() * mMeasuredHeight);
     }
 }
