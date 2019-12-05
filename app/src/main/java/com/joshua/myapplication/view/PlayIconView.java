@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 /**
+ * 该View实现音乐播放时的音量柱效果
+ *
  * Created by Joshua on 2019/12/4.
  */
 public class PlayIconView extends View {
@@ -53,7 +54,7 @@ public class PlayIconView extends View {
         for (int i = 0; i < RECT_COUNT; i++) {
             mRectF.left = (rectWith + offset) * i;
             mRectF.right = mRectF.left + rectWith;
-            mRectF.top = getRectTop(i);
+            mRectF.top = mMeasuredHeight - getRectHeight(i);
             mRectF.bottom = mMeasuredHeight;
             canvas.drawRect(mRectF, mPaint);
         }
@@ -61,13 +62,14 @@ public class PlayIconView extends View {
     }
 
     /**
-     * 获取矩形条的top值
+     * 获取矩形条的高度
      * 要根据具体需求来实现
      *
      * @param i 矩形条位置
-     * @return 矩形条的top值
+     * @return 矩形条的高度
      */
-    private float getRectTop(int i) {
+    private float getRectHeight(int i) {
+        // TODO:@lhf getRectHeight: 根据具体需求来实现
         return (float) (Math.random() * mMeasuredHeight);
     }
 }
