@@ -1,7 +1,6 @@
 package com.joshua.myapplication.view;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -33,12 +32,6 @@ public class DragView extends View {
     }
 
     @Override
-    public void layout(int l, int t, int r, int b) {
-        Log.d(TAG, "layout() called with: l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
-        super.layout(l, t, r, b);
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d(TAG, "onTouchEvent() called with: event = [" + event + "]");
         int x = (int) event.getX();
@@ -53,10 +46,15 @@ public class DragView extends View {
             case MotionEvent.ACTION_MOVE:
                 int offsetX = x - lastX;
                 int offsetY = y - lastY;
-                layout(getLeft() + offsetX,
-                        getTop() + offsetY,
-                        getRight() + offsetX,
-                        getBottom() + offsetY);
+                Log.d(TAG, "onTouchEvent: offsetX = [" + offsetX + "], offsetY = [" + offsetY + "]");
+                // 方式一：使用layout
+//                layout(getLeft() + offsetX,
+//                        getTop() + offsetY,
+//                        getRight() + offsetX,
+//                        getBottom() + offsetY);
+                // 方式二：使用offsetLeftAndRight和offsetTopAndBottom
+                offsetLeftAndRight(offsetX);
+                offsetTopAndBottom(offsetY);
                 break;
         }
         return super.onTouchEvent(event);
