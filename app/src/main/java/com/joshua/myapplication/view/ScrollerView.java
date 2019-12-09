@@ -67,8 +67,6 @@ public class ScrollerView extends ConstraintLayout {
             case MotionEvent.ACTION_DOWN:
                 lastX = x;
                 lastY = y;
-                startX = -(rawX - x - x0);
-                startY = -(rawY - y - y0);
                 break;
             case MotionEvent.ACTION_MOVE:
                 int offsetX = x - lastX;
