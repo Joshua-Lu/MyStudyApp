@@ -25,6 +25,7 @@ public class ScrollerView extends ConstraintLayout {
     int x0;// DragView的初始屏幕x坐标
     int y0;// DragView的初始屏幕y坐标
     int[] location = new int[2];
+    boolean canScroll = false;
 
     public ScrollerView(Context context) {
         this(context, null);
@@ -38,6 +39,15 @@ public class ScrollerView extends ConstraintLayout {
         super(context, attrs, defStyleAttr);
         setClickable(true);
         mScroller = new Scroller(context);
+    }
+
+
+    /**
+     * 设置是否可拖动
+     * @param canScroll 滚动开关
+     */
+    public void setCanScroll(boolean canScroll) {
+        this.canScroll = canScroll;
     }
 
     @Override
@@ -59,6 +69,10 @@ public class ScrollerView extends ConstraintLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d(TAG, "onTouchEvent() called with: event = [" + event + "]");
+        if (!canScroll) {
+            Log.e(TAG, "onTouchEvent: canScroll = " + canScroll);
+            return super.onTouchEvent(event);
+        }
         int x = (int) event.getX();
         int y = (int) event.getY();
         int rawX = (int) event.getRawX();

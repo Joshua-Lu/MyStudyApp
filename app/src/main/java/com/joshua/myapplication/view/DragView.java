@@ -21,6 +21,7 @@ public class DragView extends View {
     int x0;// DragView的初始屏幕x坐标
     int y0;// DragView的初始屏幕y坐标
     int[] location = new int[2];
+    private boolean canDrag = false;
 
     public DragView(Context context) {
         this(context, null);
@@ -36,6 +37,14 @@ public class DragView extends View {
         setClickable(true);// 不设这个onTouchEvent无法正常回调
     }
 
+    /**
+     * 设置是否可拖动
+     * @param canDrag 拖动开关
+     */
+    public void setCanDrag(boolean canDrag) {
+        this.canDrag = canDrag;
+    }
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -48,6 +57,10 @@ public class DragView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d(TAG, "onTouchEvent() called with: event = [" + event + "]");
+        if (!canDrag) {
+            Log.e(TAG, "onTouchEvent: canDrag = " + canDrag);
+            return super.onTouchEvent(event);
+        }
         int x = (int) event.getX();
         int y = (int) event.getY();
         Log.d(TAG, "onTouchEvent: x = [" + x + "], y = [" + y + "]");
