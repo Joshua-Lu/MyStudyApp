@@ -25,7 +25,7 @@ public class ScrollerView extends ConstraintLayout {
     int x0;// DragView的初始屏幕x坐标
     int y0;// DragView的初始屏幕y坐标
     int[] location = new int[2];
-    boolean canScroll = false;
+    boolean canScroll = true;
 
     public ScrollerView(Context context) {
         this(context, null);

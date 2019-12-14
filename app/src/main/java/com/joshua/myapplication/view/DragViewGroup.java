@@ -21,9 +21,10 @@ public class DragViewGroup extends LinearLayout {
 
     private static final String TAG = "DragViewGroup";
     private ViewDragHelper mViewDragHelper;
-    private View child0;
-    private View child1;
-    private boolean canDrag = false;
+    private View mMenuView;
+    private View mMainView;
+    private boolean canDrag = true;
+    private int mWith;
 
     public DragViewGroup(@NonNull Context context) {
         this(context, null);
@@ -55,8 +56,14 @@ public class DragViewGroup extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        child0 = getChildAt(0);
-        child1 = getChildAt(1);
+        mMenuView = getChildAt(0);
+        mMainView = getChildAt(1);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mWith = mMenuView.getMeasuredWidth();
     }
 
     private ViewDragHelper.Callback callback = new ViewDragHelper.Callback() {
@@ -68,8 +75,8 @@ public class DragViewGroup extends LinearLayout {
                 Log.e(TAG, "onTouchEvent: canDrag = " + canDrag);
                 return false;
             }
-            return true;// 所有子View都可拖动
-//            return child == child0;// 根据child判断是否可拖动
+//            return true;// 所有子View都可拖动
+            return child == mMainView;// 根据child判断是否可拖动
         }
 
         @Override
@@ -80,24 +87,65 @@ public class DragViewGroup extends LinearLayout {
 
         @Override
         public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
-            return top;
+            Log.d(TAG, "clampViewPositionVertical() called with: child = [" + child + "], top = [" + top + "], dy = [" + dy + "]");
+            return 0;
+        }
+
+        @Override
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
+            super.onViewReleased(releasedChild, xvel, yvel);
+            Log.d(TAG, "onViewReleased() called with: releasedChild = [" + releasedChild + "], xvel = [" + xvel + "], yvel = [" + yvel + "]");
+            // 手指抬起后移动到指定位置
+            if (mMainView.getLeft() < mWith) {
+                mViewDragHelper.smoothSlideViewTo(mMainView, 0, 0);
+            } else {
+                mViewDragHelper.smoothSlideViewTo(mMainView, mWith, 0);
+            }
+            ViewCompat.postInvalidateOnAnimation(DragViewGroup.this);
+        }
+
+        @Override
+        public void onViewCaptured(@NonNull View capturedChild, int activePointerId) {
+            super.onViewCaptured(capturedChild, activePointerId);
+            Log.d(TAG, "onViewCaptured() called with: capturedChild = [" + capturedChild + "], activePointerId = [" + activePointerId + "]");
+        }
+
+        @Override
+        public void onViewDragStateChanged(int state) {
+            super.onViewDragStateChanged(state);
+            Log.d(TAG, "onViewDragStateChanged() called with: state = [" + state + "]");
+        }
+
+        @Override
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
+            super.onViewPositionChanged(changedView, left, top, dx, dy);
+            Log.d(TAG, "onViewPositionChanged() called with: changedView = [" + changedView + "], left = [" + left + "], top = [" + top + "], dx = [" + dx + "], dy = [" + dy + "]");
         }
     };
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        //固定写法
+        int action = ev.getAction();
+        if (action == MotionEvent.ACTION_CANCEL
+                || action == MotionEvent.ACTION_UP) {
+            mViewDragHelper.cancel();
+            return false;
+        }
         return mViewDragHelper.shouldInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // 将触摸事件传递给ViewDragHelper
+        // 固定写法
+        // 将触摸事件传递给ViewDragHelper，此操作必不可少
         mViewDragHelper.processTouchEvent(event);
         return true;
     }
 
     @Override
     public void computeScroll() {
+        // 固定写法
         if (mViewDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TestDragActivity">
+
+    <com.joshua.myapplication.view.ScrollerView
+        android:id="@+id/sv_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.joshua.myapplication.view.DragView
+            android:id="@+id/dragView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/colorAccent"
+            app:layout_constraintBottom_toTopOf="@+id/playIconView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.joshua.myapplication.view.PlayIconView
+            android:id="@+id/playIconView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dragView" />
+
+    </com.joshua.myapplication.view.ScrollerView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

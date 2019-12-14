@@ -21,7 +21,7 @@ public class DragView extends View {
     int x0;// DragView的初始屏幕x坐标
     int y0;// DragView的初始屏幕y坐标
     int[] location = new int[2];
-    private boolean canDrag = false;
+    private boolean canDrag = true;
 
     public DragView(Context context) {
         this(context, null);
