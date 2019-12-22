@@ -4,4 +4,5 @@
     <string name="main">Main Content</string>
     <string name="start_testdragactivity">start TestDragActivity</string>
     <string name="start_testviewdraghelperactivity">start TestViewDragHelperActivity</string>
+    <string name="start_testdrawactivity">start TestDrawActivity</string>
 </resources>
