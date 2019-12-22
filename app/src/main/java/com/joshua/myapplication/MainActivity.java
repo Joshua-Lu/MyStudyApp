@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn_test_drag;
     Button btn_test_viewDragHelper;
     Button btn_test_draw;
+    Button btn_test_xmldraw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startTestActivity(TestDrawActivity.class);
+            }
+        });
+
+        btn_test_xmldraw = findViewById(R.id.btn_test_xmldraw);
+        btn_test_xmldraw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startTestActivity(TestXmlDrawActivity.class);
             }
         });
     }

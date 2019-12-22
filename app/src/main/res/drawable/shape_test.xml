@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/colorAccent" />
+
+    <!-- size好像不生效 -->
+    <size
+        android:width="200dp"
+        android:height="200dp" />
+
+    <!-- angle属性 只对 type="linear" 生效，且值必须为45的倍数 -->
+    <gradient
+        android:angle="45"
+        android:centerColor="#00ff00"
+        android:endColor="#0000ff"
+        android:startColor="#ff0000"
+        android:centerX="0.2"
+        android:type="linear" />
+
+    <!-- type="radial" 必须有gradientRadius属性 -->
+    <!--<gradient
+        android:centerColor="#00ff00"
+        android:endColor="#0000ff"
+        android:gradientRadius="50dp"
+        android:startColor="#ff0000"
+        android:type="radial" />-->
+
+    <!--<gradient
+        android:centerColor="#00ff00"
+        android:endColor="#0000ff"
+        android:gradientRadius="50dp"
+        android:startColor="#ff0000"
+        android:centerX="0.2"
+        android:centerY="0.8"
+        android:type="sweep" />-->
+    <stroke
+        android:width="10dp"
+        android:color="@color/black"
+        android:dashWidth="30dp"
+        android:dashGap="50dp" />
+
+</shape>
