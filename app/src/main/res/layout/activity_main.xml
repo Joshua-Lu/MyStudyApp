@@ -10,24 +10,28 @@
         android:id="@+id/btn_test_drag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="btnTestDragClick"
         android:text="@string/start_testdragactivity" />
 
     <Button
         android:id="@+id/btn_test_viewDragHelper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="btnTestViewDragHelperClick"
         android:text="@string/start_testviewdraghelperactivity" />
 
     <Button
         android:id="@+id/btn_test_draw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="btnTestDrawClick"
         android:text="@string/start_testdrawactivity" />
 
     <Button
         android:id="@+id/btn_test_xmldraw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="btnTestXmldrawClick"
         android:text="@string/start_testxmldrawactivity" />
 
 </LinearLayout>
