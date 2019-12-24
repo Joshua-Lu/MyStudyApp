@@ -10,8 +10,6 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.joshua.myapplication.R;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
@@ -22,7 +20,7 @@ import androidx.annotation.RequiresApi;
  */
 public class TestDrawView extends View {
 
-    Paint paint;
+    private Paint paint;
     private RectF rectF;
     private Path path;
 
