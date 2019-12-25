@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp" />
+
+    <TextView
+        android:id="@+id/tvHue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview"
+        android:text="@string/hue" />
+
+    <SeekBar
+        android:id="@+id/seekbarHue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvHue"
+        android:layout_below="@id/imageview" />
+
+    <TextView
+        android:id="@+id/tvSaturation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekbarHue"
+        android:text="@string/saturation" />
+
+    <SeekBar
+        android:id="@+id/seekbarSaturation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvSaturation"
+        android:layout_below="@id/seekbarHue" />
+
+    <TextView
+        android:id="@+id/tvLum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekbarSaturation"
+        android:text="@string/lum" />
+
+    <SeekBar
+        android:id="@+id/seekbarLum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tvLum"
+        android:layout_below="@id/seekbarSaturation" />
+
+    <LinearLayout
+        android:id="@+id/pixelsEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekbarLum"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleImageNegative"
+            android:text="底片效果" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleImagePixelsOldPhoto"
+            android:text="老照片效果" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleImagePixelsRelief"
+            android:text="浮雕效果" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/colorMatrixEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pixelsEffect"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinner_colorMatrixs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/colorMatrixs" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnChange"
+            android:text="Change" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnReset"
+            android:text="Reset" />
+    </LinearLayout>
+
+</RelativeLayout>

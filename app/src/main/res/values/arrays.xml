@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="colorMatrixs">
+        <item>底片效果</item>
+        <item>老照片效果</item>
+    </array>
+</resources>
