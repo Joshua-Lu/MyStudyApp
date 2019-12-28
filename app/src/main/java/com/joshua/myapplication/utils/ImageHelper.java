@@ -29,11 +29,32 @@ public class ImageHelper {
             0.272f, 0.534f, 0.131f, 0, 0,
             0, 0, 0, 1, 0
     };
-    // 浮雕效果
-    public static float[] reliefMatrix = new float[]{
-            1, 0, 0, 0, 0,
-            0, 1, 0, 0, 0,
-            0, 0, 1, 0, 0,
+    // 灰度效果
+    public static float[] grayMatrix = new float[]{
+            0.33f, 0.59f, 0.11f, 0, 0,
+            0.33f, 0.59f, 0.11f, 0, 0,
+            0.33f, 0.59f, 0.11f, 0, 0,
+            0, 0, 0, 1, 0
+    };
+    // 反转效果
+    public static float[] reverseMatrix = new float[]{
+            -1, 0, 0, 1, 1,
+            0, -1, 0, 1, 1,
+            0, 0, -1, 1, 1,
+            0, 0, 0, 1, 0
+    };
+    // 去色效果
+    public static float[] decolorizeMatrix = new float[]{
+            1.5f, 1.5f, 1.5f, 0, -1,
+            1.5f, 1.5f, 1.5f, 0, -1,
+            1.5f, 1.5f, 1.5f, 0, -1,
+            0, 0, 0, 1, 0
+    };
+    // 高饱和度效果
+    public static float[] highSaturationMatrix = new float[]{
+            1.438f, -0.122f, -0.016f, 0, -0.03f,
+            -0.026f, 1.378f, -0.016f, 0, 0.05f,
+            -0.026f, -0.122f, 1.483f, 0, -0.02f,
             0, 0, 0, 1, 0
     };
 
@@ -200,6 +221,14 @@ public class ImageHelper {
                 return negativeMatrix;
             case 1:
                 return oldPhotoMatrix;
+            case 2:
+                return grayMatrix;
+            case 3:
+                return reverseMatrix;
+            case 4:
+                return decolorizeMatrix;
+            case 5:
+                return highSaturationMatrix;
             default:
                 return initMatrix;
         }

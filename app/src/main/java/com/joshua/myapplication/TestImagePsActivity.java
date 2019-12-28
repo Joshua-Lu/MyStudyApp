@@ -124,6 +124,6 @@ public class TestImagePsActivity extends AppCompatActivity implements SeekBar.On
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        mColorMatrix = ImageHelper.getColorMatrix(0);
     }
 }

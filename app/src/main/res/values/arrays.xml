@@ -3,5 +3,9 @@
     <array name="colorMatrixs">
         <item>底片效果</item>
         <item>老照片效果</item>
+        <item>灰度效果</item>
+        <item>反转效果</item>
+        <item>去色效果</item>
+        <item>高饱和度效果</item>
     </array>
 </resources>
