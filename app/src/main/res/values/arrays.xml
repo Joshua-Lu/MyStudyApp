@@ -8,4 +8,10 @@
         <item>去色效果</item>
         <item>高饱和度效果</item>
     </array>
+    <array name="transformMatrixs">
+        <item>平移变换</item>
+        <item>缩放变换</item>
+        <item>错切变换</item>
+        <item>旋转变换</item>
+    </array>
 </resources>

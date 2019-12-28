@@ -14,6 +14,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    private void startTestActivity(Class<?> cls) {
+        Intent intent = new Intent(MainActivity.this, cls);
+        startActivity(intent);
+    }
+
     public void btnTestDragClick(View view) {
         startTestActivity(TestDragActivity.class);
     }
@@ -30,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
         startTestActivity(TestXmlDrawActivity.class);
     }
 
-    private void startTestActivity(Class<?> cls) {
-        Intent intent = new Intent(MainActivity.this, cls);
-        startActivity(intent);
+    public void btnTestImagePsClick(View view) {
+        startTestActivity(TestImagePsActivity.class);
     }
 }

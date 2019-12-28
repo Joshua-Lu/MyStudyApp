@@ -5,11 +5,15 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 
 public class ImageHelper {
-    // 初始矩阵，不会对原有颜色值进行任何变化
-    public static float[] initMatrix = new float[]{
+
+    private static final String TAG = "ImageHelper";
+
+    // 初始颜色矩阵，不会对原有颜色值进行任何变化
+    public static float[] initColorMatrix = new float[]{
             1, 0, 0, 0, 0,
             0, 1, 0, 0, 0,
             0, 0, 1, 0, 0,
@@ -58,6 +62,46 @@ public class ImageHelper {
             0, 0, 0, 1, 0
     };
 
+    // 初始变换矩阵，不会对图片进行任何变化T
+    public static float[] initTransformMatrix = new float[]{
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1
+    };
+    // 平移变换矩阵
+    public static float[] transMatrix = new float[]{
+            1, 0, 500,
+            0, 1, 500,
+            0, 0, 1
+    };
+    // 缩放变换矩阵
+    public static float[] scaleMatrix = new float[]{
+            0.5f, 0, 0,
+            0, 0.5f, 0,
+            0, 0, 1
+    };
+    // 错切变换矩阵
+    public static float[] skewMatrix = new float[]{
+            1, 0.5f, 0,
+            0.5f, 1, 0,
+            0, 0, 1
+    };
+    // 旋转变换矩阵
+    public static float[] rotateMatrix = new float[]{
+            (float) Math.cos(45), -(float) Math.sin(45), 0,
+            (float) Math.sin(45), (float) Math.cos(45), 0,
+            0, 0, 1
+    };
+
+    /**
+     * 改变图片的色调、饱和度、亮度
+     *
+     * @param bm         原始图片Bitmap对象
+     * @param hue        色调 [0,255)
+     * @param saturation 饱和度 [0,255)
+     * @param lum        亮度 [0,255)
+     * @return 改变后的图片Bitmap对象
+     */
     public static Bitmap handleImageEffect(Bitmap bm,
                                            float hue,
                                            float saturation,
@@ -88,6 +132,12 @@ public class ImageHelper {
         return bmp;
     }
 
+    /**
+     * 将图片处理成：底片效果
+     *
+     * @param bm 原始图片Bitmap对象
+     * @return 改变后的图片Bitmap对象
+     */
     public static Bitmap handleImageNegative(Bitmap bm) {
         int width = bm.getWidth();
         int height = bm.getHeight();
@@ -133,6 +183,12 @@ public class ImageHelper {
         return bmp;
     }
 
+    /**
+     * 将图片处理成：老照片效果
+     *
+     * @param bm 原始图片Bitmap对象
+     * @return 改变后的图片Bitmap对象
+     */
     public static Bitmap handleImagePixelsOldPhoto(Bitmap bm) {
         Bitmap bmp = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -172,6 +228,12 @@ public class ImageHelper {
         return bmp;
     }
 
+    /**
+     * 将图片处理成：浮雕效果
+     *
+     * @param bm 原始图片Bitmap对象
+     * @return 改变后的图片Bitmap对象
+     */
     public static Bitmap handleImagePixelsRelief(Bitmap bm) {
         Bitmap bmp = Bitmap.createBitmap(bm.getWidth(), bm.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -215,6 +277,125 @@ public class ImageHelper {
         return bmp;
     }
 
+    /**
+     * 根据颜色矩阵，处理图片
+     *
+     * @param bitmap 原始图片Bitmap对象
+     * @param matrix 颜色矩阵（长度为20的浮点数组）
+     * @return 改变后的图片Bitmap对象
+     */
+    public static Bitmap handleImageColorMatrix(Bitmap bitmap, float[] matrix) {
+        Bitmap bmp = Bitmap.createBitmap(
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        ColorMatrix colorMatrix = new ColorMatrix();
+        colorMatrix.set(matrix);
+        Canvas canvas = new Canvas(bmp);
+        Paint paint = new Paint();
+        paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
+        canvas.drawBitmap(bitmap, 0, 0, paint);
+        return bmp;
+    }
+
+    /**
+     * 根据变换矩阵，处理图片，实现旋转、缩放、平移、错切效果
+     *
+     * @param bitmap       原始图片Bitmap对象
+     * @param matrixValues 变换矩阵（长度为9的浮点数组）
+     * @return 改变后的图片Bitmap对象
+     */
+    public static Bitmap handleImageTransformMatrix(Bitmap bitmap, float[] matrixValues) {
+        Bitmap bmp = Bitmap.createBitmap(
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        Matrix matrix = new Matrix();
+        matrix.setValues(matrixValues);
+        canvas.drawBitmap(bitmap, matrix, null);
+        return bmp;
+    }
+
+    /**
+     * 平移变换
+     *
+     * @param bitmap 原始图片Bitmap对象
+     * @param dx     水平方向平移距离
+     * @param dy     竖直方向平移距离
+     * @return 改变后的图片Bitmap对象
+     */
+    public static Bitmap handleImageTrans(Bitmap bitmap, float dx, float dy) {
+        Bitmap bmp = Bitmap.createBitmap(
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        Matrix matrix = new Matrix();
+        matrix.setTranslate(dx, dy);
+        canvas.drawBitmap(bitmap, matrix, null);
+        return bmp;
+    }
+
+    /**
+     * 缩放变换
+     *
+     * @param bitmap 原始图片Bitmap对象
+     * @param sx     水平方向缩放比例
+     * @param sy     竖直方向缩放比例
+     * @return 改变后的图片Bitmap对象
+     */
+    public static Bitmap handleImageScale(Bitmap bitmap, float sx, float sy) {
+        Bitmap bmp = Bitmap.createBitmap(
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        Matrix matrix = new Matrix();
+        matrix.setScale(sx, sy, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+        canvas.drawBitmap(bitmap, matrix, null);
+        return bmp;
+    }
+
+    /**
+     * 错切变换
+     *
+     * @param bitmap 原始图片Bitmap对象
+     * @param kx     水平方向错切比例
+     * @param ky     竖直方向错切比例
+     * @return 改变后的图片Bitmap对象
+     */
+    public static Bitmap handleImageSkew(Bitmap bitmap, float kx, float ky) {
+        Bitmap bmp = Bitmap.createBitmap(
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        Matrix matrix = new Matrix();
+        matrix.setSkew(kx, ky, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+        canvas.drawBitmap(bitmap, matrix, null);
+        return bmp;
+    }
+
+    /**
+     * 旋转变换
+     *
+     * @param bitmap  原始图片Bitmap对象
+     * @param degrees 顺时针方向旋转角度
+     * @return 改变后的图片Bitmap对象
+     */
+    public static Bitmap handleImageRotate(Bitmap bitmap, float degrees) {
+        Bitmap bmp = Bitmap.createBitmap(
+                bitmap.getWidth(),
+                bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        Matrix matrix = new Matrix();
+        matrix.setRotate(degrees, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+        canvas.drawBitmap(bitmap, matrix, null);
+        return bmp;
+    }
+
     public static float[] getColorMatrix(int position) {
         switch (position) {
             case 0:
@@ -230,7 +411,22 @@ public class ImageHelper {
             case 5:
                 return highSaturationMatrix;
             default:
-                return initMatrix;
+                return initColorMatrix;
+        }
+    }
+
+    public static float[] getTransformMatrix(int position) {
+        switch (position) {
+            case 0:
+                return transMatrix;
+            case 1:
+                return scaleMatrix;
+            case 2:
+                return skewMatrix;
+            case 3:
+                return rotateMatrix;
+            default:
+                return initTransformMatrix;
         }
     }
 }

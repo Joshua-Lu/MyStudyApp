@@ -82,6 +82,13 @@
             android:layout_weight="1"
             android:onClick="handleImagePixelsRelief"
             android:text="浮雕效果" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnReset"
+            android:text="Reset" />
     </LinearLayout>
 
     <LinearLayout
@@ -105,12 +112,99 @@
             android:onClick="btnChange"
             android:text="Change" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/colorMatrixEffect"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_x"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="x方向变换值dx、sx、kx" />
+
+        <EditText
+            android:id="@+id/et_y"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="y方向变换值dx、sx、kx" />
+
+        <EditText
+            android:id="@+id/et_degree"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="numberDecimal"
+            android:hint="旋转角度值degree" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transformEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input"
+        android:orientation="horizontal">
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="btnReset"
-            android:text="Reset" />
+            android:onClick="handleImageTrans"
+            android:text="平移变换" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleImageScale"
+            android:text="缩放变换" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleImageSkew"
+            android:text="错切变换" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="handleImageRotate"
+            android:text="旋转变换" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transformMatrixEffect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transformEffect"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/spinner_transformMatrixs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:entries="@array/transformMatrixs" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="btnTransformChange"
+            android:text="TransformChange" />
+
     </LinearLayout>
 
 </RelativeLayout>
