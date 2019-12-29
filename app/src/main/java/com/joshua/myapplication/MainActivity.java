@@ -38,4 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public void btnTestImagePsClick(View view) {
         startTestActivity(TestImagePsActivity.class);
     }
+
+    public void btnTestPaintClick(View view) {
+        startTestActivity(TestPaintActivity.class);
+    }
 }

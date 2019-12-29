@@ -10,4 +10,5 @@
     <string name="hue">色&#12288;调</string>
     <string name="saturation">饱和度</string>
     <string name="lum">亮&#12288;度</string>
+    <string name="start_testpaintactivity">start TestPaintActivity</string>
 </resources>

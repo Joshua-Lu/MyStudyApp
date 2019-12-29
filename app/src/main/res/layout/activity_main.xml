@@ -40,4 +40,10 @@
         android:onClick="btnTestImagePsClick"
         android:text="@string/start_testimagepsactivity" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="btnTestPaintClick"
+        android:text="@string/start_testpaintactivity" />
+
 </LinearLayout>
