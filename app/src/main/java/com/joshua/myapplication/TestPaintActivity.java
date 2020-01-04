@@ -1,15 +1,7 @@
 package com.joshua.myapplication;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.RectF;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,31 +12,26 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class TestPaintActivity extends AppCompatActivity {
 
-    private ImageView imageView;
-    private Bitmap mInBitmap;
-    private Bitmap mOutBitmap;
-    private Paint mPaint;
+    View allModeView;
+    View clearModeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_paint);
-        imageView = findViewById(R.id.imageView);
 
-        mInBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.myicon);
-        mOutBitmap = Bitmap.createBitmap(mInBitmap.getWidth(), mInBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        allModeView = findViewById(R.id.view_all);
+        clearModeView = findViewById(R.id.view_clear);
 
-        Canvas canvas = new Canvas(mOutBitmap);
-        mPaint = new Paint();
-        mPaint.setColor(Color.RED);
-        mPaint.setAntiAlias(true);
-        canvas.drawRoundRect(new RectF(0, 0, mInBitmap.getWidth(), mInBitmap.getHeight()), 80, 80, mPaint);
+    }
 
-        // 修改Mode，可以生成各种不同的效果
-        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(mInBitmap, 0, 0, mPaint);
+    public void showAllMode(View view) {
+        allModeView.setVisibility(View.VISIBLE);
+        clearModeView.setVisibility(View.GONE);
+    }
 
-        imageView.setImageBitmap(mOutBitmap);
-
+    public void showClearMode(View view) {
+        allModeView.setVisibility(View.GONE);
+        clearModeView.setVisibility(View.VISIBLE);
     }
 }

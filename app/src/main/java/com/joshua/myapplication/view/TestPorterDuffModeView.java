@@ -2,33 +2,35 @@ package com.joshua.myapplication.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.joshua.myapplication.R;
 
 /**
- * test PorterDuffMode for Paint
+ * test PorterDuffMode of Paint
+ * 实现刮刮乐效果
  * <p>
  * Created by Joshua on 2019/12/30 .
  */
 public class TestPorterDuffModeView extends View {
 
     private Paint mPaint;
-    private Paint mTextPaint;
-    private List<PorterDuffXfermode> modeList;
-    private List<String> modeNameList;
-    private Bitmap mSrcB;
-    private Bitmap mDstB;
-    private int W;
-    private int H;
+    private Bitmap mBitmap;
+    private Bitmap mBgBitmap;
+    private Bitmap mFgBitmap;
+    private Paint mClearPaint;
+    private Path mPath;
+    private Canvas mCanvas;
 
     public TestPorterDuffModeView(Context context) {
         super(context);
@@ -46,99 +48,56 @@ public class TestPorterDuffModeView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
+        mPath = new Path();
+        mClearPaint = new Paint();
+        mClearPaint.setAntiAlias(true);
+        mClearPaint.setStyle(Paint.Style.STROKE);
+        mClearPaint.setStrokeWidth(50);
+        // 使用 PorterDuff.Mode.CLEAR ，实现清除效果
+        mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.myicon);
+        mBgBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas = new Canvas(mBgBitmap);
         mPaint = new Paint();
-        mTextPaint = new Paint();
-        mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextAlign(Paint.Align.LEFT);
-        mTextPaint.setTextSize(50);
+        mPaint.setColor(Color.RED);
+        mPaint.setAntiAlias(true);
+        mCanvas.drawRoundRect(new RectF(0, 0, mBitmap.getWidth(), mBitmap.getHeight()), 80, 80, mPaint);
+        // 修改Mode，可以生成各种不同的效果
+        // 使用 PorterDuff.Mode.SRC_IN ，实现将方形图片，变成圆角矩形
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        mCanvas.drawBitmap(mBitmap, 0, 0, mPaint);
 
-        modeList = new ArrayList<>();
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.SRC));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.DST));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.DST_OVER));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.SRC_OUT));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.DST_ATOP));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.XOR));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.ADD));
-        modeList.add(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-
-        modeNameList = new ArrayList<>();
-        modeNameList.add("CLEAR");
-        modeNameList.add("SRC");
-        modeNameList.add("DST");
-        modeNameList.add("SRC_OVER");
-        modeNameList.add("DST_OVER");
-        modeNameList.add("SRC_IN");
-        modeNameList.add("DST_IN");
-        modeNameList.add("SRC_OUT");
-        modeNameList.add("DST_OUT");
-        modeNameList.add("SRC_ATOP");
-        modeNameList.add("DST_ATOP");
-        modeNameList.add("XOR");
-        modeNameList.add("DARKEN");
-        modeNameList.add("LIGHTEN");
-        modeNameList.add("MULTIPLY");
-        modeNameList.add("SCREEN");
-        modeNameList.add("ADD");
-        modeNameList.add("OVERLAY");
-
-        W = 330;
-        H = 330;
-        mSrcB = makeSrc(W, H);
-        mDstB = makeDst(W, H);
+        mFgBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        mCanvas.setBitmap(mFgBitmap);
+        mCanvas.drawColor(Color.GRAY);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(mBitmap.getWidth(), mBitmap.getHeight());
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        int canvasWidth = getWidth();
-        int canvasHeight = getHeight();
-        canvas.drawColor(Color.GRAY);
-        for (int i = 0; i < modeList.size(); i++) {
-            int row = i / 4;
-            int col = i % 4;
-            int layerId = canvas.saveLayer(0, 0, canvasWidth, canvasHeight, null, Canvas.ALL_SAVE_FLAG);
-            canvas.translate((W + 30) * col, (H + 100) * row);
-            canvas.drawBitmap(mDstB, 0, 0, mPaint);
-            // 修改Mode，可以生成各种不同的效果
-            mPaint.setXfermode(modeList.get(i));
-            canvas.drawBitmap(mSrcB, 0, 0, mPaint);
-            canvas.drawText(modeNameList.get(i), 0, H + 50, mTextPaint);
-            // 最后将画笔去除Xfermode
-            mPaint.setXfermode(null);
-            canvas.restoreToCount(layerId);
+        canvas.drawBitmap(mBgBitmap, 0, 0, null);
+        canvas.drawBitmap(mFgBitmap, 0, 0, null);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mPath.reset();
+                mPath.moveTo(event.getX(), event.getY());
+                break;
+            case MotionEvent.ACTION_MOVE:
+                mPath.lineTo(event.getX(), event.getY());
+                break;
         }
+        mCanvas.drawPath(mPath, mClearPaint);
+        invalidate();
+        return true;
     }
-
-    // create a bitmap with a circle, used for the "dst" image
-    static Bitmap makeDst(int w, int h) {
-        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(bm);
-        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setColor(0xFFFFCC44);
-        c.drawOval(new RectF(0, 0, w * 3 / 4, h * 3 / 4), p);
-        return bm;
-    }
-
-    // create a bitmap with a rect, used for the "src" image
-    static Bitmap makeSrc(int w, int h) {
-        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(bm);
-        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-        p.setColor(0xFF66AAFF);
-        c.drawRect(w / 3, h / 3, w * 19 / 20, h * 19 / 20, p);
-        return bm;
-    }
-
 }
