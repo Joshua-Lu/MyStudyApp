@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * <p>
  * Created by Joshua on 2019/12/29 .
  */
-public class TestPaintActivity extends AppCompatActivity {
+public class TestPorterDuffModeActivity extends AppCompatActivity {
 
     View allModeView;
     View clearModeView;

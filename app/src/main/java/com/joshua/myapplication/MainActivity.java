@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestDrawActivity.class);
         clsList.add(TestXmlDrawActivity.class);
         clsList.add(TestImagePsActivity.class);
-        clsList.add(TestPaintActivity.class);
+        clsList.add(TestPorterDuffModeActivity.class);
         clsList.add(TestShaderActivity.class);
     }
 
