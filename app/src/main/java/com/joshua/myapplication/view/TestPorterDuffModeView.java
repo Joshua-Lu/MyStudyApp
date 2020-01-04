@@ -1,11 +1,13 @@
 package com.joshua.myapplication.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -19,13 +21,14 @@ import java.util.List;
  */
 public class TestPorterDuffModeView extends View {
 
-    private Paint mDstPaint;
-    private Paint mSrcPaint;
+    private Paint mPaint;
     private Paint mTextPaint;
-    private float mWidth;
-    private float mHeight;
     private List<PorterDuffXfermode> modeList;
     private List<String> modeNameList;
+    private Bitmap mSrcB;
+    private Bitmap mDstB;
+    private int W;
+    private int H;
 
     public TestPorterDuffModeView(Context context) {
         super(context);
@@ -43,14 +46,10 @@ public class TestPorterDuffModeView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-//        setBackgroundColor(Color.GRAY);
-        mDstPaint = new Paint();
-        mDstPaint.setColor(Color.RED);
-        mSrcPaint = new Paint();
-        mSrcPaint.setColor(Color.GREEN);
+        mPaint = new Paint();
         mTextPaint = new Paint();
         mTextPaint.setColor(Color.BLACK);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        mTextPaint.setTextAlign(Paint.Align.LEFT);
         mTextPaint.setTextSize(50);
 
         modeList = new ArrayList<>();
@@ -92,48 +91,54 @@ public class TestPorterDuffModeView extends View {
         modeNameList.add("SCREEN");
         modeNameList.add("ADD");
         modeNameList.add("OVERLAY");
+
+        W = 330;
+        H = 330;
+        mSrcB = makeSrc(W, H);
+        mDstB = makeDst(W, H);
     }
 
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        float r = 110;
         int canvasWidth = getWidth();
         int canvasHeight = getHeight();
         canvas.drawColor(Color.GRAY);
-
         for (int i = 0; i < modeList.size(); i++) {
             int row = i / 4;
             int col = i % 4;
-            canvas.save();
-
             int layerId = canvas.saveLayer(0, 0, canvasWidth, canvasHeight, null, Canvas.ALL_SAVE_FLAG);
-
-            canvas.translate((3 * r + 30) * col + r, (3 * r + 100) * row + r);
-            mDstPaint.setColor(Color.RED);
-            canvas.drawCircle(0, 0, r, mDstPaint);
-
+            canvas.translate((W + 30) * col, (H + 100) * row);
+            canvas.drawBitmap(mDstB, 0, 0, mPaint);
             // 修改Mode，可以生成各种不同的效果
-            mDstPaint.setXfermode(modeList.get(i));
-            mDstPaint.setColor(Color.GREEN);
-            canvas.drawRect(0, 0, 2 * r, 2 * r, mDstPaint);
-            canvas.drawText(modeNameList.get(i), 0.5f * r, 2 * r + 50, mTextPaint);
+            mPaint.setXfermode(modeList.get(i));
+            canvas.drawBitmap(mSrcB, 0, 0, mPaint);
+            canvas.drawText(modeNameList.get(i), 0, H + 50, mTextPaint);
             // 最后将画笔去除Xfermode
-            mDstPaint.setXfermode(null);
-
+            mPaint.setXfermode(null);
             canvas.restoreToCount(layerId);
-
-            canvas.restore();
         }
-//        canvas.translate(r, r);
-//        mDstPaint.setColor(Color.RED);
-//        canvas.drawCircle(0, 0, r, mDstPaint);
-//        // 修改Mode，可以生成各种不同的效果
-//        mDstPaint.setColor(Color.GREEN);
-//        mDstPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-//        canvas.drawRect(0, 0, 2 * r, 2 * r, mDstPaint);
+    }
 
+    // create a bitmap with a circle, used for the "dst" image
+    static Bitmap makeDst(int w, int h) {
+        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bm);
+        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+        p.setColor(0xFFFFCC44);
+        c.drawOval(new RectF(0, 0, w * 3 / 4, h * 3 / 4), p);
+        return bm;
+    }
+
+    // create a bitmap with a rect, used for the "src" image
+    static Bitmap makeSrc(int w, int h) {
+        Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bm);
+        Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+        p.setColor(0xFF66AAFF);
+        c.drawRect(w / 3, h / 3, w * 19 / 20, h * 19 / 20, p);
+        return bm;
     }
 
 }
