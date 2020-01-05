@@ -8,6 +8,8 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import com.joshua.myapplication.utils.DisplayUtil;
+
 /**
  * Created by Joshua on 2020/1/5 22:54.
  */
@@ -68,8 +70,10 @@ public class TestSurfaceView extends SurfaceViewTemplate {
         super.afterDraw();
         // 绘制正弦曲线
         x++;
-        y = (int) (100 * Math.sin(x * 2 * Math.PI / 180) + 400);
-        mPath.lineTo(x, y);
+        y = (int) (100 * Math.sin(x * 2 * Math.PI / 360) + 400);
+        if (x <= DisplayUtil.getScreenWidth()) {
+            mPath.lineTo(x, y);
+        }
     }
 
     @Override
