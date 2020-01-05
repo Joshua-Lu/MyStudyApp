@@ -8,6 +8,10 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
+/**
+ * 图片颜色处理及位置变换相关工具类
+ * Created by Joshua on 2020/1/5 21:35.
+ */
 public class ImageHelper {
 
     private static final String TAG = "ImageHelper";

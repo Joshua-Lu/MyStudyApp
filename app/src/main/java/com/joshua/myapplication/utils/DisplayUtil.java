@@ -5,6 +5,10 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
+/**
+ * 显示尺寸相关工具类
+ * Created by Joshua on 2020/1/5 21:33.
+ */
 public class DisplayUtil {
 
     private static final String TAG = "DisplayUtil";
@@ -17,9 +21,15 @@ public class DisplayUtil {
 //    private static final float UIDesign_H = 1080;
 //    private static final float UIDesign_W = 1920;
 
+    /**
+     * 该方法必须调用，且最好在Application的onCreate()方法里调用
+     *
+     * @param context Context
+     */
     public static void init(Context context) {
         DisplayMetrics localDisplayMetrics = new DisplayMetrics();
-        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(localDisplayMetrics);
+        ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
+                .getDefaultDisplay().getMetrics(localDisplayMetrics);
 
         density = localDisplayMetrics.density;
         densityDpi = localDisplayMetrics.densityDpi;
@@ -55,10 +65,18 @@ public class DisplayUtil {
         return (int) (dipValue * scale + 0.5f);
     }
 
+    /**
+     * 获取屏幕的高度，单位px
+     * @return pixelHeight
+     */
     public static int getScreenHeight() {
         return pixelHeight;
     }
 
+    /**
+     * 获取屏幕的宽度，单位px
+     * @return pixelWidth
+     */
     public static int getScreenWidth() {
         return pixelWidth;
     }
