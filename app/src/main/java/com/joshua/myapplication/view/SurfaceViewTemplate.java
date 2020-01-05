@@ -12,10 +12,10 @@ import android.view.SurfaceView;
  */
 public class SurfaceViewTemplate extends SurfaceView implements SurfaceHolder.Callback, Runnable {
 
-    private SurfaceHolder mHolder;
-    private Canvas mCanvas;
+    protected SurfaceHolder mHolder;
+    protected Canvas mCanvas;
     // 子线程标志位
-    private boolean mIsDrawing;
+    protected boolean mIsDrawing;
 
     public SurfaceViewTemplate(Context context) {
         this(context, null);
