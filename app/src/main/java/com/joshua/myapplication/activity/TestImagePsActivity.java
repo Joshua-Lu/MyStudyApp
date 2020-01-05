@@ -1,4 +1,4 @@
-package com.joshua.myapplication;
+package com.joshua.myapplication.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.joshua.myapplication.R;
 import com.joshua.myapplication.utils.ImageHelper;
 
 import androidx.appcompat.app.AppCompatActivity;

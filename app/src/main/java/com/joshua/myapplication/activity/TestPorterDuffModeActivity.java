@@ -1,7 +1,9 @@
-package com.joshua.myapplication;
+package com.joshua.myapplication.activity;
 
 import android.os.Bundle;
 import android.view.View;
+
+import com.joshua.myapplication.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TestShaderActivity">
+    tools:context=".activity.TestShaderActivity">
 
+    <com.joshua.myapplication.view.TestShaderView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.joshua.myapplication;
+package com.joshua.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.joshua.myapplication.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

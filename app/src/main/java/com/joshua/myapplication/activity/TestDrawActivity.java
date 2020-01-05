@@ -1,8 +1,10 @@
-package com.joshua.myapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.joshua.myapplication.activity;
 
 import android.os.Bundle;
+
+import com.joshua.myapplication.R;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class TestDrawActivity extends AppCompatActivity {
 
