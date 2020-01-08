@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestPorterDuffModeActivity.class);
         clsList.add(TestShaderActivity.class);
         clsList.add(TestSurfaceViewActivity.class);
+        clsList.add(TestAnimationActivity.class);
     }
 
     public void initData() {
