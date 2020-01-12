@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.TestAnimatorActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doAlphaAnim"
+        android:text="透明度动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doRotateAnim"
+        android:text="旋转动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doTranslateAnim"
+        android:text="位移动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doScaleAnim"
+        android:text="缩放动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doAnimationSetAnim"
+        android:text="动画集合" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="doPropertyAnim"
+        android:text="Property自定义动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="doWrapperViewAnim"
+        android:text="WrapperView自定义动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="doValueAnimatorAnim"
+        android:text="ValueAnimator自定义动画" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="doPropertyValuesHolderAnim"
+        android:text="PropertyValuesHolder自定义动画" />
+
+</LinearLayout>

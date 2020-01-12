@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestShaderActivity.class);
         clsList.add(TestSurfaceViewActivity.class);
         clsList.add(TestAnimationActivity.class);
+        clsList.add(TestAnimatorActivity.class);
     }
 
     public void initData() {
