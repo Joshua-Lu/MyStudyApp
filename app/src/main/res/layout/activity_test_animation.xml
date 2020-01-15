@@ -36,4 +36,10 @@
         android:onClick="doAnimationSetAnim"
         android:text="动画集合" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="doCustomAnim"
+        android:text="自定义动画" />
+
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 
 import com.joshua.myapplication.R;
+import com.joshua.myapplication.customanim.CustomAnimation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,5 +88,13 @@ public class TestAnimationActivity extends AppCompatActivity {
 
     public void doAnimationSetAnim(View view) {
         view.startAnimation(animationSet);
+    }
+
+    public void doCustomAnim(View view) {
+        CustomAnimation customAnimation = new CustomAnimation();
+//        customAnimation.setmRotateX(360);
+        customAnimation.setmRotateY(360);
+//        customAnimation.setmRotateZ(360);
+        view.startAnimation(customAnimation);
     }
 }

@@ -13,58 +13,81 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TestFloatViewActivity">
+        <activity
+            android:name=".activity.TestFloatViewActivity"
+            android:label="TestFloatViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <service android:name=".service.FloatingButtonService" />
-        <activity android:name=".activity.TestAnimatorActivity">
+
+        <activity
+            android:name=".activity.TestAnimatorActivity"
+            android:label="TestAnimatorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestAnimationActivity">
+        <activity
+            android:name=".activity.TestAnimationActivity"
+            android:label="TestAnimationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestSurfaceViewActivity">
+        <activity
+            android:name=".activity.TestSurfaceViewActivity"
+            android:label="TestSurfaceViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestShaderActivity">
+        <activity
+            android:name=".activity.TestShaderActivity"
+            android:label="TestShaderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestPorterDuffModeActivity">
+        <activity
+            android:name=".activity.TestPorterDuffModeActivity"
+            android:label="TestPorterDuffModeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestImagePsActivity">
+        <activity
+            android:name=".activity.TestImagePsActivity"
+            android:label="TestImagePsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestXmlDrawActivity">
+        <activity
+            android:name=".activity.TestXmlDrawActivity"
+            android:label="TestXmlDrawActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestDrawActivity">
+        <activity
+            android:name=".activity.TestDrawActivity"
+            android:label="TestDrawActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestViewDragHelperActivity">
+        <activity
+            android:name=".activity.TestViewDragHelperActivity"
+            android:label="TestViewDragHelperActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestDragActivity">
+        <activity
+            android:name=".activity.TestDragActivity"
+            android:label="TestDragActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
