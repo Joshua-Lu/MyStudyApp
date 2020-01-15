@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestSurfaceViewActivity.class);
         clsList.add(TestAnimationActivity.class);
         clsList.add(TestAnimatorActivity.class);
+        clsList.add(TestFloatViewActivity.class);
     }
 
     public void initData() {

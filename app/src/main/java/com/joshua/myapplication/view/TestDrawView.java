@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 /**
- * 测试各个draw方法的使用
+ * 测试canvas的各个draw方法的使用
  * <p>
  * Created by Joshua on 2019/12/22.
  */

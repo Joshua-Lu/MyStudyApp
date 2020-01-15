@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import com.joshua.myapplication.utils.DisplayUtil;
 
 /**
+ * 实现自动绘制正弦曲线，以及绘画板功能
  * Created by Joshua on 2020/1/5 22:54.
  */
 public class TestSurfaceView extends SurfaceViewTemplate {
