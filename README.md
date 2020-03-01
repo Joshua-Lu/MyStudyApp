@@ -29,4 +29,6 @@ Android基础知识的学习与记录
 - TestAnimatorActivity  
   TestAnimatorActivity：测试属性动画animator，包括透明度动画、平移动画、旋转动画、缩放动画、动画集合
 - TestFloatViewActivity  
-  FloatingButtonService：通过WindowManager实现悬浮窗效果
+  FloatingButtonService：通过WindowManager实现悬浮窗效果  
+- SystemInfoActivity  
+  获取系统信息

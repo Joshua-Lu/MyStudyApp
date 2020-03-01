@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.joshua.myapplication">
-
     <!-- add for FloatView -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
@@ -13,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.SystemInfoActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.TestFloatViewActivity"
             android:label="TestFloatViewActivity">
@@ -20,8 +24,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <service android:name=".service.FloatingButtonService" />
-
         <activity
             android:name=".activity.TestAnimatorActivity"
             android:label="TestAnimatorActivity">
@@ -100,6 +102,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".service.FloatingButtonService" />
     </application>
 
 </manifest>
