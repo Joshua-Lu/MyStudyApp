@@ -1,5 +1,11 @@
 package com.lhf.designpatternlib;
 
+import com.lhf.designpatternlib.factory.AbstractFactory1;
+import com.lhf.designpatternlib.factory.AbstractFactory2;
+import com.lhf.designpatternlib.factory.IAbstractFactory;
+import com.lhf.designpatternlib.factory.IProductA;
+import com.lhf.designpatternlib.factory.IProductB;
+import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.singleton.Singleton1;
 import com.lhf.designpatternlib.singleton.Singleton2;
 import com.lhf.designpatternlib.singleton.Singleton3;
@@ -11,7 +17,33 @@ public class MyClass {
 //        testSingleton1();
 //        testSingleton2();
 //        testSingleton3();
-        testSingleton4();
+//        testSingleton4();
+//        testSimpleFactory();
+        testAbstractFactory();
+    }
+
+    private static void testAbstractFactory() {
+        IAbstractFactory factory1 = new AbstractFactory1();
+        IProductA productA1 = factory1.createProductA();
+        productA1.show();
+        IProductB productB1 = factory1.createProductB();
+        productB1.show();
+
+        IAbstractFactory factory2 = new AbstractFactory2();
+        IProductA productA2 = factory2.createProductA();
+        productA2.show();
+        IProductB productB2 = factory2.createProductB();
+        productB2.show();
+    }
+
+    private static void testSimpleFactory() {
+        SimpleFactory factory = new SimpleFactory();
+
+        IProductA product = factory.createProduct("A1");
+        product.show();
+
+        product = factory.createProduct("A2");
+        product.show();
     }
 
     private static void testSingleton4() {
