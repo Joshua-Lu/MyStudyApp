@@ -12,6 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.TestAlarmManagerActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.SystemInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -104,6 +109,8 @@
         </activity>
 
         <service android:name=".service.FloatingButtonService" />
+
+        <receiver android:name=".receiver.TimeReceiver" />
     </application>
 
 </manifest>
