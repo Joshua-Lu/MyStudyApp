@@ -7,6 +7,5 @@ package com.lhf.designpatternlib.factory;
  */
 public interface IAbstractFactory {
     IProductA createProductA();
-
     IProductB createProductB();
 }

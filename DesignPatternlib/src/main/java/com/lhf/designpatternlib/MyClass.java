@@ -1,5 +1,10 @@
 package com.lhf.designpatternlib;
 
+import com.lhf.designpatternlib.builder.AbstractBuilder;
+import com.lhf.designpatternlib.builder.Builder1;
+import com.lhf.designpatternlib.builder.Builder2;
+import com.lhf.designpatternlib.builder.BuilderProduct;
+import com.lhf.designpatternlib.builder.Director;
 import com.lhf.designpatternlib.factory.AbstractFactory1;
 import com.lhf.designpatternlib.factory.AbstractFactory2;
 import com.lhf.designpatternlib.factory.IAbstractFactory;
@@ -19,7 +24,21 @@ public class MyClass {
 //        testSingleton3();
 //        testSingleton4();
 //        testSimpleFactory();
-        testAbstractFactory();
+//        testAbstractFactory();
+        testBuilder();
+    }
+
+    private static void testBuilder() {
+        AbstractBuilder builder = new Builder1();
+        Director director = new Director(builder);
+        BuilderProduct product = director.construct();
+        product.show();
+
+        // 传入不同的Builder，就可以生成不同的Product
+        builder = new Builder2();
+        director = new Director(builder);
+        product = director.construct();
+        product.show();
     }
 
     private static void testAbstractFactory() {
