@@ -1,5 +1,9 @@
 package com.lhf.designpatternlib;
 
+import com.lhf.designpatternlib.adapter.Adaptee;
+import com.lhf.designpatternlib.adapter.ClassAdapter;
+import com.lhf.designpatternlib.adapter.ObjectAdapter;
+import com.lhf.designpatternlib.adapter.Target;
 import com.lhf.designpatternlib.builder.AbstractBuilder;
 import com.lhf.designpatternlib.builder.Builder1;
 import com.lhf.designpatternlib.builder.Builder2;
@@ -31,7 +35,20 @@ public class MyClass {
 //        testSimpleFactory();
 //        testAbstractFactory();
 //        testBuilder();
-        testProxy();
+//        testProxy();
+//        testClassAdapter();
+        testObjectAdapter();
+    }
+
+    private static void testObjectAdapter() {
+        Adaptee adaptee = new Adaptee();
+        Target target = new ObjectAdapter(adaptee);
+        target.request();
+    }
+
+    private static void testClassAdapter() {
+        Target target = new ClassAdapter();
+        target.request();
     }
 
     private static void testProxy() {
