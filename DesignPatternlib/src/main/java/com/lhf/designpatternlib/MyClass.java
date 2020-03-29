@@ -11,6 +11,11 @@ import com.lhf.designpatternlib.factory.IAbstractFactory;
 import com.lhf.designpatternlib.factory.IProductA;
 import com.lhf.designpatternlib.factory.IProductB;
 import com.lhf.designpatternlib.factory.SimpleFactory;
+import com.lhf.designpatternlib.proxy.ISubject;
+import com.lhf.designpatternlib.proxy.ProxySubject;
+import com.lhf.designpatternlib.proxy.ProxySubject1;
+import com.lhf.designpatternlib.proxy.RealSubject;
+import com.lhf.designpatternlib.proxy.RealSubject1;
 import com.lhf.designpatternlib.singleton.Singleton1;
 import com.lhf.designpatternlib.singleton.Singleton2;
 import com.lhf.designpatternlib.singleton.Singleton3;
@@ -25,7 +30,18 @@ public class MyClass {
 //        testSingleton4();
 //        testSimpleFactory();
 //        testAbstractFactory();
-        testBuilder();
+//        testBuilder();
+        testProxy();
+    }
+
+    private static void testProxy() {
+        ISubject realSubject = new RealSubject();
+        // 传入不同的真实对象，实现对不同真实对象的代理
+        realSubject = new RealSubject1();
+        ProxySubject proxySubject = new ProxySubject(realSubject);
+        // 可以套多层代理
+        ProxySubject1 proxySubject1 = new ProxySubject1(proxySubject);
+        proxySubject1.request();
     }
 
     private static void testBuilder() {
