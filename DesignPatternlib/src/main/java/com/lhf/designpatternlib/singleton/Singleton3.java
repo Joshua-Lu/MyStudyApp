@@ -7,7 +7,8 @@ package com.lhf.designpatternlib.singleton;
  */
 public class Singleton3 {
     // 懒汉模式在getInstance()中才创建对象
-    private static Singleton3 instance;
+    // volatile加该关键字，禁止进行指令重排序，保证线程安全
+    private static volatile Singleton3 instance;
 
     // 要将默认构造方法设为private，保证只能通过getInstance()获取对象
     private Singleton3() {

@@ -15,6 +15,7 @@ import com.lhf.designpatternlib.factory.IAbstractFactory;
 import com.lhf.designpatternlib.factory.IProductA;
 import com.lhf.designpatternlib.factory.IProductB;
 import com.lhf.designpatternlib.factory.SimpleFactory;
+import com.lhf.designpatternlib.prototype.Prototype;
 import com.lhf.designpatternlib.proxy.ISubject;
 import com.lhf.designpatternlib.proxy.ProxySubject;
 import com.lhf.designpatternlib.proxy.ProxySubject1;
@@ -28,29 +29,47 @@ import com.lhf.designpatternlib.singleton.Singleton4;
 public class MyClass {
     public static void main(String[] args) {
         System.out.println("---------------- MyClass.main ---------------");
+        // 单例模式
 //        testSingleton1();
 //        testSingleton2();
 //        testSingleton3();
 //        testSingleton4();
+        // 工厂模式
 //        testSimpleFactory();
 //        testAbstractFactory();
+        // 原型模式
+        testPrototype();
+        // 建造者模式
 //        testBuilder();
+        // 代理模式
 //        testProxy();
+        // 适配器模式
 //        testClassAdapter();
-        testObjectAdapter();
+//        testObjectAdapter();
+
     }
 
+
+    /**
+     * 对象适配器模式
+     */
     private static void testObjectAdapter() {
         Adaptee adaptee = new Adaptee();
         Target target = new ObjectAdapter(adaptee);
         target.request();
     }
 
+    /**
+     * 类适配器模式
+     */
     private static void testClassAdapter() {
         Target target = new ClassAdapter();
         target.request();
     }
 
+    /**
+     * 代理模式
+     */
     private static void testProxy() {
         ISubject realSubject = new RealSubject();
         // 传入不同的真实对象，实现对不同真实对象的代理
@@ -61,6 +80,9 @@ public class MyClass {
         proxySubject1.request();
     }
 
+    /**
+     * 建造者模式
+     */
     private static void testBuilder() {
         AbstractBuilder builder = new Builder1();
         Director director = new Director(builder);
@@ -74,6 +96,22 @@ public class MyClass {
         product.show();
     }
 
+    /**
+     * 原型模式
+     */
+    private static void testPrototype() {
+        Prototype prototype1 = new Prototype();
+        try {
+            Prototype prototype2 = (Prototype) prototype1.clone();
+            System.out.println("MyClass.testPrototype: (prototype1 == prototype2) = [" + (prototype1 == prototype2) + "]");
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 抽象工厂模式
+     */
     private static void testAbstractFactory() {
         IAbstractFactory factory1 = new AbstractFactory1();
         IProductA productA1 = factory1.createProductA();
@@ -88,6 +126,9 @@ public class MyClass {
         productB2.show();
     }
 
+    /**
+     * 简单工厂模式
+     */
     private static void testSimpleFactory() {
         SimpleFactory factory = new SimpleFactory();
 
@@ -98,6 +139,9 @@ public class MyClass {
         product.show();
     }
 
+    /**
+     * 静态内部类单例模式
+     */
     private static void testSingleton4() {
         System.out.println("MyClass.testSingleton4() called");
         Singleton4 s1 = Singleton4.getInstance();
@@ -106,6 +150,9 @@ public class MyClass {
         System.out.println("MyClass.testSingleton4: (s1 == s2) = [" + (s1 == s2) + "]");
     }
 
+    /**
+     * 双重锁懒汉单例模式
+     */
     private static void testSingleton3() {
         System.out.println("MyClass.testSingleton3() called");
         new Thread(new Runnable() {
@@ -124,6 +171,9 @@ public class MyClass {
         }).start();
     }
 
+    /**
+     * 懒汉单例模式
+     */
     private static void testSingleton2() {
         System.out.println("MyClass.testSingleton2() called");
         Singleton2 s1 = Singleton2.getInstance();
@@ -132,6 +182,9 @@ public class MyClass {
         System.out.println("MyClass.testSingleton2: (s1 == s2) = [" + (s1 == s2) + "]");
     }
 
+    /**
+     * 饿汉单例模式
+     */
     private static void testSingleton1() {
         System.out.println("MyClass.testSingleton1() called");
         Singleton1 s1 = Singleton1.getInstance();
