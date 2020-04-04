@@ -15,6 +15,11 @@ import com.lhf.designpatternlib.builder.Builder1;
 import com.lhf.designpatternlib.builder.Builder2;
 import com.lhf.designpatternlib.builder.BuilderProduct;
 import com.lhf.designpatternlib.builder.Director;
+import com.lhf.designpatternlib.decorator.ConcreteComponent;
+import com.lhf.designpatternlib.decorator.ConcreteDecorator1;
+import com.lhf.designpatternlib.decorator.ConcreteDecorator2;
+import com.lhf.designpatternlib.decorator.Decorator;
+import com.lhf.designpatternlib.decorator.IComponent;
 import com.lhf.designpatternlib.factory.AbstractFactory1;
 import com.lhf.designpatternlib.factory.AbstractFactory2;
 import com.lhf.designpatternlib.factory.IAbstractFactory;
@@ -56,8 +61,19 @@ public class MyClass {
 //        testClassAdapter();
 //        testObjectAdapter();
         // 桥接模式
-        testBridge();
+//        testBridge();
+        // 装饰模式
+        testDecorator();
 
+    }
+
+    private static void testDecorator() {
+        IComponent component = new ConcreteComponent();
+        Decorator decorator = new ConcreteDecorator1(component);
+        decorator.operation();
+        System.out.println("-------------------------");
+        decorator = new ConcreteDecorator2(component);
+        decorator.operation();
     }
 
     private static void testBridge() {
