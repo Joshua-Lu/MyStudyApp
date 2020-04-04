@@ -15,6 +15,8 @@ import com.lhf.designpatternlib.builder.Builder1;
 import com.lhf.designpatternlib.builder.Builder2;
 import com.lhf.designpatternlib.builder.BuilderProduct;
 import com.lhf.designpatternlib.builder.Director;
+import com.lhf.designpatternlib.composite.Leaf;
+import com.lhf.designpatternlib.composite.Root;
 import com.lhf.designpatternlib.decorator.ConcreteComponent;
 import com.lhf.designpatternlib.decorator.ConcreteDecorator1;
 import com.lhf.designpatternlib.decorator.ConcreteDecorator2;
@@ -71,10 +73,31 @@ public class MyClass {
         // 外观模式
 //        testFacade();
         // 享元模式
-        testFlyweight();
+//        testFlyweight();
+        // 组合模式
+        testComposite();
 
     }
 
+    /**
+     * 组合模式
+     */
+    private static void testComposite() {
+        Root root1 = new Root();
+        Root root2 = new Root();
+        Leaf leaf1 = new Leaf("leaf 1");
+        Leaf leaf2 = new Leaf("leaf 2");
+        Leaf leaf3 = new Leaf("leaf 3");
+        root1.add(leaf1);
+        root1.add(root2);
+        root2.add(leaf2);
+        root2.add(leaf3);
+        root1.operation();
+    }
+
+    /**
+     * 享元模式
+     */
     private static void testFlyweight() {
         FlyweightFactory factory = new FlyweightFactory();
         IFlyweight a1 = factory.getFlyweight("a");
@@ -90,11 +113,17 @@ public class MyClass {
         b2.operation(new UnsharedConcreteFlyweight("2nd b"));
     }
 
+    /**
+     * 外观模式
+     */
     private static void testFacade() {
         Facade facade = new Facade();
         facade.method();
     }
 
+    /**
+     * 装饰模式
+     */
     private static void testDecorator() {
         IComponent component = new ConcreteComponent();
         Decorator decorator = new ConcreteDecorator1(component);
@@ -104,6 +133,9 @@ public class MyClass {
         decorator.operation();
     }
 
+    /**
+     * 桥接模式
+     */
     private static void testBridge() {
         IColor color = new Red();
         Bag bag = new HandBag();
