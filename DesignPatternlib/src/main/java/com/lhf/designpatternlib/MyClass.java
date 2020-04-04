@@ -16,6 +16,7 @@ import com.lhf.designpatternlib.factory.IProductA;
 import com.lhf.designpatternlib.factory.IProductB;
 import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.prototype.Address;
+import com.lhf.designpatternlib.prototype.DeepPrototype;
 import com.lhf.designpatternlib.prototype.ShallowPrototype;
 import com.lhf.designpatternlib.proxy.ISubject;
 import com.lhf.designpatternlib.proxy.ProxySubject;
@@ -39,7 +40,8 @@ public class MyClass {
 //        testSimpleFactory();
 //        testAbstractFactory();
         // 原型模式
-        testShallowPrototype();
+//        testShallowPrototype();
+        testDeepPrototype();
         // 建造者模式
 //        testBuilder();
         // 代理模式
@@ -95,6 +97,28 @@ public class MyClass {
         director = new Director(builder);
         product = director.construct();
         product.show();
+    }
+
+    /**
+     * 深拷贝原型模式
+     */
+    private static void testDeepPrototype() {
+        DeepPrototype deepPrototype1 = new DeepPrototype();
+        deepPrototype1.setName("Joshua");
+        deepPrototype1.setAge(18);
+        deepPrototype1.setAddress(new Address("SH"));
+        // 通过序列化方式
+//        DeepPrototype deepPrototype2 = (DeepPrototype) deepPrototype1.deepCloneBySerializable();
+        // 通过转成json方式
+        DeepPrototype deepPrototype2 = (DeepPrototype) deepPrototype1.deepCloneByJson();
+        deepPrototype2.setName("lhf");
+        deepPrototype2.setAge(20);
+        deepPrototype2.getAddress().setCity("ZJ");
+        System.out.println("MyClass.testDeepPrototype: (deepPrototype1 == deepPrototype2) = [" + (deepPrototype1 == deepPrototype2) + "]");
+        // 深拷贝对于对象成员变量也可以进行拷贝
+        System.out.println("MyClass.testDeepPrototype: (deepPrototype1.getAddress() == deepPrototype2.getAddress()) = [" + (deepPrototype1.getAddress() == deepPrototype2.getAddress()) + "]");
+        System.out.println("MyClass.testDeepPrototype: deepPrototype1 = [" + deepPrototype1 + "]");
+        System.out.println("MyClass.testDeepPrototype: deepPrototype2 = [" + deepPrototype2 + "]");
     }
 
     /**

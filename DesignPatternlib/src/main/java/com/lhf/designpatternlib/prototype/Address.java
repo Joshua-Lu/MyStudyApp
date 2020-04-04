@@ -1,9 +1,11 @@
 package com.lhf.designpatternlib.prototype;
 
+import java.io.Serializable;
+
 /**
  * Created by Joshua on 2020/4/4.
  */
-public class Address {
+public class Address implements Serializable {
     private String city;
 
     public Address(String city) {
