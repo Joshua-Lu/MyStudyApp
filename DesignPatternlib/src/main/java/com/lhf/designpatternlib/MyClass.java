@@ -27,6 +27,9 @@ import com.lhf.designpatternlib.factory.IAbstractFactory;
 import com.lhf.designpatternlib.factory.IProductA;
 import com.lhf.designpatternlib.factory.IProductB;
 import com.lhf.designpatternlib.factory.SimpleFactory;
+import com.lhf.designpatternlib.flyweight.FlyweightFactory;
+import com.lhf.designpatternlib.flyweight.IFlyweight;
+import com.lhf.designpatternlib.flyweight.UnsharedConcreteFlyweight;
 import com.lhf.designpatternlib.prototype.Address;
 import com.lhf.designpatternlib.prototype.DeepPrototype;
 import com.lhf.designpatternlib.prototype.ShallowPrototype;
@@ -66,8 +69,25 @@ public class MyClass {
         // 装饰模式
 //        testDecorator();
         // 外观模式
-        testFacade();
+//        testFacade();
+        // 享元模式
+        testFlyweight();
 
+    }
+
+    private static void testFlyweight() {
+        FlyweightFactory factory = new FlyweightFactory();
+        IFlyweight a1 = factory.getFlyweight("a");
+        IFlyweight a2 = factory.getFlyweight("a");
+        IFlyweight a3 = factory.getFlyweight("a");
+        IFlyweight b1 = factory.getFlyweight("b");
+        IFlyweight b2 = factory.getFlyweight("b");
+        System.out.println();
+        a1.operation(new UnsharedConcreteFlyweight("1st a"));
+        a2.operation(new UnsharedConcreteFlyweight("2nd a"));
+        a3.operation(new UnsharedConcreteFlyweight("3rd a"));
+        b1.operation(new UnsharedConcreteFlyweight("1st b"));
+        b2.operation(new UnsharedConcreteFlyweight("2nd b"));
     }
 
     private static void testFacade() {
