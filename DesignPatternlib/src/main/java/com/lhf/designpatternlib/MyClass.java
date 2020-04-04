@@ -4,6 +4,12 @@ import com.lhf.designpatternlib.adapter.Adaptee;
 import com.lhf.designpatternlib.adapter.ClassAdapter;
 import com.lhf.designpatternlib.adapter.ObjectAdapter;
 import com.lhf.designpatternlib.adapter.Target;
+import com.lhf.designpatternlib.bridge.Bag;
+import com.lhf.designpatternlib.bridge.Green;
+import com.lhf.designpatternlib.bridge.HandBag;
+import com.lhf.designpatternlib.bridge.IColor;
+import com.lhf.designpatternlib.bridge.Red;
+import com.lhf.designpatternlib.bridge.Wallet;
 import com.lhf.designpatternlib.builder.AbstractBuilder;
 import com.lhf.designpatternlib.builder.Builder1;
 import com.lhf.designpatternlib.builder.Builder2;
@@ -41,7 +47,7 @@ public class MyClass {
 //        testAbstractFactory();
         // 原型模式
 //        testShallowPrototype();
-        testDeepPrototype();
+//        testDeepPrototype();
         // 建造者模式
 //        testBuilder();
         // 代理模式
@@ -49,7 +55,20 @@ public class MyClass {
         // 适配器模式
 //        testClassAdapter();
 //        testObjectAdapter();
+        // 桥接模式
+        testBridge();
 
+    }
+
+    private static void testBridge() {
+        IColor color = new Red();
+        Bag bag = new HandBag();
+        // 只要改变颜色对象及包对象，就可生成不同颜色及类型的包
+        color = new Green();
+        bag = new Wallet();
+
+        bag.setColor(color);
+        bag.show();
     }
 
 
