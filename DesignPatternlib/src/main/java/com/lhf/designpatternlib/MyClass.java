@@ -20,6 +20,7 @@ import com.lhf.designpatternlib.decorator.ConcreteDecorator1;
 import com.lhf.designpatternlib.decorator.ConcreteDecorator2;
 import com.lhf.designpatternlib.decorator.Decorator;
 import com.lhf.designpatternlib.decorator.IComponent;
+import com.lhf.designpatternlib.facade.Facade;
 import com.lhf.designpatternlib.factory.AbstractFactory1;
 import com.lhf.designpatternlib.factory.AbstractFactory2;
 import com.lhf.designpatternlib.factory.IAbstractFactory;
@@ -63,8 +64,15 @@ public class MyClass {
         // 桥接模式
 //        testBridge();
         // 装饰模式
-        testDecorator();
+//        testDecorator();
+        // 外观模式
+        testFacade();
 
+    }
+
+    private static void testFacade() {
+        Facade facade = new Facade();
+        facade.method();
     }
 
     private static void testDecorator() {
