@@ -15,7 +15,8 @@ import com.lhf.designpatternlib.factory.IAbstractFactory;
 import com.lhf.designpatternlib.factory.IProductA;
 import com.lhf.designpatternlib.factory.IProductB;
 import com.lhf.designpatternlib.factory.SimpleFactory;
-import com.lhf.designpatternlib.prototype.Prototype;
+import com.lhf.designpatternlib.prototype.Address;
+import com.lhf.designpatternlib.prototype.ShallowPrototype;
 import com.lhf.designpatternlib.proxy.ISubject;
 import com.lhf.designpatternlib.proxy.ProxySubject;
 import com.lhf.designpatternlib.proxy.ProxySubject1;
@@ -38,7 +39,7 @@ public class MyClass {
 //        testSimpleFactory();
 //        testAbstractFactory();
         // 原型模式
-        testPrototype();
+        testShallowPrototype();
         // 建造者模式
 //        testBuilder();
         // 代理模式
@@ -97,13 +98,23 @@ public class MyClass {
     }
 
     /**
-     * 原型模式
+     * 浅拷贝原型模式
      */
-    private static void testPrototype() {
-        Prototype prototype1 = new Prototype();
+    private static void testShallowPrototype() {
+        ShallowPrototype shallowPrototype1 = new ShallowPrototype();
+        shallowPrototype1.setName("Joshua");
+        shallowPrototype1.setAge(18);
+        shallowPrototype1.setAddress(new Address("SH"));
         try {
-            Prototype prototype2 = (Prototype) prototype1.clone();
-            System.out.println("MyClass.testPrototype: (prototype1 == prototype2) = [" + (prototype1 == prototype2) + "]");
+            ShallowPrototype shallowPrototype2 = (ShallowPrototype) shallowPrototype1.clone();
+            shallowPrototype2.setName("lhf");
+            shallowPrototype2.setAge(20);
+            shallowPrototype2.getAddress().setCity("ZJ");
+            System.out.println("MyClass.testShallowPrototype: (shallowPrototype1 == shallowPrototype2) = [" + (shallowPrototype1 == shallowPrototype2) + "]");
+            // 浅拷贝对于对象成员变量无法进行拷贝，还是指向同一个对象地址
+            System.out.println("MyClass.testShallowPrototype: (shallowPrototype1.getAddress() == shallowPrototype2.getAddress()) = [" + (shallowPrototype1.getAddress() == shallowPrototype2.getAddress()) + "]");
+            System.out.println("MyClass.testShallowPrototype: shallowPrototype1 = [" + shallowPrototype1 + "]");
+            System.out.println("MyClass.testShallowPrototype: shallowPrototype2 = [" + shallowPrototype2 + "]");
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
