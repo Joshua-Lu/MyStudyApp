@@ -44,6 +44,9 @@ import com.lhf.designpatternlib.singleton.Singleton1;
 import com.lhf.designpatternlib.singleton.Singleton2;
 import com.lhf.designpatternlib.singleton.Singleton3;
 import com.lhf.designpatternlib.singleton.Singleton4;
+import com.lhf.designpatternlib.strategy.Strategy1;
+import com.lhf.designpatternlib.strategy.Strategy2;
+import com.lhf.designpatternlib.strategy.StrategyContext;
 import com.lhf.designpatternlib.template_method.HookConcreteClass;
 
 public class MyClass {
@@ -78,8 +81,17 @@ public class MyClass {
         // 组合模式
 //        testComposite();
         // 模板方法模式
-        testTemplateMethod();
+//        testTemplateMethod();
+        // 策略模式
+        testStrategy();
+    }
 
+    private static void testStrategy() {
+        StrategyContext context = new StrategyContext(new Strategy1());
+        context.strategyMethod();
+        System.out.println("----------------");
+        context.setStrategy(new Strategy2());
+        context.strategyMethod();
     }
 
     private static void testTemplateMethod() {
