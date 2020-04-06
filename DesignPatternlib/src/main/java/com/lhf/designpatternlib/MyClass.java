@@ -35,6 +35,11 @@ import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.flyweight.FlyweightFactory;
 import com.lhf.designpatternlib.flyweight.IFlyweight;
 import com.lhf.designpatternlib.flyweight.UnsharedConcreteFlyweight;
+import com.lhf.designpatternlib.mediator.Colleague;
+import com.lhf.designpatternlib.mediator.Colleague1;
+import com.lhf.designpatternlib.mediator.Colleague2;
+import com.lhf.designpatternlib.mediator.IMediator;
+import com.lhf.designpatternlib.mediator.Mediator;
 import com.lhf.designpatternlib.observer.Observable;
 import com.lhf.designpatternlib.observer.Observer1;
 import com.lhf.designpatternlib.observer.Observer2;
@@ -101,7 +106,19 @@ public class MyClass {
         // 状态模式
 //        testState();
         // 观察者模式
-        testObserver();
+//        testObserver();
+        // 中介模式
+        testMediator();
+    }
+
+    private static void testMediator() {
+        IMediator mediator = new Mediator();
+        Colleague c1 = new Colleague1("Colleague1");
+        Colleague c2 = new Colleague2("Colleague2");
+        mediator.register(c1);
+        mediator.register(c2);
+        c1.send("I am a msg from c1");
+        c2.send("I am a msg from c2");
     }
 
     private static void testObserver() {
