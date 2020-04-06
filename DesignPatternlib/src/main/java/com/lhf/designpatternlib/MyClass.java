@@ -35,6 +35,8 @@ import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.flyweight.FlyweightFactory;
 import com.lhf.designpatternlib.flyweight.IFlyweight;
 import com.lhf.designpatternlib.flyweight.UnsharedConcreteFlyweight;
+import com.lhf.designpatternlib.iterator.Aggregate;
+import com.lhf.designpatternlib.iterator.IIterator;
 import com.lhf.designpatternlib.mediator.Colleague;
 import com.lhf.designpatternlib.mediator.Colleague1;
 import com.lhf.designpatternlib.mediator.Colleague2;
@@ -108,7 +110,24 @@ public class MyClass {
         // 观察者模式
 //        testObserver();
         // 中介模式
-        testMediator();
+//        testMediator();
+        // 迭代器模式
+        testIterator();
+    }
+
+    private static void testIterator() {
+        Aggregate aggregate = new Aggregate();
+        aggregate.add(1);
+        aggregate.add(2);
+        aggregate.add(3);
+        aggregate.add(4);
+        IIterator iterator = aggregate.getIterator();
+        System.out.println("aggregate datas: ");
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
+        System.out.println("---------------");
+        iterator.first();
     }
 
     private static void testMediator() {
