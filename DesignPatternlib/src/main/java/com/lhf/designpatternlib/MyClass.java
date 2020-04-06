@@ -50,6 +50,7 @@ import com.lhf.designpatternlib.singleton.Singleton1;
 import com.lhf.designpatternlib.singleton.Singleton2;
 import com.lhf.designpatternlib.singleton.Singleton3;
 import com.lhf.designpatternlib.singleton.Singleton4;
+import com.lhf.designpatternlib.state.ThreadContext;
 import com.lhf.designpatternlib.strategy.Strategy1;
 import com.lhf.designpatternlib.strategy.Strategy2;
 import com.lhf.designpatternlib.strategy.StrategyContext;
@@ -93,7 +94,19 @@ public class MyClass {
         // 命令模式
 //        testCommand();
         // 责任链模式
-        testResponsibilityChain();
+//        testResponsibilityChain();
+        // 状态模式
+        testState();
+    }
+
+    private static void testState() {
+        ThreadContext context = new ThreadContext();
+        context.start();
+        context.getCPU();
+        context.suspend();
+        context.resume();
+        context.getCPU();
+        context.stop();
     }
 
     private static void testResponsibilityChain() {
