@@ -43,6 +43,9 @@ import com.lhf.designpatternlib.proxy.ProxySubject;
 import com.lhf.designpatternlib.proxy.ProxySubject1;
 import com.lhf.designpatternlib.proxy.RealSubject;
 import com.lhf.designpatternlib.proxy.RealSubject1;
+import com.lhf.designpatternlib.responsibility_chain.Handler;
+import com.lhf.designpatternlib.responsibility_chain.Handler1;
+import com.lhf.designpatternlib.responsibility_chain.Handler2;
 import com.lhf.designpatternlib.singleton.Singleton1;
 import com.lhf.designpatternlib.singleton.Singleton2;
 import com.lhf.designpatternlib.singleton.Singleton3;
@@ -88,7 +91,17 @@ public class MyClass {
         // 策略模式
 //        testStrategy();
         // 命令模式
-        testCommand();
+//        testCommand();
+        // 责任链模式
+        testResponsibilityChain();
+    }
+
+    private static void testResponsibilityChain() {
+        Handler handler1 = new Handler1();
+        Handler handler2 = new Handler2();
+        handler1.setNext(handler2);
+        handler1.handleRequest(1);
+
     }
 
     private static void testCommand() {
