@@ -42,6 +42,8 @@ import com.lhf.designpatternlib.mediator.Colleague1;
 import com.lhf.designpatternlib.mediator.Colleague2;
 import com.lhf.designpatternlib.mediator.IMediator;
 import com.lhf.designpatternlib.mediator.Mediator;
+import com.lhf.designpatternlib.memento.Caretaker;
+import com.lhf.designpatternlib.memento.Originator;
 import com.lhf.designpatternlib.observer.Observable;
 import com.lhf.designpatternlib.observer.Observer1;
 import com.lhf.designpatternlib.observer.Observer2;
@@ -120,7 +122,20 @@ public class MyClass {
         // 迭代器模式
 //        testIterator();
         // 访问者模式
-        testVisitor();
+//        testVisitor();
+        // 备忘录模式
+        testMemento();
+    }
+
+    private static void testMemento() {
+        Originator originator = new Originator();
+        Caretaker caretaker = new Caretaker();
+        originator.setState("111111111111");
+        // 保存到备忘录
+        caretaker.setMemento(originator.createMemento());
+        originator.setState("22222222222");
+        // 从备忘录恢复
+        originator.restoreMemento(caretaker.getMemento());
     }
 
     private static void testVisitor() {
