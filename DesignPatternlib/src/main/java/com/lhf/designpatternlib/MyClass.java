@@ -35,6 +35,9 @@ import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.flyweight.FlyweightFactory;
 import com.lhf.designpatternlib.flyweight.IFlyweight;
 import com.lhf.designpatternlib.flyweight.UnsharedConcreteFlyweight;
+import com.lhf.designpatternlib.observer.Observable;
+import com.lhf.designpatternlib.observer.Observer1;
+import com.lhf.designpatternlib.observer.Observer2;
 import com.lhf.designpatternlib.prototype.Address;
 import com.lhf.designpatternlib.prototype.DeepPrototype;
 import com.lhf.designpatternlib.prototype.ShallowPrototype;
@@ -96,7 +99,21 @@ public class MyClass {
         // 责任链模式
 //        testResponsibilityChain();
         // 状态模式
-        testState();
+//        testState();
+        // 观察者模式
+        testObserver();
+    }
+
+    private static void testObserver() {
+        Observable observable = new Observable();
+        Observer1 observer1 = new Observer1();
+        Observer2 observer2 = new Observer2();
+        observable.add(observer1);
+        observable.add(observer2);
+        observable.notifyObserver();
+        System.out.println("--------------------");
+        observable.remove(observer1);
+        observable.notifyObserver();
     }
 
     private static void testState() {
