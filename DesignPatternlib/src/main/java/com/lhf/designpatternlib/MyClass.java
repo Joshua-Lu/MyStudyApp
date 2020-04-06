@@ -44,6 +44,7 @@ import com.lhf.designpatternlib.singleton.Singleton1;
 import com.lhf.designpatternlib.singleton.Singleton2;
 import com.lhf.designpatternlib.singleton.Singleton3;
 import com.lhf.designpatternlib.singleton.Singleton4;
+import com.lhf.designpatternlib.template_method.HookConcreteClass;
 
 public class MyClass {
     public static void main(String[] args) {
@@ -75,8 +76,15 @@ public class MyClass {
         // 享元模式
 //        testFlyweight();
         // 组合模式
-        testComposite();
+//        testComposite();
+        // 模板方法模式
+        testTemplateMethod();
 
+    }
+
+    private static void testTemplateMethod() {
+        HookConcreteClass hookConcreteClass = new HookConcreteClass();
+        hookConcreteClass.templateMethod();
     }
 
     /**
