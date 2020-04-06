@@ -15,6 +15,9 @@ import com.lhf.designpatternlib.builder.Builder1;
 import com.lhf.designpatternlib.builder.Builder2;
 import com.lhf.designpatternlib.builder.BuilderProduct;
 import com.lhf.designpatternlib.builder.Director;
+import com.lhf.designpatternlib.command.Command1;
+import com.lhf.designpatternlib.command.Command2;
+import com.lhf.designpatternlib.command.Invoker;
 import com.lhf.designpatternlib.composite.Leaf;
 import com.lhf.designpatternlib.composite.Root;
 import com.lhf.designpatternlib.decorator.ConcreteComponent;
@@ -83,7 +86,17 @@ public class MyClass {
         // 模板方法模式
 //        testTemplateMethod();
         // 策略模式
-        testStrategy();
+//        testStrategy();
+        // 命令模式
+        testCommand();
+    }
+
+    private static void testCommand() {
+        Invoker invoker = new Invoker(new Command1());
+        invoker.call();
+        System.out.println("-----------------------");
+        invoker.setCommand(new Command2());
+        invoker.call();
     }
 
     private static void testStrategy() {
