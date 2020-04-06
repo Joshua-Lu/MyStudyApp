@@ -65,6 +65,12 @@ import com.lhf.designpatternlib.strategy.Strategy1;
 import com.lhf.designpatternlib.strategy.Strategy2;
 import com.lhf.designpatternlib.strategy.StrategyContext;
 import com.lhf.designpatternlib.template_method.HookConcreteClass;
+import com.lhf.designpatternlib.visitor.Element1;
+import com.lhf.designpatternlib.visitor.Element2;
+import com.lhf.designpatternlib.visitor.ElementStructure;
+import com.lhf.designpatternlib.visitor.IVisitor;
+import com.lhf.designpatternlib.visitor.VisitorA;
+import com.lhf.designpatternlib.visitor.VisitorB;
 
 public class MyClass {
     public static void main(String[] args) {
@@ -112,7 +118,20 @@ public class MyClass {
         // 中介模式
 //        testMediator();
         // 迭代器模式
-        testIterator();
+//        testIterator();
+        // 访问者模式
+        testVisitor();
+    }
+
+    private static void testVisitor() {
+        ElementStructure elementStructure = new ElementStructure();
+        elementStructure.add(new Element1());
+        elementStructure.add(new Element2());
+        IVisitor visitor = new VisitorA();
+        elementStructure.accept(visitor);
+        System.out.println("-------------------");
+        visitor = new VisitorB();
+        elementStructure.accept(visitor);
     }
 
     private static void testIterator() {
