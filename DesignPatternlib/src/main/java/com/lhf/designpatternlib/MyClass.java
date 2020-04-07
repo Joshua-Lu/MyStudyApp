@@ -35,6 +35,7 @@ import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.flyweight.FlyweightFactory;
 import com.lhf.designpatternlib.flyweight.IFlyweight;
 import com.lhf.designpatternlib.flyweight.UnsharedConcreteFlyweight;
+import com.lhf.designpatternlib.interpret.Calculator;
 import com.lhf.designpatternlib.iterator.Aggregate;
 import com.lhf.designpatternlib.iterator.IIterator;
 import com.lhf.designpatternlib.mediator.Colleague;
@@ -124,7 +125,17 @@ public class MyClass {
         // 访问者模式
 //        testVisitor();
         // 备忘录模式
-        testMemento();
+//        testMemento();
+        // 解释器模式
+        testInterpret();
+    }
+
+    private static void testInterpret() {
+        String statement = "3 * 2 * 4 / 6 % 5";
+        Calculator calculator = new Calculator();
+        calculator.build(statement);
+        int result = calculator.compute();
+        System.out.println("MyClass.testInterpret: result = [" + result + "]");
     }
 
     private static void testMemento() {
