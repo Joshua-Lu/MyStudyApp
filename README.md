@@ -35,6 +35,8 @@ github地址：https://github.com/Joshua-Lu/MyStudyApp
   获取系统信息  
 - TestAlarmManagerActivity  
   测试AlarmManager使用  
+- TestCustomViewActivity   
+  测试自定义View
   
    
 ## DesignPatternLib独立Module

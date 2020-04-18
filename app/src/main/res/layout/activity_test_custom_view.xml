@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.joshua.myapplication.view.CustomViewGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.TestCustomViewActivity">
+
+    <com.joshua.myapplication.view.CustomView
+        android:background="@color/colorAccent"
+        android:id="@+id/custom_view"
+        android:text="CustomView"
+        app:attr1="attr1_from_xml"
+        style="@style/CustomViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:text="requestLayout"
+        android:onClick="doRequestLayout" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:text="invalidate"
+        android:onClick="doInvalidate" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:text="postInvalidate"
+        android:onClick="doPostInvalidate" />
+
+</com.joshua.myapplication.view.CustomViewGroup>

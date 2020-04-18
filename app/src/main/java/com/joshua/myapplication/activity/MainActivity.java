@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestAnimatorActivity.class);
         clsList.add(TestFloatViewActivity.class);
         clsList.add(SystemInfoActivity.class);
+        clsList.add(TestAlarmManagerActivity.class);
+        clsList.add(TestCustomViewActivity.class);
     }
 
     public void initData() {

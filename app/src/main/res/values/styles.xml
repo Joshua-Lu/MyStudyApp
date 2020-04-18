@@ -8,6 +8,24 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="textAllCaps">false</item>
+        <item name="customDefStyle">@style/CustomDefStyle</item>
     </style>
 
+    <style name="CustomViewStyle">
+        <item name="attr1">attr1_from_style</item>
+        <item name="attr2">attr2_from_style</item>
+    </style>
+
+    <style name="CustomDefStyle">
+        <item name="attr1">attr1_from_def_style</item>
+        <item name="attr2">attr2_from_def_style</item>
+        <item name="attr3">attr3_from_def_style</item>
+    </style>
+
+    <style name="CustomDefStyleRes">
+        <item name="attr1">attr1_from_def_style_res</item>
+        <item name="attr2">attr2_from_def_style_res</item>
+        <item name="attr3">attr3_from_def_style_res</item>
+        <item name="attr4">attr4_from_def_style_res</item>
+    </style>
 </resources>
