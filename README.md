@@ -37,6 +37,8 @@ github地址：https://github.com/Joshua-Lu/MyStudyApp
   测试AlarmManager使用  
 - TestCustomViewActivity   
   测试自定义View
+- AidlClientActivity  
+  测试进程间aidl通信，该activity为客户端，服务端APP的Github地址为：https://github.com/Joshua-Lu/AidlService
   
    
 ## DesignPatternLib独立Module
