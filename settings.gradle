@@ -1,2 +1,2 @@
-include ':app', ':DesignPatternlib'
+include ':app', ':DesignPatternlib', ':JavaCommonLib'
 rootProject.name='MyStudyApp'
