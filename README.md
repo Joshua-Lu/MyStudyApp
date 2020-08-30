@@ -39,6 +39,8 @@ Github 地址：https://github.com/Joshua-Lu/MyStudyApp
   测试自定义View
 - AidlClientActivity  
   测试进程间aidl通信，该activity为客户端，服务端APP的Github地址为：https://github.com/Joshua-Lu/AidlService
+- TestClipChildrenActivity
+  测试clipChildren和clipToPadding属性
   
    
 ## DesignPatternLib独立Module
