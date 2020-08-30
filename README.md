@@ -1,6 +1,6 @@
 # MyStudyApp
 Android基础知识的学习与记录  
-github地址：https://github.com/Joshua-Lu/MyStudyApp
+Github 地址：https://github.com/Joshua-Lu/MyStudyApp
 
 ## 主要内容
 通过MainActivity启动各个Activity来测试各项功能

@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestAlarmManagerActivity.class);
         clsList.add(TestCustomViewActivity.class);
         clsList.add(AidlClientActivity.class);
+        clsList.add(TestClipChildrenActivity.class);
     }
 
     public void initData() {
