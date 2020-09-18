@@ -47,6 +47,7 @@ class FileTest {
          */
         @Override
         public boolean accept(File dir, String name) {
+            // 为了遍历所有的子文件夹
             if (new File(dir, name).isDirectory()) {
                 return true;
             }
@@ -63,6 +64,7 @@ class FileTest {
          */
         @Override
         public boolean accept(File pathname) {
+            // 为了遍历所有的子文件夹
             if (pathname.isDirectory()) {
                 return true;
             }
