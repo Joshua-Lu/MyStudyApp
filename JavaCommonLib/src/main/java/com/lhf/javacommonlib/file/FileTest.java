@@ -1,6 +1,8 @@
 package com.lhf.javacommonlib.file;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -26,7 +28,114 @@ class FileTest {
 //        testCreateFile();
 //        testCreateDirs();
 //        testDeleteFile();
-        testListFile();
+//        testListFile();
+
+//        testListAllFiles(rootPath);
+
+        System.out.println("使用FilenameFilter过滤");
+        testListFilesWithFilter(rootPath, filenameFilter);
+        System.out.println("使用FileFilter过滤");
+        testListFilesWithFilter(rootPath, fileFilter);
+    }
+
+    static FilenameFilter filenameFilter = new FilenameFilter() {
+        /**
+         * 可以同时对文件夹和文件名进行过滤
+         * @param dir 【文件或文件夹】所在的文件夹
+         * @param name 【文件或文件夹】的名称
+         * @return
+         */
+        @Override
+        public boolean accept(File dir, String name) {
+            if (new File(dir, name).isDirectory()) {
+                return true;
+            }
+            return dir.toString().endsWith("CIBN认证不过")
+                    && name.endsWith(".log");
+        }
+    };
+
+    static FileFilter fileFilter = new FileFilter() {
+        /**
+         * 对完整路径进行过滤
+         * @param pathname 文件的绝对路径
+         * @return
+         */
+        @Override
+        public boolean accept(File pathname) {
+            if (pathname.isDirectory()) {
+                return true;
+            }
+            return pathname.toString().endsWith(".log");
+        }
+    };
+
+    /**
+     * 使用FileFilter过滤
+     *
+     * @param dir
+     * @param fileFilter
+     */
+    private static void testListFilesWithFilter(File dir, FileFilter fileFilter) {
+        File[] files = dir.listFiles(fileFilter);
+        for (File file : files) {
+            if (file.isDirectory()) {
+                testListFilesWithFilter(file, fileFilter);
+            } else {
+                System.out.println(file);
+            }
+        }
+    }
+
+    /**
+     * 使用FilenameFilter过滤
+     *
+     * @param dir
+     * @param filenameFilter
+     */
+    private static void testListFilesWithFilter(File dir, FilenameFilter filenameFilter) {
+        File[] files = dir.listFiles(filenameFilter);
+        for (File file : files) {
+            if (file.isDirectory()) {
+                testListFilesWithFilter(file, filenameFilter);
+            } else {
+                System.out.println(file);
+            }
+        }
+    }
+
+    private static void testFilter(File file) {
+        boolean accept = false;
+//        accept = isAcceptFileFilter(file);
+        accept = isAcceptFilenameFilter(file);
+        if (accept) {
+            System.out.println(file);
+        }
+    }
+
+    private static boolean isAcceptFilenameFilter(File file) {
+        return filenameFilter.accept(file, file.getName());
+    }
+
+    private static boolean isAcceptFileFilter(File file) {
+        return fileFilter.accept(file);
+    }
+
+    /**
+     * 递归遍历文件夹
+     *
+     * @param dir
+     */
+    private static void testListAllFiles(File dir) {
+        System.out.println(dir);
+        File[] files = dir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                testListAllFiles(file);
+            } else {
+                System.out.println(file);
+            }
+        }
     }
 
     /**
