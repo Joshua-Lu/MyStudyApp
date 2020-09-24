@@ -1,7 +1,7 @@
 package com.lhf.javacommonlib.thread;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created by Joshua on 2020/9/13 12:30
@@ -10,16 +10,36 @@ public class ThreadTest {
     public static void main(String[] args) {
 //        testNewThread();
 //        testConcurrentThread();
-        testThreadPool();
+        testSystemThreadPool();
     }
 
-    private static void testThreadPool() {
-        // 1.newFixedThreadPool
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.submit(new MyRunnable());
-        executorService.submit(new MyRunnable());
-        executorService.submit(new MyRunnable());
-        // TODO:@lhf testThreadPool:
+    /**
+     * 系统预定义的ThreadPool
+     */
+    private static void testSystemThreadPool() {
+//        // 1.newFixedThreadPool
+//        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(2);
+//        fixedThreadPool.submit(new MyRunnable());
+//        fixedThreadPool.submit(new MyRunnable());
+//        fixedThreadPool.submit(new MyRunnable());
+
+//        // 2.newCachedThreadPool
+//        ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+//        cachedThreadPool.submit(new MyRunnable());
+//        cachedThreadPool.submit(new MyRunnable());
+//        cachedThreadPool.submit(new MyRunnable());
+
+//        // 3.newSingleThreadExecutor
+//        ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+//        singleThreadExecutor.submit(new MyRunnable());
+//        singleThreadExecutor.submit(new MyRunnable());
+//        singleThreadExecutor.submit(new MyRunnable());
+
+        // 4.newScheduledThreadPool
+        ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(2);
+        scheduledThreadPool.submit(new MyRunnable());
+        scheduledThreadPool.submit(new MyRunnable());
+        scheduledThreadPool.submit(new MyRunnable());
     }
 
     private static void testConcurrentThread() {
