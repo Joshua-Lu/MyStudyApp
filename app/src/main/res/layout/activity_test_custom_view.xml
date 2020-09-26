@@ -13,13 +13,15 @@
         android:text="CustomView"
         app:attr1="attr1_from_xml"
         style="@style/CustomViewStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:elevation="1dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/green"
+        android:layout_marginTop="30dp"
         android:text="requestLayout"
         android:onClick="doRequestLayout" />
 
@@ -36,5 +38,12 @@
         android:background="@color/green"
         android:text="postInvalidate"
         android:onClick="doPostInvalidate" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:text="setOutlineProvider"
+        android:onClick="setOutlineProvider" />
 
 </com.joshua.myapplication.view.CustomViewGroup>

@@ -1,8 +1,10 @@
 package com.joshua.myapplication.activity;
 
+import android.graphics.Outline;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
@@ -73,6 +75,7 @@ public class TestCustomViewActivity extends AppCompatActivity {
     public void doRequestLayout(View view) {
         Log.d("lhf-" + TAG, "doRequestLayout() called with: view = [" + view + "]");
         layoutParams.leftMargin = 100;
+        customView.setText("修改leftMargin，后调requestLayout()生效");
         // 调用后，会走父控件的onMeasure、onLayout，以及该View的onMeasure、onLayout、onDraw
         customView.requestLayout();
     }
@@ -81,6 +84,7 @@ public class TestCustomViewActivity extends AppCompatActivity {
         Log.d("lhf-" + TAG, "doInvalidate() called with: view = [" + view + "]");
         Log.d("lhf-" + TAG, "doInvalidate: Thread.currentThread().getName() = [" + Thread.currentThread().getName() + "]");
         layoutParams.leftMargin = 200;
+        customView.setText("修改leftMargin，后调invalidate()无效");
         // 调用后，只会走该View的onDraw
         customView.invalidate();
     }
@@ -91,11 +95,22 @@ public class TestCustomViewActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Log.d("lhf-" + TAG, "run: Thread.currentThread().getName() = [" + Thread.currentThread().getName() + "]");
-                // TODO:@lhf run: android 10 上，在子线程更新UI竟然不报错？？？
-                customView.setText("在子线程更新");
+                customView.setText("在子线程setText不报错，但setLayoutParams还是会报错");
+//                layoutParams.leftMargin = 300;
+//                customView.setLayoutParams(layoutParams);
                 // 作用同invalidate，可以在子线程调用
                 customView.postInvalidate();
             }
         }).start();
+    }
+
+    public void setOutlineProvider(View view) {
+        customView.setClipToOutline(true);// 这个不设下面的无法生效
+        customView.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 150);
+            }
+        });
     }
 }

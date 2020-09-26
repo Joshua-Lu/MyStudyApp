@@ -2,6 +2,7 @@ package com.lhf.javacommonlib.file;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import java.util.Arrays;
  * Created by Joshua on 2020/9/14 0:12
  */
 class FileTest {
-    private static File rootPath = new File("D:\\lhf");
+    private static File rootPath = new File("D:\\lhf\\filetest");
     ;
 
     public static void main(String[] args) {
@@ -32,16 +33,38 @@ class FileTest {
 
 //        testListAllFiles(rootPath);
 
-        System.out.println("使用FilenameFilter过滤");
-        testListFilesWithFilter(rootPath, filenameFilter);
-        System.out.println("使用FileFilter过滤");
-        testListFilesWithFilter(rootPath, fileFilter);
+//        System.out.println("使用FilenameFilter过滤");
+//        testListFilesWithFilter(rootPath, filenameFilter);
+//        System.out.println("使用FileFilter过滤");
+//        testListFilesWithFilter(rootPath, fileFilter);
+
+        testWriteToFile();
+    }
+
+    private static void testWriteToFile() {
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(rootPath, "testWrite.txt"));
+            fos.write(97);// a
+            byte[] bytes = new byte[]{97, 98, 99};
+            fos.write(bytes);
+            fos.write(bytes, 1, 2);
+            byte[] bytes1 = "hello".getBytes();// [104, 101, 108, 108, 111]
+            System.out.println("FileTest.testWriteToFile: bytes1 = [" + Arrays.toString(bytes1) + "]");
+            fos.write(bytes1);
+            byte[] bytes2 = "你好".getBytes();// [-28, -67, -96, -27, -91, -67] UTF-8编码，一个中文=3个字节
+            System.out.println("FileTest.testWriteToFile: bytes2 = [" + Arrays.toString(bytes2) + "]");
+            fos.write(bytes2);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     static FilenameFilter filenameFilter = new FilenameFilter() {
         /**
          * 可以同时对文件夹和文件名进行过滤
-         * @param dir 【文件或文件夹】所在的文件夹
+         *
+         * @param dir  【文件或文件夹】所在的文件夹
          * @param name 【文件或文件夹】的名称
          * @return
          */
