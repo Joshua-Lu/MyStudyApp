@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -39,14 +41,73 @@ class FileTest {
 //        System.out.println("使用FileFilter过滤");
 //        testListFilesWithFilter(rootPath, fileFilter);
 
+        // 字节流 InputStream OutputStream
 //        testWriteToFile();
 //        testAppendToFile();
-
 //        testReadFromFile();
+//        testCopyFile();
 
-        testCopyFile();
+        // 字符流 Reader Writer
+//        testReader();
+        testWriter();
+
     }
 
+    private static void testWriter() {
+        try {
+            FileWriter fw = new FileWriter(new File(rootPath, "writer.txt"));
+
+            // 不同于字节输出流直接写到文件，字符输出流会先将字符写到内存并转换成字节
+            fw.write(97);
+            char[] chars = new char[]{'a', 'b', 'c', 'd', 'e'};
+            fw.write(chars);
+            fw.write(chars, 1, 3);
+            String s = "JoshuaLu";
+            fw.write(s);
+            fw.write(s, 6, 2);
+
+            // flush 将内存中的字节写到磁盘中
+            fw.flush();
+            // close 释放资源前，也会有相当于flush的操作
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 字符输入流FileReader读取文件
+     */
+    private static void testReader() {
+        File file = new File(rootPath, "a.txt");
+        try {
+            FileReader fr = new FileReader(file);
+
+            // 方式一 read() 读取单个字符
+//            int read;
+//            while ((read = fr.read()) != -1) {
+//                System.out.println("FileTest.testReader: read = [" + read + "]");
+//                System.out.println("FileTest.testReader: read = [" + (char) read + "]");
+//            }
+
+            // 方式二 read(char b[]) 读取字符数组
+            char[] chars = new char[10];
+            int len;
+            while ((len = fr.read(chars)) != -1) {
+                System.out.println("FileTest.testReader: chars = [" + Arrays.toString(chars) + "]");
+                System.out.println("FileTest.testReader: chars = [" + new String(chars, 0, len) + "]");
+            }
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 文件拷贝
+     * 本质是输入输出流的读写
+     */
     private static void testCopyFile() {
         File file = new File(rootPath, "testWrite.txt");
         System.out.println("FileTest.testCopyFile: file = [" + file + "]");
@@ -82,6 +143,9 @@ class FileTest {
         }
     }
 
+    /**
+     * 通过字节输入流FileInputStream读文件
+     */
     private static void testReadFromFile() {
         File file = new File(rootPath, "testWrite.txt");
         System.out.println("FileTest.testReadFromFile: file = [" + file + "]");
@@ -120,6 +184,9 @@ class FileTest {
         }
     }
 
+    /**
+     * 通过字节输出流FileOutputStream写文件（追加到文件末尾）
+     */
     private static void testAppendToFile() {
         FileOutputStream fos = null;
         try {
@@ -145,6 +212,9 @@ class FileTest {
         }
     }
 
+    /**
+     * 通过字节输出流FileOutputStream写文件
+     */
     private static void testWriteToFile() {
         try {
             FileOutputStream fos = new FileOutputStream(new File(rootPath, "testWrite.txt"));
@@ -325,6 +395,11 @@ class FileTest {
 
     }
 
+    /**
+     * 获取文件信息
+     *
+     * @param file
+     */
     private static void testGetFileInfo(File file) {
         System.out.println("FileTest.testGetFileInfo: file = [" + file + "]");// 相当于 getPath
         // getAbsolutePath() 绝对路径，完整路径
@@ -344,6 +419,9 @@ class FileTest {
         System.out.println("=========================================");
     }
 
+    /**
+     * 创建文件对象
+     */
     private static void testNewFile() {
         File file = new File("D:\\lhf");// 使用绝对路径
         System.out.println("FileTest.testNewFile: file = [" + file.getAbsolutePath() + "]");
