@@ -79,32 +79,32 @@ class FileTest {
     }
 
     /**
-     * InputStreamReader
+     * InputStreamReader 可以指定读文件的解码格式
      */
     private static void testInputStreamReader() {
-        InputStreamReader isw = null;
+        InputStreamReader isr = null;
         try {
             // 设置charset为GBK，读取UTF-8格式文件乱码：utf-8 鏍煎紡鏂囦欢鍐呭
-//            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "utf8.txt")), "GBK");
-            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "utf8.txt")));
+//            isr = new InputStreamReader(new FileInputStream(new File(rootPath, "utf8.txt")), "GBK");
+            isr = new InputStreamReader(new FileInputStream(new File(rootPath, "utf8.txt")));
             int read;
-            while ((read = isw.read()) != -1) {
+            while ((read = isr.read()) != -1) {
                 System.out.print((char) read);
             }
             System.out.println();
 
             // IDE默认是UTF-8格式，不指定charset时，读GBK格式文件乱码：GBK ��ʽ�ļ�����
-//            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "gbk.txt")));
-            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "gbk.txt")), "GBK");
-            while ((read = isw.read()) != -1) {
+//            isr = new InputStreamReader(new FileInputStream(new File(rootPath, "gbk.txt")));
+            isr = new InputStreamReader(new FileInputStream(new File(rootPath, "gbk.txt")), "GBK");
+            while ((read = isr.read()) != -1) {
                 System.out.print((char) read);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (isw != null) {
+            if (isr != null) {
                 try {
-                    isw.close();
+                    isr.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -112,6 +112,9 @@ class FileTest {
         }
     }
 
+    /**
+     * OutputStreamWriter 可以指定写文件的编码格式
+     */
     private static void testOutputStreamWriter() {
         OutputStreamWriter osw = null;
         try {
