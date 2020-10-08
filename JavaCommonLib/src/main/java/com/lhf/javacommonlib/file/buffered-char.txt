@@ -1,0 +1,3 @@
+test BufferedWriter 0
+test BufferedWriter 1
+test BufferedWriter 2

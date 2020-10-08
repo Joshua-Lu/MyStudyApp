@@ -12,6 +12,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
@@ -68,8 +70,71 @@ class FileTest {
 //        testBufferedInputStream();
 
         // 字符缓冲流
-        testBufferedWriter();
-        testBufferedReader();
+//        testBufferedWriter();
+//        testBufferedReader();
+
+        // 转换流
+        testOutputStreamWriter();
+        testInputStreamReader();
+    }
+
+    /**
+     * InputStreamReader
+     */
+    private static void testInputStreamReader() {
+        InputStreamReader isw = null;
+        try {
+            // 设置charset为GBK，读取UTF-8格式文件乱码：utf-8 鏍煎紡鏂囦欢鍐呭
+//            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "utf8.txt")), "GBK");
+            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "utf8.txt")));
+            int read;
+            while ((read = isw.read()) != -1) {
+                System.out.print((char) read);
+            }
+            System.out.println();
+
+            // IDE默认是UTF-8格式，不指定charset时，读GBK格式文件乱码：GBK ��ʽ�ļ�����
+//            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "gbk.txt")));
+            isw = new InputStreamReader(new FileInputStream(new File(rootPath, "gbk.txt")), "GBK");
+            while ((read = isw.read()) != -1) {
+                System.out.print((char) read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (isw != null) {
+                try {
+                    isw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private static void testOutputStreamWriter() {
+        OutputStreamWriter osw = null;
+        try {
+            // 不设charset默认为UTF-8，与下面这行等效
+            osw = new OutputStreamWriter(new FileOutputStream(new File(rootPath, "utf8.txt")));
+//            osw = new OutputStreamWriter(new FileOutputStream(new File(rootPath, "utf8.txt")), StandardCharsets.UTF_8);
+            osw.write("utf-8 格式文件内容");
+            osw.flush();
+
+            osw = new OutputStreamWriter(new FileOutputStream(new File(rootPath, "gbk.txt")), "GBK");
+            osw.write("GBK 格式文件内容");
+            osw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (osw != null) {
+                try {
+                    osw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
