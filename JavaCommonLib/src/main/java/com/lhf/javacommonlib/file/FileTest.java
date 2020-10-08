@@ -2,6 +2,7 @@ package com.lhf.javacommonlib.file;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -39,22 +40,71 @@ class FileTest {
 //        testListFilesWithFilter(rootPath, fileFilter);
 
 //        testWriteToFile();
-        testAppendToFile();
+//        testAppendToFile();
+
+        testReadFromFile();
+    }
+
+    private static void testReadFromFile() {
+        File file = new File(rootPath, "testWrite.txt");
+        System.out.println("FileTest.testReadFromFile: file = [" + file + "]");
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+
+            // 方法一：read()读取单个字节
+            // 返回读取到的字节，若返回-1，说明读到末尾了
+//            int read;
+//            while ((read = fis.read()) != -1) {
+//                System.out.println("FileTest.testReadFromFile: read = [" + read + "]");
+//            }
+//            System.out.println("FileTest.testReadFromFile: read = [" + read + "]");
+
+            // 方法二：read(byte b[]) 读取指定大小的字节数组，起到缓冲的作用
+            // 返回读取到的字节数组大小，若返回-1，说明读到末尾了
+            byte[] bytes = new byte[10];
+            int readLength;
+            while ((readLength = fis.read(bytes)) != -1) {
+                System.out.println("FileTest.testReadFromFile: readLength = [" + readLength + "]");
+                System.out.println("FileTest.testReadFromFile: bytes after = [" + Arrays.toString(bytes) + "]");
+                System.out.println("FileTest.testReadFromFile: bytes after = [" + new String(bytes, 0, readLength) + "]");
+            }
+            System.out.println("FileTest.testReadFromFile: readLength = [" + readLength + "]");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private static void testAppendToFile() {
+        FileOutputStream fos = null;
         try {
             // 构造方法中传append参数为true，表示该文件是追加写入
             File file = new File(rootPath, "testAppend.txt");
             System.out.println("FileTest.testAppendToFile: file = [" + file.getAbsolutePath() + "]");
 
-            FileOutputStream fos = new FileOutputStream(file, true);
+            fos = new FileOutputStream(file, true);
             for (int i = 0; i < 3; i++) {
                 fos.write(("text to append " + i).getBytes());
                 fos.write("\r\n".getBytes());// 换行符
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();// 流使用完后，必须关闭，释放资源
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
