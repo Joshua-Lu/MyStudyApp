@@ -11,7 +11,7 @@ import java.util.Arrays;
  * Created by Joshua on 2020/9/14 0:12
  */
 class FileTest {
-    private static File rootPath = new File("D:\\lhf\\filetest");
+    private static File rootPath = new File("JavaCommonLib\\src\\main\\java\\com\\lhf\\javacommonlib\\file");
     ;
 
     public static void main(String[] args) {
@@ -38,7 +38,24 @@ class FileTest {
 //        System.out.println("使用FileFilter过滤");
 //        testListFilesWithFilter(rootPath, fileFilter);
 
-        testWriteToFile();
+//        testWriteToFile();
+        testAppendToFile();
+    }
+
+    private static void testAppendToFile() {
+        try {
+            // 构造方法中传append参数为true，表示该文件是追加写入
+            File file = new File(rootPath, "testAppend.txt");
+            System.out.println("FileTest.testAppendToFile: file = [" + file.getAbsolutePath() + "]");
+
+            FileOutputStream fos = new FileOutputStream(file, true);
+            for (int i = 0; i < 3; i++) {
+                fos.write(("text to append " + i).getBytes());
+                fos.write("\r\n".getBytes());// 换行符
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void testWriteToFile() {
@@ -208,6 +225,11 @@ class FileTest {
     private static void testCreateFile() {
         try {
             File file = new File(rootPath, "a.txt");
+            System.out.println("FileTest.testCreateFile: file.getAbsolutePath() = [" + file.getAbsolutePath() + "]");
+            if (!file.getParentFile().exists()) {// 判断文件路径是否存在
+                boolean mkdirs = file.getParentFile().mkdirs();// 路径不存在，先创建路径
+                System.out.println("FileTest.testCreateFile: mkdirs = [" + mkdirs + "]");
+            }
             boolean b = file.createNewFile();// 创建文件是否成功
             System.out.println("FileTest.testCreatFile: b = [" + b + "]");
         } catch (IOException e) {
