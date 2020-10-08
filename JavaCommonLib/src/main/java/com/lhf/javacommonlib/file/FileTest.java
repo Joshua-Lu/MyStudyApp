@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.file;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -9,6 +11,8 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * Created by Joshua on 2020/9/14 0:12
@@ -20,6 +24,7 @@ class FileTest {
     public static void main(String[] args) {
 //        testNewFile();
 
+        // 获取文件的基本信息
 //        System.out.println("testGetFileInfo  传的是文件夹路径");
 //        testGetFileInfo(rootPath);// 传的是文件夹路径
 //        System.out.println("testGetFileInfo  传的是文件相对路径");
@@ -29,30 +34,117 @@ class FileTest {
 //        System.out.println("testGetFileInfo  传的是不存在的路径");
 //        testGetFileInfo(new File("D:\\lhf\\notExist.txt"));// 传的是文件绝对路径
 
+        // 创建、删除、遍历文件
 //        testCreateFile();
 //        testCreateDirs();
 //        testDeleteFile();
 //        testListFile();
-
 //        testListAllFiles(rootPath);
 
+        // 过滤文件
 //        System.out.println("使用FilenameFilter过滤");
 //        testListFilesWithFilter(rootPath, filenameFilter);
 //        System.out.println("使用FileFilter过滤");
 //        testListFilesWithFilter(rootPath, fileFilter);
 
-        // 字节流 InputStream OutputStream
+        // 字节流：InputStream OutputStream
 //        testWriteToFile();
 //        testAppendToFile();
 //        testReadFromFile();
 //        testCopyFile();
 
-        // 字符流 Reader Writer
+        // 字符流：Reader Writer
 //        testReader();
-        testWriter();
+//        testWriter();
 
+        // Properties：结合了IO操作的集合
+//        testPropertiesStore();
+//        testPropertiesLoad();
+
+        // 字节缓冲流
+//        testBufferedOutputStream();
+        testBufferedInputStream();
     }
 
+    /**
+     * 字节缓冲输入流 BufferedInputStream
+     * 增加了缓冲区，提高效率
+     */
+    private static void testBufferedInputStream() {
+        try {
+            FileInputStream fis = new FileInputStream(new File(rootPath, "buffered.txt"));
+            BufferedInputStream bis = new BufferedInputStream(fis);
+            int read;
+            byte[] bytes = new byte[1024];
+            while ((read = bis.read(bytes)) != -1) {
+                System.out.println("FileTest.testBufferedInputStream: new String(bytes) = [" + new String(bytes) + "]");
+            }
+            bis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 字节缓冲输出流 BufferedOutputStream
+     * 增加了缓冲区，提高效率
+     */
+    private static void testBufferedOutputStream() {
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(rootPath, "buffered.txt"));
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            bos.write("test BufferedOutputStream".getBytes());
+            bos.flush();
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通过Properties的load()方法，将键值对从磁盘中读取到内存
+     */
+    private static void testPropertiesLoad() {
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileReader(new File(rootPath, "prop.txt")));
+            Set<String> propertyNames = properties.stringPropertyNames();
+            for (String key : propertyNames) {
+                String value = properties.getProperty(key);
+                System.out.println("MyClass.testPropertiesLoad: key = [" + key + "], value = [" + value + "]");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 通过Properties的store()方法，将键值对存到磁盘中
+     */
+    private static void testPropertiesStore() {
+        Properties properties = new Properties();
+        properties.setProperty("p1", "v1");
+        properties.setProperty("p2", "v2");
+        properties.setProperty("p3", "v3");
+        properties.setProperty("烽爷", "27");
+        Set<String> propertyNames = properties.stringPropertyNames();
+        for (String key : propertyNames) {
+            String value = properties.getProperty(key);
+            System.out.println("MyClass.testProperties: key = [" + key + "], value = [" + value + "]");
+        }
+
+        try {
+            properties.store(new FileWriter(new File(rootPath, "prop.txt")), "store comments");
+            // 使用FileOutputStream，properties中的中文会乱码
+//            properties.store(new FileOutputStream(new File(rootPath, "prop2.txt")), "store comments");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 字符输出流FileWriter读取文件
+     */
     private static void testWriter() {
         try {
             FileWriter fw = new FileWriter(new File(rootPath, "writer.txt"));

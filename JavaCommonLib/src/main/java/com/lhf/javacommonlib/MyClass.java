@@ -19,13 +19,8 @@ import java.util.Locale;
 
 public class MyClass {
 
-    private static void test() {
-
-    }
-
     public static void main(String[] args) {
         System.out.println("---------------- MyClass.main ---------------");
-        test();
         // 测试排序算法
 //        testSort();
 //        testDateFormat();
