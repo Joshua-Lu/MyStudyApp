@@ -42,7 +42,44 @@ class FileTest {
 //        testWriteToFile();
 //        testAppendToFile();
 
-        testReadFromFile();
+//        testReadFromFile();
+
+        testCopyFile();
+    }
+
+    private static void testCopyFile() {
+        File file = new File(rootPath, "testWrite.txt");
+        System.out.println("FileTest.testCopyFile: file = [" + file + "]");
+        File copyFile = new File(rootPath, "testWrite_copy.txt");
+        System.out.println("FileTest.testCopyFile: copyFile = [" + copyFile + "]");
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        try {
+            fis = new FileInputStream(file);
+            fos = new FileOutputStream(copyFile);
+            byte[] bytes = new byte[1024];// 1kb
+            int readLength;
+            while ((readLength = fis.read(bytes)) != -1) {
+                fos.write(bytes, 0, readLength);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fis != null) {
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private static void testReadFromFile() {
