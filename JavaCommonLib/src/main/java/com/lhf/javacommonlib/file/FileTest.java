@@ -2,6 +2,8 @@ package com.lhf.javacommonlib.file;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -63,7 +65,63 @@ class FileTest {
 
         // 字节缓冲流
 //        testBufferedOutputStream();
-        testBufferedInputStream();
+//        testBufferedInputStream();
+
+        // 字符缓冲流
+        testBufferedWriter();
+        testBufferedReader();
+    }
+
+    /**
+     * 字符缓冲输入流 BufferedReader
+     * 增加了缓冲区，提高效率
+     */
+    private static void testBufferedReader() {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(new File(rootPath, "buffered-char.txt")));
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println("FileTest.testBufferedReader: line = [" + line + "]");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 字符缓冲输出流 BufferedWriter
+     * 增加了缓冲区，提高效率
+     */
+    private static void testBufferedWriter() {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(new File(rootPath, "buffered-char.txt")));
+            for (int i = 0; i < 3; i++) {
+                bw.write("test BufferedWriter " + i);
+                bw.newLine();// 换行
+            }
+            bw.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 
     /**
@@ -71,17 +129,25 @@ class FileTest {
      * 增加了缓冲区，提高效率
      */
     private static void testBufferedInputStream() {
+        BufferedInputStream bis = null;
         try {
             FileInputStream fis = new FileInputStream(new File(rootPath, "buffered.txt"));
-            BufferedInputStream bis = new BufferedInputStream(fis);
+            bis = new BufferedInputStream(fis);
             int read;
             byte[] bytes = new byte[1024];
             while ((read = bis.read(bytes)) != -1) {
                 System.out.println("FileTest.testBufferedInputStream: new String(bytes) = [" + new String(bytes) + "]");
             }
-            bis.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (bis != null) {
+                try {
+                    bis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -90,14 +156,22 @@ class FileTest {
      * 增加了缓冲区，提高效率
      */
     private static void testBufferedOutputStream() {
+        BufferedOutputStream bos = null;
         try {
             FileOutputStream fos = new FileOutputStream(new File(rootPath, "buffered.txt"));
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            bos = new BufferedOutputStream(fos);
             bos.write("test BufferedOutputStream".getBytes());
             bos.flush();
-            bos.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (bos != null) {
+                try {
+                    bos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -146,8 +220,9 @@ class FileTest {
      * 字符输出流FileWriter读取文件
      */
     private static void testWriter() {
+        FileWriter fw = null;
         try {
-            FileWriter fw = new FileWriter(new File(rootPath, "writer.txt"));
+            fw = new FileWriter(new File(rootPath, "writer.txt"));
 
             // 不同于字节输出流直接写到文件，字符输出流会先将字符写到内存并转换成字节
             fw.write(97);
@@ -160,10 +235,17 @@ class FileTest {
 
             // flush 将内存中的字节写到磁盘中
             fw.flush();
-            // close 释放资源前，也会有相当于flush的操作
-            fw.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            // close 释放资源前，也会有相当于flush的操作
+            if (fw != null) {
+                try {
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
     }
@@ -173,8 +255,9 @@ class FileTest {
      */
     private static void testReader() {
         File file = new File(rootPath, "a.txt");
+        FileReader fr = null;
         try {
-            FileReader fr = new FileReader(file);
+            fr = new FileReader(file);
 
             // 方式一 read() 读取单个字符
 //            int read;
@@ -190,9 +273,16 @@ class FileTest {
                 System.out.println("FileTest.testReader: chars = [" + Arrays.toString(chars) + "]");
                 System.out.println("FileTest.testReader: chars = [" + new String(chars, 0, len) + "]");
             }
-            fr.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -308,8 +398,9 @@ class FileTest {
      * 通过字节输出流FileOutputStream写文件
      */
     private static void testWriteToFile() {
+        FileOutputStream fos = null;
         try {
-            FileOutputStream fos = new FileOutputStream(new File(rootPath, "testWrite.txt"));
+            fos = new FileOutputStream(new File(rootPath, "testWrite.txt"));
             fos.write(97);// a
             byte[] bytes = new byte[]{97, 98, 99};
             fos.write(bytes);
@@ -320,9 +411,16 @@ class FileTest {
             byte[] bytes2 = "你好".getBytes();// [-28, -67, -96, -27, -91, -67] UTF-8编码，一个中文=3个字节
             System.out.println("FileTest.testWriteToFile: bytes2 = [" + Arrays.toString(bytes2) + "]");
             fos.write(bytes2);
-            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
