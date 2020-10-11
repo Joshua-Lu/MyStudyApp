@@ -12,12 +12,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.TestMaterialDesignActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".activity.TestSceneTransitionActivityA">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestSceneTransitionActivityB"></activity>
+        <activity android:name=".activity.TestSceneTransitionActivityB" />
         <activity android:name=".activity.TestClipChildrenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
