@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.file;
 
+import com.lhf.javacommonlib.common.Person;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -13,6 +15,8 @@ import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.Properties;
@@ -74,8 +78,34 @@ class FileTest {
 //        testBufferedReader();
 
         // 转换流
-        testOutputStreamWriter();
-        testInputStreamReader();
+//        testOutputStreamWriter();
+//        testInputStreamReader();
+
+        // 序列化、反序列化流
+        testObjectOutputStream();
+        testObjectInputStream();
+
+    }
+
+    private static void testObjectInputStream() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(rootPath, "person.txt")));
+            Object object = ois.readObject();
+            System.out.println("FileTest.testObjectInputStream: (Person) object = [" + (Person) object + "]");
+            ois.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void testObjectOutputStream() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(rootPath, "person.txt")));
+            oos.writeObject(new Person("Joshua", 27));
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

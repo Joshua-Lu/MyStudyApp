@@ -1,11 +1,12 @@
 package com.lhf.javacommonlib.common;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by Joshua on 2020/9/3 14:12
  */
-public class Person {
+public class Person implements Serializable {
     private String name;
     private int age;
 
