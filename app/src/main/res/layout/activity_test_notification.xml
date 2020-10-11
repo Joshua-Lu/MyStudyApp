@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.TestNotificationActivity">
+
+
+    <Button
+        android:id="@+id/btn_send_notification_basic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendBasicNotification"
+        android:text="发送普通通知" />
+
+    <Button
+        android:id="@+id/btn_send_notification_collapse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendCollapseNotification"
+        android:text="发送折叠式通知" />
+
+    <Button
+        android:id="@+id/btn_send_notification_heads_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendHeadsUpNotification"
+        android:text="发送悬挂式通知" />
+</LinearLayout>

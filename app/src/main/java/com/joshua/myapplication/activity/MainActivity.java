@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(AidlClientActivity.class);
         clsList.add(TestClipChildrenActivity.class);
         clsList.add(TestSceneTransitionActivityA.class);
+        clsList.add(TestMaterialDesignActivity.class);
+        clsList.add(TestNotificationActivity.class);
     }
 
     public void initData() {

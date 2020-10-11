@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_expand"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="折叠式通知：展开状态布局" />
+
+    <TextView
+        android:id="@+id/tv_expand1"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="折叠式通知：展开状态布局1" />
+
+    <TextView
+        android:id="@+id/tv_expand2"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="折叠式通知：展开状态布局2" />
+</LinearLayout>
