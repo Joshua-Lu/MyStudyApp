@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -18,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.Set;
@@ -26,8 +28,8 @@ import java.util.Set;
  * Created by Joshua on 2020/9/14 0:12
  */
 class FileTest {
-    private static File rootPath = new File("JavaCommonLib\\src\\main\\java\\com\\lhf\\javacommonlib\\file");
-    ;
+    private static final String rootPathName = "JavaCommonLib\\src\\main\\java\\com\\lhf\\javacommonlib\\file\\";
+    private static File rootPath = new File(rootPathName);
 
     public static void main(String[] args) {
 //        testNewFile();
@@ -82,11 +84,40 @@ class FileTest {
 //        testInputStreamReader();
 
         // 序列化、反序列化流
-        testObjectOutputStream();
-        testObjectInputStream();
+//        testObjectOutputStream();
+//        testObjectInputStream();
+
+        // 打印流
+        testPrintStream();
 
     }
 
+    /**
+     * 打印流 PrintStream
+     * System.out 也是 PrintStream
+     */
+    private static void testPrintStream() {
+        try {
+            PrintStream ps = new PrintStream(rootPathName + "print.txt");
+            ps.println(1);
+            ps.println("String 2");
+            ps.println('a');
+
+//            System.out.println("修改out前，默认打印到控制台");
+//            System.setOut(ps);
+//            System.out.println("调用System.setOut(ps)后，通过System.out.println写入指定的流");
+            ps.close();
+//            System.out.println("流关闭后，无法打印了");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 反序列化 ObjectInputStream
+     * 将对象从文件中读取出来
+     */
     private static void testObjectInputStream() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(rootPath, "person.txt")));
@@ -98,6 +129,10 @@ class FileTest {
         }
     }
 
+    /**
+     * 序列化 ObjectOutputStream
+     * 将对象保存到文件
+     */
     private static void testObjectOutputStream() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(rootPath, "person.txt")));
