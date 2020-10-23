@@ -1,5 +1,6 @@
 package com.lhf.javacommonlib.function;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -14,30 +15,47 @@ class FunctionTest {
 //        String s = testSupplier(() -> "Supplier");
 //        System.out.println("FunctionTest.main: s = [" + s + "]");
 
-        testConsumer("Consumer", data ->
-                // 可以对data进行一些处理
-                System.out.println("FunctionTest.main: data.toUpperCase() = [" + data.toUpperCase() + "]")
-        );
+//        testConsumer("Consumer", data ->
+//                // 可以对data进行一些处理
+//                System.out.println("FunctionTest.main: data.toUpperCase() = [" + data.toUpperCase() + "]")
+//        );
 
-        String[] strings = {"路飞，男", "索隆，男", "娜美，女"};
-        testConsumer(strings, data -> {
-            // 可以对data进行一些处理
-            String[] split = data.split("，");
-            System.out.print("姓名：" + split[0]);
-        }, data -> {
-            // 可以对data进行一些处理
-            String[] split = data.split("，");
-            System.out.println(" 性别：" + split[1]);
-        });
+//        String[] strings = {"路飞，男", "索隆，男", "娜美，女"};
+//        testConsumer(strings, data -> {
+//            // 可以对data进行一些处理
+//            String[] split = data.split("，");
+//            System.out.print("姓名：" + split[0]);
+//        }, data -> {
+//            // 可以对data进行一些处理
+//            String[] split = data.split("，");
+//            System.out.println(" 性别：" + split[1]);
+//        });
 
 //        testPredicate("acd", s -> s.length() > 4, s -> s.contains("ab"));
 
 //        testFunction(10, integer -> String.valueOf(integer));
         // 可以简写为直接传到方法String::valueOf
-        testFunction(10, String::valueOf);
+//        testFunction(10, String::valueOf);
 
-        testFunction(100, integer -> String.valueOf(integer), s -> Integer.valueOf(s + s));
+//        testFunction(100, integer -> String.valueOf(integer), s -> Integer.valueOf(s + s));
 
+        testBiFunction(10, 'a', (integer, character) -> "String: " + (char) (integer + character));
+
+    }
+
+    /**
+     * 对两个数据类型进行转换成一个数据类型
+     * Function的升级版：参数是两个
+     *
+     * @param data1      需要转换的数据1
+     * @param data2      需要转换的数据2
+     * @param biFunction 转换方式
+     * @return 转换后的结果
+     */
+    private static String testBiFunction(int data1, char data2, BiFunction<Integer, Character, String> biFunction) {
+        String result = biFunction.apply(data1, data2);
+        System.out.println("FunctionTest.testBiFunction: result = [" + result + "]");
+        return result;
     }
 
     /**
