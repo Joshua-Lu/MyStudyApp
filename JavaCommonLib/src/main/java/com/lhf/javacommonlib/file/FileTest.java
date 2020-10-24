@@ -2,6 +2,9 @@ package com.lhf.javacommonlib.file;
 
 import com.lhf.javacommonlib.common.Person;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -27,76 +30,21 @@ import java.util.Set;
 /**
  * Created by Joshua on 2020/9/14 0:12
  */
-class FileTest {
-    private static final String rootPathName = "JavaCommonLib\\src\\main\\java\\com\\lhf\\javacommonlib\\file\\";
-    private static File rootPath = new File(rootPathName);
+public class FileTest {
+    private static final String rootPathName = "src\\main\\java\\com\\lhf\\javacommonlib\\file\\";
+    public File rootPath;
 
-    public static void main(String[] args) {
-//        testNewFile();
-
-        // 获取文件的基本信息
-//        System.out.println("testGetFileInfo  传的是文件夹路径");
-//        testGetFileInfo(rootPath);// 传的是文件夹路径
-//        System.out.println("testGetFileInfo  传的是文件相对路径");
-//        testGetFileInfo(new File("README.md"));// 传的是文件相对路径
-//        System.out.println("testGetFileInfo  传的是文件绝对路径");
-//        testGetFileInfo(new File("D:\\lhf\\test.txt"));// 传的是文件绝对路径
-//        System.out.println("testGetFileInfo  传的是不存在的路径");
-//        testGetFileInfo(new File("D:\\lhf\\notExist.txt"));// 传的是文件绝对路径
-
-        // 创建、删除、遍历文件
-//        testCreateFile();
-//        testCreateDirs();
-//        testDeleteFile();
-//        testListFile();
-//        testListAllFiles(rootPath);
-
-        // 过滤文件
-//        System.out.println("使用FilenameFilter过滤");
-//        testListFilesWithFilter(rootPath, filenameFilter);
-//        System.out.println("使用FileFilter过滤");
-//        testListFilesWithFilter(rootPath, fileFilter);
-
-        // 字节流：InputStream OutputStream
-//        testWriteToFile();
-//        testAppendToFile();
-//        testReadFromFile();
-//        testCopyFile();
-
-        // 字符流：Reader Writer
-//        testReader();
-//        testWriter();
-
-        // Properties：结合了IO操作的集合
-//        testPropertiesStore();
-//        testPropertiesLoad();
-
-        // 字节缓冲流
-//        testBufferedOutputStream();
-//        testBufferedInputStream();
-
-        // 字符缓冲流
-//        testBufferedWriter();
-//        testBufferedReader();
-
-        // 转换流
-//        testOutputStreamWriter();
-//        testInputStreamReader();
-
-        // 序列化、反序列化流
-//        testObjectOutputStream();
-//        testObjectInputStream();
-
-        // 打印流
-        testPrintStream();
-
+    @Before
+    public void init() {
+        rootPath = new File(rootPathName);
     }
 
     /**
      * 打印流 PrintStream
      * System.out 也是 PrintStream
      */
-    private static void testPrintStream() {
+    @Test
+    public void testPrintStream() {
         try {
             PrintStream ps = new PrintStream(rootPathName + "print.txt");
             ps.println(1);
@@ -118,7 +66,8 @@ class FileTest {
      * 反序列化 ObjectInputStream
      * 将对象从文件中读取出来
      */
-    private static void testObjectInputStream() {
+    @Test
+    public void testObjectInputStream() {
         try {
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File(rootPath, "person.txt")));
             Object object = ois.readObject();
@@ -133,7 +82,8 @@ class FileTest {
      * 序列化 ObjectOutputStream
      * 将对象保存到文件
      */
-    private static void testObjectOutputStream() {
+    @Test
+    public void testObjectOutputStream() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(rootPath, "person.txt")));
             oos.writeObject(new Person("Joshua", 27));
@@ -146,7 +96,8 @@ class FileTest {
     /**
      * InputStreamReader 可以指定读文件的解码格式
      */
-    private static void testInputStreamReader() {
+    @Test
+    public void testInputStreamReader() {
         InputStreamReader isr = null;
         try {
             // 设置charset为GBK，读取UTF-8格式文件乱码：utf-8 鏍煎紡鏂囦欢鍐呭
@@ -180,7 +131,8 @@ class FileTest {
     /**
      * OutputStreamWriter 可以指定写文件的编码格式
      */
-    private static void testOutputStreamWriter() {
+    @Test
+    public void testOutputStreamWriter() {
         OutputStreamWriter osw = null;
         try {
             // 不设charset默认为UTF-8，与下面这行等效
@@ -209,7 +161,8 @@ class FileTest {
      * 字符缓冲输入流 BufferedReader
      * 增加了缓冲区，提高效率
      */
-    private static void testBufferedReader() {
+    @Test
+    public void testBufferedReader() {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(new File(rootPath, "buffered-char.txt")));
@@ -234,7 +187,8 @@ class FileTest {
      * 字符缓冲输出流 BufferedWriter
      * 增加了缓冲区，提高效率
      */
-    private static void testBufferedWriter() {
+    @Test
+    public void testBufferedWriter() {
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(new File(rootPath, "buffered-char.txt")));
@@ -261,7 +215,8 @@ class FileTest {
      * 字节缓冲输入流 BufferedInputStream
      * 增加了缓冲区，提高效率
      */
-    private static void testBufferedInputStream() {
+    @Test
+    public void testBufferedInputStream() {
         BufferedInputStream bis = null;
         try {
             FileInputStream fis = new FileInputStream(new File(rootPath, "buffered.txt"));
@@ -288,7 +243,8 @@ class FileTest {
      * 字节缓冲输出流 BufferedOutputStream
      * 增加了缓冲区，提高效率
      */
-    private static void testBufferedOutputStream() {
+    @Test
+    public void testBufferedOutputStream() {
         BufferedOutputStream bos = null;
         try {
             FileOutputStream fos = new FileOutputStream(new File(rootPath, "buffered.txt"));
@@ -311,7 +267,8 @@ class FileTest {
     /**
      * 通过Properties的load()方法，将键值对从磁盘中读取到内存
      */
-    private static void testPropertiesLoad() {
+    @Test
+    public void testPropertiesLoad() {
         Properties properties = new Properties();
         try {
             properties.load(new FileReader(new File(rootPath, "prop.txt")));
@@ -328,7 +285,8 @@ class FileTest {
     /**
      * 通过Properties的store()方法，将键值对存到磁盘中
      */
-    private static void testPropertiesStore() {
+    @Test
+    public void testPropertiesStore() {
         Properties properties = new Properties();
         properties.setProperty("p1", "v1");
         properties.setProperty("p2", "v2");
@@ -352,7 +310,8 @@ class FileTest {
     /**
      * 字符输出流FileWriter读取文件
      */
-    private static void testWriter() {
+    @Test
+    public void testWriter() {
         FileWriter fw = null;
         try {
             fw = new FileWriter(new File(rootPath, "writer.txt"));
@@ -386,10 +345,12 @@ class FileTest {
     /**
      * 字符输入流FileReader读取文件
      */
-    private static void testReader() {
-        File file = new File(rootPath, "a.txt");
+    @Test
+    public void testReader() {
+        File file = new File(rootPathName, "buffered.txt");
         FileReader fr = null;
         try {
+            System.out.println("FileTest.testReader: file.exists() = [" + file.exists() + "]");
             fr = new FileReader(file);
 
             // 方式一 read() 读取单个字符
@@ -423,7 +384,8 @@ class FileTest {
      * 文件拷贝
      * 本质是输入输出流的读写
      */
-    private static void testCopyFile() {
+    @Test
+    public void testCopyFile() {
         File file = new File(rootPath, "testWrite.txt");
         System.out.println("FileTest.testCopyFile: file = [" + file + "]");
         File copyFile = new File(rootPath, "testWrite_copy.txt");
@@ -461,7 +423,8 @@ class FileTest {
     /**
      * 通过字节输入流FileInputStream读文件
      */
-    private static void testReadFromFile() {
+    @Test
+    public void testReadFromFile() {
         File file = new File(rootPath, "testWrite.txt");
         System.out.println("FileTest.testReadFromFile: file = [" + file + "]");
         FileInputStream fis = null;
@@ -502,7 +465,8 @@ class FileTest {
     /**
      * 通过字节输出流FileOutputStream写文件（追加到文件末尾）
      */
-    private static void testAppendToFile() {
+    @Test
+    public void testAppendToFile() {
         FileOutputStream fos = null;
         try {
             // 构造方法中传append参数为true，表示该文件是追加写入
@@ -530,7 +494,8 @@ class FileTest {
     /**
      * 通过字节输出流FileOutputStream写文件
      */
-    private static void testWriteToFile() {
+    @Test
+    public void testWriteToFile() {
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(new File(rootPath, "testWrite.txt"));
@@ -593,12 +558,23 @@ class FileTest {
     };
 
     /**
+     * 过滤文件
+     */
+    @Test
+    public void testListFilesWithFilter() {
+        System.out.println("使用FilenameFilter过滤");
+        testListFilesWithFilter(rootPath, filenameFilter);
+        System.out.println("使用FileFilter过滤");
+        testListFilesWithFilter(rootPath, fileFilter);
+    }
+
+    /**
      * 使用FileFilter过滤
      *
      * @param dir
      * @param fileFilter
      */
-    private static void testListFilesWithFilter(File dir, FileFilter fileFilter) {
+    public void testListFilesWithFilter(File dir, FileFilter fileFilter) {
         File[] files = dir.listFiles(fileFilter);
         for (File file : files) {
             if (file.isDirectory()) {
@@ -615,7 +591,7 @@ class FileTest {
      * @param dir
      * @param filenameFilter
      */
-    private static void testListFilesWithFilter(File dir, FilenameFilter filenameFilter) {
+    public void testListFilesWithFilter(File dir, FilenameFilter filenameFilter) {
         File[] files = dir.listFiles(filenameFilter);
         for (File file : files) {
             if (file.isDirectory()) {
@@ -626,7 +602,7 @@ class FileTest {
         }
     }
 
-    private static void testFilter(File file) {
+    public void testFilter(File file) {
         boolean accept = false;
 //        accept = isAcceptFileFilter(file);
         accept = isAcceptFilenameFilter(file);
@@ -635,12 +611,20 @@ class FileTest {
         }
     }
 
-    private static boolean isAcceptFilenameFilter(File file) {
+    public boolean isAcceptFilenameFilter(File file) {
         return filenameFilter.accept(file, file.getName());
     }
 
-    private static boolean isAcceptFileFilter(File file) {
+    public boolean isAcceptFileFilter(File file) {
         return fileFilter.accept(file);
+    }
+
+    /**
+     * 递归遍历文件夹
+     */
+    @Test
+    public void testListAllFiles() {
+        testListAllFiles(rootPath);
     }
 
     /**
@@ -648,7 +632,7 @@ class FileTest {
      *
      * @param dir
      */
-    private static void testListAllFiles(File dir) {
+    public void testListAllFiles(File dir) {
         System.out.println(dir);
         File[] files = dir.listFiles();
         for (File file : files) {
@@ -663,7 +647,8 @@ class FileTest {
     /**
      * 遍历文件夹
      */
-    private static void testListFile() {
+    @Test
+    public void testListFile() {
         String[] list = rootPath.list();
         System.out.println("FileTest.testListFile: list = [" + Arrays.toString(list) + "]");
         File[] files = rootPath.listFiles();
@@ -673,7 +658,8 @@ class FileTest {
     /**
      * 删除文件或文件夹
      */
-    private static void testDeleteFile() {
+    @Test
+    public void testDeleteFile() {
         File file = new File(rootPath, "a.txt");
         System.out.println("FileTest.testDeleteFile: file.delete() = [" + file.delete() + "]");
 
@@ -688,7 +674,8 @@ class FileTest {
     /**
      * 创建文件夹
      */
-    private static void testCreateDirs() {
+    @Test
+    public void testCreateDirs() {
         File dir = new File(rootPath, "dir");
         // mkdir() 只能创建单级文件夹
         System.out.println("FileTest.testCreateDirs: dir.mkdir() = [" + dir.mkdir() + "]");
@@ -702,7 +689,8 @@ class FileTest {
     /**
      * 创建文件
      */
-    private static void testCreateFile() {
+    @Test
+    public void testCreateFile() {
         try {
             File file = new File(rootPath, "a.txt");
             System.out.println("FileTest.testCreateFile: file.getAbsolutePath() = [" + file.getAbsolutePath() + "]");
@@ -719,11 +707,26 @@ class FileTest {
     }
 
     /**
+     * 获取文件的基本信息
+     */
+    @Test
+    public void testGetFileInfo() {
+        System.out.println("testGetFileInfo  传的是文件夹路径");
+        testGetFileInfo(rootPath);// 传的是文件夹路径
+        System.out.println("testGetFileInfo  传的是文件相对路径");
+        testGetFileInfo(new File("README.md"));// 传的是文件相对路径
+        System.out.println("testGetFileInfo  传的是文件绝对路径");
+        testGetFileInfo(new File("D:\\lhf\\test.txt"));// 传的是文件绝对路径
+        System.out.println("testGetFileInfo  传的是不存在的路径");
+        testGetFileInfo(new File("D:\\lhf\\notExist.txt"));// 传的是文件绝对路径
+    }
+
+    /**
      * 获取文件信息
      *
      * @param file
      */
-    private static void testGetFileInfo(File file) {
+    public void testGetFileInfo(File file) {
         System.out.println("FileTest.testGetFileInfo: file = [" + file + "]");// 相当于 getPath
         // getAbsolutePath() 绝对路径，完整路径
         System.out.println("FileTest.testGetFileInfo: file.getAbsolutePath() = [" + file.getAbsolutePath() + "]");
@@ -745,7 +748,8 @@ class FileTest {
     /**
      * 创建文件对象
      */
-    private static void testNewFile() {
+    @Test
+    public void testNewFile() {
         File file = new File("D:\\lhf");// 使用绝对路径
         System.out.println("FileTest.testNewFile: file = [" + file.getAbsolutePath() + "]");
         File file3 = new File("lhf");// 使用相对路径，相对项目的跟路径D:\GitHub\MyStudyApp

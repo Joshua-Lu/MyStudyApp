@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.thread;
 
+import org.junit.Test;
+
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -13,14 +15,12 @@ import java.util.concurrent.TimeUnit;
  * Created by Joshua on 2020/9/13 12:30
  */
 public class ThreadTest {
-    public static void main(String[] args) {
-//        testNewThread();
-//        testConcurrentThread();
-//        testSystemThreadPool();
-        testCustomThreadPool();
-    }
 
-    private static void testCustomThreadPool() {
+    /**
+     * 自定义线程池
+     */
+    @Test
+    public void testCustomThreadPool() {
         System.out.println("ThreadTest.testCustomThreadPool() called");
         int corePoolSize = 2;
         int maximumPoolSize = 15;
@@ -40,7 +40,8 @@ public class ThreadTest {
     /**
      * 系统预定义的ThreadPool
      */
-    private static void testSystemThreadPool() {
+    @Test
+    public void testSystemThreadPool() {
         System.out.println("ThreadTest.testSystemThreadPool() called");
         // 1.newFixedThreadPool
         /*return new ThreadPoolExecutor(nThreads, nThreads,
@@ -84,7 +85,11 @@ public class ThreadTest {
         scheduledThreadPool.scheduleAtFixedRate(new MyRunnable(), 1, 3, TimeUnit.SECONDS);
     }
 
-    private static void testConcurrentThread() {
+    /**
+     * ConcurrentRunnable 实现同步功能的Runnable
+     */
+    @Test
+    public void testConcurrentThread() {
         System.out.println("ThreadTest.testConcurrentThread() called");
         ConcurrentRunnable runnable = new ConcurrentRunnable();
         new Thread(runnable).start();
@@ -93,9 +98,11 @@ public class ThreadTest {
     }
 
     /**
-     * 创建开启线程、设置获取线程名称
+     * 创建、开启线程
+     * 设置、获取线程名称
      */
-    private static void testNewThread() {
+    @Test
+    public void testNewThread() {
         System.out.println("ThreadTest.testNewThread() called");
         // 开启线程方式一：继承Thread
         MyThread myThread = new MyThread();

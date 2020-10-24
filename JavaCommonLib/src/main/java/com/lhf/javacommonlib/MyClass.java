@@ -1,14 +1,8 @@
 package com.lhf.javacommonlib;
 
 import com.lhf.javacommonlib.common.Person;
-import com.lhf.javacommonlib.sort.BubbleSort;
-import com.lhf.javacommonlib.sort.HeapSort;
-import com.lhf.javacommonlib.sort.InsertionSort;
-import com.lhf.javacommonlib.sort.MergeSort;
-import com.lhf.javacommonlib.sort.QuickSort;
-import com.lhf.javacommonlib.sort.SelectionSort;
-import com.lhf.javacommonlib.sort.ShellSort;
-import com.lhf.javacommonlib.sort.SortUtil;
+
+import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,17 +13,8 @@ import java.util.Locale;
 
 public class MyClass {
 
-    public static void main(String[] args) {
-        System.out.println("---------------- MyClass.main ---------------");
-        // 测试排序算法
-//        testSort();
-//        testDateFormat();
-//        testCalender();
-//        testHashCode();
-//        testHashSet();
-    }
-
-    private static void testHashSet() {
+    @Test
+    public void testHashSet() {
         // 需重写Person类的hashCode和equals方法，才能实现不存储重复元素
         Person p1 = new Person("Joshua", 18);
         Person p2 = new Person("Joshua", 18);
@@ -41,7 +26,8 @@ public class MyClass {
         System.out.println("MyClass.testHashSet: set = [" + set + "]");
     }
 
-    private static void testHashCode() {
+    @Test
+    public void testHashCode() {
         String s1 = "abc";
         String s2 = "abcd";
         System.out.println("MyClass.testHashCode: s1.hashCode() = [" + s1.hashCode() + "]");
@@ -61,19 +47,8 @@ public class MyClass {
         System.out.println("MyClass.testHashCode: s6.hashCode() = [" + s6.hashCode() + "]");
     }
 
-    private static void testSort() {
-        int[] inputArray = new int[]{3, 5, 10, 8, 6, 1, 4, 9, 2, 7};
-        SortUtil sortUtil = new SortUtil(new BubbleSort());//冒泡排序
-        sortUtil.setSort(new SelectionSort());// 选择排序
-        sortUtil.setSort(new InsertionSort());// 插入排序
-        sortUtil.setSort(new ShellSort());// 希尔排序
-        sortUtil.setSort(new MergeSort());// 归并排序
-        sortUtil.setSort(new QuickSort());// 快速排序
-        sortUtil.setSort(new HeapSort());// 堆排序
-        sortUtil.sort(inputArray);
-    }
-
-    private static void testCalender() {
+    @Test
+    public void testCalender() {
         Calendar calendar = Calendar.getInstance();
         System.out.println("MyClass.testCalender: calendar = [" + calendar.getTime() + "]");
         int year = calendar.get(Calendar.YEAR);
@@ -94,7 +69,8 @@ public class MyClass {
 
     }
 
-    private static void testDateFormat() {
+    @Test
+    public void testDateFormat() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINESE);
         Date date = new Date();
         // Date 转成 给定格式的时间子串

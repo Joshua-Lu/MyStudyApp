@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.function;
 
+import org.junit.Test;
+
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -10,37 +12,54 @@ import java.util.function.Supplier;
  * 函数式接口的使用
  * Created by Joshua on 2020/10/23 21:03
  */
-class FunctionTest {
-    public static void main(String[] args) {
-//        String s = testSupplier(() -> "Supplier");
-//        System.out.println("FunctionTest.main: s = [" + s + "]");
+public class FunctionTest {
 
-//        testConsumer("Consumer", data ->
-//                // 可以对data进行一些处理
-//                System.out.println("FunctionTest.main: data.toUpperCase() = [" + data.toUpperCase() + "]")
-//        );
+    @Test
+    public void testSupplier() {
+        String s = testSupplier(() -> "Supplier");
+        System.out.println("FunctionTest.main: s = [" + s + "]");
+    }
 
-//        String[] strings = {"路飞，男", "索隆，男", "娜美，女"};
-//        testConsumer(strings, data -> {
-//            // 可以对data进行一些处理
-//            String[] split = data.split("，");
-//            System.out.print("姓名：" + split[0]);
-//        }, data -> {
-//            // 可以对data进行一些处理
-//            String[] split = data.split("，");
-//            System.out.println(" 性别：" + split[1]);
-//        });
+    @Test
+    public void testConsumer() {
+        // 一次处理
+        testConsumer("Consumer", data ->
+                // 可以对data进行一些处理
+                System.out.println("FunctionTest.main: data.toUpperCase() = [" + data.toUpperCase() + "]")
+        );
 
-//        testPredicate("acd", s -> s.length() > 4, s -> s.contains("ab"));
+        // 两次处理
+        String[] strings = {"路飞，男", "索隆，男", "娜美，女"};
+        testConsumer(strings, data -> {
+            // 可以对data进行一些处理
+            String[] split = data.split("，");
+            System.out.print("姓名：" + split[0]);
+        }, data -> {
+            // 可以对data进行一些处理
+            String[] split = data.split("，");
+            System.out.println(" 性别：" + split[1]);
+        });
+    }
 
-//        testFunction(10, integer -> String.valueOf(integer));
+    @Test
+    public void testPredicate() {
+        testPredicate("acd", s -> s.length() > 4, s -> s.contains("ab"));
+    }
+
+    @Test
+    public void testFunction() {
+        // 一次转换
+        testFunction(10, integer -> String.valueOf(integer));
         // 可以简写为直接传到方法String::valueOf
-//        testFunction(10, String::valueOf);
+        testFunction(10, String::valueOf);
 
-//        testFunction(100, integer -> String.valueOf(integer), s -> Integer.valueOf(s + s));
+        // 两次转换
+        testFunction(100, integer -> String.valueOf(integer), s -> Integer.valueOf(s + s));
+    }
 
+    @Test
+    public void testBiFunction() {
         testBiFunction(10, 'a', (integer, character) -> "String: " + (char) (integer + character));
-
     }
 
     /**
@@ -52,7 +71,7 @@ class FunctionTest {
      * @param biFunction 转换方式
      * @return 转换后的结果
      */
-    private static String testBiFunction(int data1, char data2, BiFunction<Integer, Character, String> biFunction) {
+    public String testBiFunction(int data1, char data2, BiFunction<Integer, Character, String> biFunction) {
         String result = biFunction.apply(data1, data2);
         System.out.println("FunctionTest.testBiFunction: result = [" + result + "]");
         return result;
@@ -66,7 +85,7 @@ class FunctionTest {
      * @param function2 转换方式2
      * @return 两次转换后的结果
      */
-    private static Integer testFunction(Integer data, Function<Integer, String> function1, Function<String, Integer> function2) {
+    public Integer testFunction(Integer data, Function<Integer, String> function1, Function<String, Integer> function2) {
         Integer result = function1.andThen(function2).apply(data);
         System.out.println("FunctionTest.testFunction: function1.andThen(function2).apply(data) = [" + result + "]");
         // 相当于以下代码 compose与andThen执行顺序相反
@@ -82,7 +101,7 @@ class FunctionTest {
      * @param function 转换方式
      * @return 转换后的结果
      */
-    private static String testFunction(Integer data, Function<Integer, String> function) {
+    public String testFunction(Integer data, Function<Integer, String> function) {
         String result = function.apply(data);
         System.out.println("FunctionTest.testFunction: result = [" + result + "]");
         return result;
@@ -96,7 +115,7 @@ class FunctionTest {
      * @param predicate2 判断条件2
      * @return 判断结果
      */
-    private static boolean testPredicate(String data, Predicate<String> predicate1, Predicate<String> predicate2) {
+    public boolean testPredicate(String data, Predicate<String> predicate1, Predicate<String> predicate2) {
         System.out.println("FunctionTest.testPredicate: predicate1.test(data) = [" + predicate1.test(data) + "]");
         System.out.println("FunctionTest.testPredicate: predicate2.test(data) = [" + predicate2.test(data) + "]");
         // negate：非运算！
@@ -121,7 +140,7 @@ class FunctionTest {
      * @param consumer1 消费的方式1
      * @param consumer2 消费的方式2
      */
-    private static void testConsumer(String[] data, Consumer<String> consumer1, Consumer<String> consumer2) {
+    public void testConsumer(String[] data, Consumer<String> consumer1, Consumer<String> consumer2) {
         for (String item : data) {
             consumer1.andThen(consumer2).accept(item);
             // 相当于以下两行
@@ -136,7 +155,7 @@ class FunctionTest {
      * @param data     要消费的对象
      * @param consumer 消费的方式
      */
-    private static void testConsumer(String data, Consumer<String> consumer) {
+    public void testConsumer(String data, Consumer<String> consumer) {
         consumer.accept(data);
     }
 
@@ -147,7 +166,7 @@ class FunctionTest {
      * @param supplier Supplier接口的实现
      * @return supplier的泛型指定类型的对象
      */
-    private static String testSupplier(Supplier<String> supplier) {
+    public String testSupplier(Supplier<String> supplier) {
         return supplier.get();
     }
 }

@@ -2,6 +2,8 @@ package com.lhf.javacommonlib.stream;
 
 import com.lhf.javacommonlib.common.Person;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -9,14 +11,13 @@ import java.util.stream.Stream;
  * 使用 Stream 对集合进行操作
  * Created by Joshua on 2020/10/24 10:26
  */
-class StreamTest {
-    public static void main(String[] args) {
-        testListStream();
+public class StreamTest {
 
-        testArrayStream();
-    }
-
-    private static void testArrayStream() {
+    /**
+     * 通过 Stream.of 将数组转换成 Stream
+     */
+    @Test
+    public void testArrayStream() {
         // Stream.of 可以传可变参数或数组
         Stream<String> stringStream = Stream.of("路飞", "索隆", "娜美");
 
@@ -24,7 +25,11 @@ class StreamTest {
         Stream<String> stringStream1 = Stream.of(names);
     }
 
-    private static void testListStream() {
+    /**
+     * 通过 Collection.stream() 将集合转换成 Stream
+     */
+    @Test
+    public void testListStream() {
         ArrayList<String> list = new ArrayList<>();
         list.add("路飞");
         list.add("索隆");

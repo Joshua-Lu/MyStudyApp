@@ -8,6 +8,9 @@ import java.util.Arrays;
 public class SortUtil {
     ISort sort;
 
+    public SortUtil() {
+    }
+
     public SortUtil(ISort sort) {
         this.sort = sort;
     }
