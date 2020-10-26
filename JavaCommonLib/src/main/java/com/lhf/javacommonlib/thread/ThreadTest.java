@@ -17,6 +17,26 @@ import java.util.concurrent.TimeUnit;
 public class ThreadTest {
 
     /**
+     * 线程的join方法
+     */
+    @Test
+    public void testJoin() {
+        MyRunnable myRunnable = new MyRunnable();  // 实例化Runnable子类对象
+        Thread t = new Thread(myRunnable, "线程");     // 实例化Thread对象
+        t.start(); // 启动线程
+        for (int i = 0; i < 10; i++) {
+            if (i > 4) {
+                try {
+                    t.join();  // 线程强制运行，主线程wait直到该线程结束
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("Main线程运行 --> " + i);
+        }
+    }
+
+    /**
      * 自定义线程池
      */
     @Test
