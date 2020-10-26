@@ -15,6 +15,33 @@ import java.util.Arrays;
 public class ReflectTest {
 
     /**
+     * 获取Class对象的3种方式
+     */
+    @Test
+    public void testGetClass() {
+        try {
+            // 1、将字节码文件加载进内存，返回Class对象
+            Class<?> reflectClass = Class.forName("com.lhf.javacommonlib.reflect.ReflectClass");
+            System.out.println("ReflectTest.testReflect: reflectClass = [" + reflectClass + "]");
+
+            // 2、通过类名的class属性获取
+            Class<ReflectClass> reflectClass2 = ReflectClass.class;
+            System.out.println("ReflectTest.testReflect: reflectClass2 = [" + reflectClass2 + "]");
+
+            // 3、通过对象的getClass()方法获取
+            Class<? extends ReflectClass> reflectClass3 = new ReflectClass().getClass();
+            System.out.println("ReflectTest.testReflect: reflectClass3 = [" + reflectClass3 + "]");
+
+            // 同一个字节码文件，在一次程序运行中只会被加载一次
+            // 不论通过哪种方式获取的Class对象都是同一个
+            System.out.println("ReflectTest.testReflect: (reflectClass == reflectClass2) = [" + (reflectClass == reflectClass2) + "]");
+            System.out.println("ReflectTest.testReflect: (reflectClass == reflectClass3) = [" + (reflectClass == reflectClass3) + "]");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 反射方式获取变量，修改、获取变量值
      */
     @Test
