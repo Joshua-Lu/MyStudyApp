@@ -2,11 +2,13 @@ package com.lhf.javacommonlib.reflect;
 
 import org.junit.Test;
 
+import java.io.FileInputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Properties;
 
 /**
  * 反射方式获取类的变量、构造方法、成员方法等
@@ -160,5 +162,26 @@ public class ReflectTest {
 
         // getDeclaredConstructors() 同 getConstructors() ，区别在前者不止能获取到 public 的构造方法
         // getDeclaredConstructor(Class<?>... parameterTypes) 同 getConstructor(Class<?>... parameterTypes) ，区别在前者不止能获取到 public 的构造方法
+    }
+
+    /**
+     * 读取配置文件，创建指定对象，并执行指定方法
+     */
+    @Test
+    public void testCreateFromFile() {
+        Properties config = new Properties();
+        ClassLoader classLoader = ReflectTest.class.getClassLoader();
+        try {
+            config.load(new FileInputStream("src\\main\\java\\com\\lhf\\javacommonlib\\reflect\\config.properties"));
+            String className = config.getProperty("className");
+            String methodName = config.getProperty("methodName");
+            Class<?> cls = Class.forName(className);
+            Object obj = cls.newInstance();
+            Method declaredMethod = cls.getDeclaredMethod(methodName);
+            declaredMethod.invoke(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
