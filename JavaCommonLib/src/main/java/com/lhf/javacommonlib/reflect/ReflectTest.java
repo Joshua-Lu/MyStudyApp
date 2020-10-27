@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.reflect;
 
+import com.lhf.javacommonlib.annotation.MyAnnotation;
+
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -169,12 +171,14 @@ public class ReflectTest {
      */
     @Test
     public void testCreateFromFile() {
-        Properties config = new Properties();
-        ClassLoader classLoader = ReflectTest.class.getClassLoader();
         try {
+            // 从 Properties 中读取到配置信息
+            Properties config = new Properties();
             config.load(new FileInputStream("src\\main\\java\\com\\lhf\\javacommonlib\\reflect\\config.properties"));
             String className = config.getProperty("className");
             String methodName = config.getProperty("methodName");
+
+            // 根据读取的配置信息，通过反射，创建对象，调用方法
             Class<?> cls = Class.forName(className);
             Object obj = cls.newInstance();
             Method declaredMethod = cls.getDeclaredMethod(methodName);
@@ -182,6 +186,35 @@ public class ReflectTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * 读取注解，创建指定对象，并执行指定方法
+     * 使用注解会比使用配置文件更加方便
+     */
+    @Test
+    @MyAnnotation(className = "com.lhf.javacommonlib.common.Person", methodName = "work")
+    public void testCreateFromAnnotation() {
+        try {
+            Class<ReflectTest> reflectTestClass = ReflectTest.class;
+            Method testCreateFromAnnotation = reflectTestClass.getDeclaredMethod("testCreateFromAnnotation");
+            if (testCreateFromAnnotation.isAnnotationPresent(MyAnnotation.class)) {
+                // 从【注解Annotation】中读取到配置信息
+                MyAnnotation annotation = testCreateFromAnnotation.getAnnotation(MyAnnotation.class);
+                String className = annotation.className();
+                System.out.println("ReflectTest.testCreateFromAnnotation: className = [" + className + "]");
+                String methodName = annotation.methodName();
+                System.out.println("ReflectTest.testCreateFromAnnotation: methodName = [" + methodName + "]");
+
+                // 根据读取的配置信息，通过反射，创建对象，调用方法
+                Class<?> cls = Class.forName(className);
+                Object obj = cls.newInstance();
+                Method declaredMethod = cls.getDeclaredMethod(methodName);
+                Object invoke = declaredMethod.invoke(obj);
+                System.out.println(methodName + " return: " + invoke);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

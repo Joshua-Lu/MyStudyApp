@@ -9,7 +9,11 @@ import java.lang.annotation.Target;
  * Created by Joshua on 2020/10/26.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
+@Target({ElementType.TYPE, ElementType.METHOD})
 public @interface MyAnnotation {
     String value() default "";
+
+    String className() default "";
+
+    String methodName() default "";
 }
