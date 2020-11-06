@@ -11,4 +11,6 @@ public class Constants {
     public static final String FIELD_ID = "id";
     public static final String FIELD_NAME = "name";
     public static final String FIELD_AGE = "age";
+    // provider相关
+    public static final String AUTHORITIES_PERSON = "com.joshua.myapplication.provider.PersonProvider";
 }

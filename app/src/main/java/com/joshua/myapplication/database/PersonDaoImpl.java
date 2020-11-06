@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.joshua.myapplication.utils.Constants;
+import com.joshua.myapplication.utils.DatabaseUtil;
 
 import java.util.ArrayList;
 
@@ -20,27 +21,10 @@ public class PersonDaoImpl implements IPersonDao {
         databaseHelper = new DatabaseHelper(context);
     }
 
-    private ContentValues getContentValues(Person person) {
-        ContentValues values = new ContentValues();
-        values.put(Constants.FIELD_ID, person.getId());
-        values.put(Constants.FIELD_NAME, person.getName());
-        values.put(Constants.FIELD_AGE, person.getAge());
-        return values;
-    }
-
-    private Person getPerson(Cursor cursor) {
-        Person person;
-        person = new Person();
-        person.setId(cursor.getInt(cursor.getColumnIndex(Constants.FIELD_ID)));
-        person.setName(cursor.getString(cursor.getColumnIndex(Constants.FIELD_NAME)));
-        person.setAge(cursor.getInt(cursor.getColumnIndex(Constants.FIELD_AGE)));
-        return person;
-    }
-
     @Override
     public long add(Person person) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues values = getContentValues(person);
+        ContentValues values = DatabaseUtil.getContentValues(person);
         long rowID = db.insert(Constants.TABLE_NAME, null, values);
         db.close();
         return rowID;
@@ -57,7 +41,7 @@ public class PersonDaoImpl implements IPersonDao {
     @Override
     public int update(Person person) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        ContentValues values = getContentValues(person);
+        ContentValues values = DatabaseUtil.getContentValues(person);
         int rowCounts = db.update(Constants.TABLE_NAME, values, Constants.FIELD_ID + "=?", new String[]{String.valueOf(person.getId())});
         db.close();
         return rowCounts;
@@ -69,7 +53,7 @@ public class PersonDaoImpl implements IPersonDao {
         Cursor cursor = db.query(Constants.TABLE_NAME, null, Constants.FIELD_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
         Person person = null;
         while (cursor.moveToNext()) {
-            person = getPerson(cursor);
+            person = DatabaseUtil.getPerson(cursor);
         }
         cursor.close();
         db.close();
@@ -82,7 +66,7 @@ public class PersonDaoImpl implements IPersonDao {
         Cursor cursor = db.query(Constants.TABLE_NAME, null, null, null, null, null, null);
         ArrayList<Person> people = new ArrayList<>();
         while (cursor.moveToNext()) {
-            people.add(getPerson(cursor));
+            people.add(DatabaseUtil.getPerson(cursor));
         }
         db.close();
         return people;
