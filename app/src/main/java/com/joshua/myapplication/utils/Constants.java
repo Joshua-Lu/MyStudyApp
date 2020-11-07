@@ -1,5 +1,7 @@
 package com.joshua.myapplication.utils;
 
+import android.net.Uri;
+
 /**
  * Created by Joshua on 2020/11/6 0:16
  */
@@ -13,4 +15,5 @@ public class Constants {
     public static final String FIELD_AGE = "age";
     // provider相关
     public static final String AUTHORITIES_PERSON = "com.joshua.myapplication.provider.PersonProvider";
+    public static Uri personUri = Uri.parse("content://" + AUTHORITIES_PERSON + "/person");
 }

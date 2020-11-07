@@ -59,6 +59,7 @@ public class PersonProvider extends ContentProvider {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
         long insert = db.insert(Constants.TABLE_NAME, null, values);
         Uri uriResult = Uri.withAppendedPath(uri, String.valueOf(insert));
+        getContext().getContentResolver().notifyChange(Constants.personUri, null);
         return uriResult;
     }
 
