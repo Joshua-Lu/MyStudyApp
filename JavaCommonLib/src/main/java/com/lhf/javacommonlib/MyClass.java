@@ -86,4 +86,61 @@ public class MyClass {
         }
         System.out.println("MyClass.testDateFormat: parse = [" + parse + "]");
     }
+
+    public static class TestBox {
+        Integer i;
+        int j;
+
+        public void go() {
+            j = i;// i为null时，拆箱过程会报NullPointerException
+            System.out.println("TestBox.go: j = [" + j + "]");
+            System.out.println("TestBox.go: i = [" + i + "]");
+        }
+    }
+
+    @Test
+    public void testBox() {
+        TestBox testBox = new TestBox();
+        testBox.go();
+    }
+
+    @Test
+    public void testFormat() {
+        // %d decimal 十进制
+        System.out.println(String.format(Locale.CHINA, "十进制:%,+8d", 10000));
+        // %f floating point 浮点数
+        System.out.println(String.format(Locale.CHINA, "浮点数:%.2f", 10000.1234));
+        // %x hexadecimal 十六进制
+        System.out.println(String.format(Locale.CHINA, "十六进制:%x", 16));
+        // %c character 字符
+        System.out.println(String.format(Locale.CHINA, "字符:%c", 97));
+
+        // 时间 类型都是t开头的两个字符
+        Date date = new Date();
+        // %tc 完整日期与时间
+        System.out.println(String.format(Locale.CHINA, "完整日期与时间:%tc", date));
+        // %tr 只有时间
+        System.out.println(String.format(Locale.CHINA, "只有时间:%tr", date));
+        // %tA %tB %td 周、月、日
+        System.out.println(String.format(Locale.CHINA, "周、月、日:%tA %tB %td", date, date, date));
+        // < 表示重复使用之前的参数，因此这里只要传一个date参数
+        System.out.println(String.format(Locale.CHINA, "周、月、日:%tA %<tB %<td", date));
+    }
+
+    @Test
+    public void testCalendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2020, Calendar.MAY, 2, 13, 14);
+        System.out.println("MyClass.testCalendar: calendar.getTime() = [" + calendar.getTime() + "]");
+        long timeInMillis = calendar.getTimeInMillis();
+        timeInMillis += 60 * 60 * 1000;// 加一小时
+        calendar.setTimeInMillis(timeInMillis);
+        System.out.println("MyClass.testCalendar: hour after add 60 * 60 * 1000 = [" + calendar.get(Calendar.HOUR_OF_DAY) + "]");
+        calendar.add(Calendar.DATE, 35);// 加35天，超过当月时，月份【会】往上加
+        System.out.println("MyClass.testCalendar: calendar.getTime() = [" + calendar.getTime() + "]");
+        calendar.roll(Calendar.DATE, 35);// 加35天，超过当月时，月份【不会】往上加
+        System.out.println("MyClass.testCalendar: calendar.getTime() = [" + calendar.getTime() + "]");
+        calendar.set(Calendar.DATE, 2);// 直接设置日
+        System.out.println("MyClass.testCalendar: calendar.getTime() = [" + calendar.getTime() + "]");
+    }
 }
