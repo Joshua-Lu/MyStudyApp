@@ -48,7 +48,7 @@ public class ShallowPrototype implements Cloneable {
 
     @Override
     public String toString() {
-        return "ShallowPrototype{" +
+        return "ShallowPrototype[" + super.toString() + "]{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", address=" + address +

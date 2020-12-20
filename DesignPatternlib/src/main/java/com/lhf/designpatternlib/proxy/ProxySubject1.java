@@ -14,7 +14,6 @@ public class ProxySubject1 implements ISubject {
 
     @Override
     public void request() {
-        System.out.println("ProxySubject1.request() called");
         preRequest();
         if (realSubject != null) {
             realSubject.request();

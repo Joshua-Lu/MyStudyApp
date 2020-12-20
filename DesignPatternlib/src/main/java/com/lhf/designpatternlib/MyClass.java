@@ -75,6 +75,12 @@ import com.lhf.designpatternlib.visitor.IVisitor;
 import com.lhf.designpatternlib.visitor.VisitorA;
 import com.lhf.designpatternlib.visitor.VisitorB;
 
+import org.junit.Test;
+
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertSame;
+
+
 public class MyClass {
     public static void main(String[] args) {
         System.out.println("---------------- MyClass.main ---------------");
@@ -127,10 +133,11 @@ public class MyClass {
         // 备忘录模式
 //        testMemento();
         // 解释器模式
-        testInterpret();
+//        testInterpret();
     }
 
-    private static void testInterpret() {
+    @Test
+    public void testInterpret() {
         String statement = "3 * 2 * 4 / 6 % 5";
         Calculator calculator = new Calculator();
         calculator.build(statement);
@@ -138,7 +145,8 @@ public class MyClass {
         System.out.println("MyClass.testInterpret: result = [" + result + "]");
     }
 
-    private static void testMemento() {
+    @Test
+    public void testMemento() {
         Originator originator = new Originator();
         Caretaker caretaker = new Caretaker();
         originator.setState("111111111111");
@@ -149,7 +157,8 @@ public class MyClass {
         originator.restoreMemento(caretaker.getMemento());
     }
 
-    private static void testVisitor() {
+    @Test
+    public void testVisitor() {
         ElementStructure elementStructure = new ElementStructure();
         elementStructure.add(new Element1());
         elementStructure.add(new Element2());
@@ -160,7 +169,8 @@ public class MyClass {
         elementStructure.accept(visitor);
     }
 
-    private static void testIterator() {
+    @Test
+    public void testIterator() {
         Aggregate aggregate = new Aggregate();
         aggregate.add(1);
         aggregate.add(2);
@@ -175,7 +185,8 @@ public class MyClass {
         iterator.first();
     }
 
-    private static void testMediator() {
+    @Test
+    public void testMediator() {
         IMediator mediator = new Mediator();
         Colleague c1 = new Colleague1("Colleague1");
         Colleague c2 = new Colleague2("Colleague2");
@@ -185,7 +196,8 @@ public class MyClass {
         c2.send("I am a msg from c2");
     }
 
-    private static void testObserver() {
+    @Test
+    public void testObserver() {
         Observable observable = new Observable();
         Observer1 observer1 = new Observer1();
         Observer2 observer2 = new Observer2();
@@ -197,7 +209,8 @@ public class MyClass {
         observable.notifyObserver();
     }
 
-    private static void testState() {
+    @Test
+    public void testState() {
         ThreadContext context = new ThreadContext();
         context.start();
         context.getCPU();
@@ -207,7 +220,8 @@ public class MyClass {
         context.stop();
     }
 
-    private static void testResponsibilityChain() {
+    @Test
+    public void testResponsibilityChain() {
         Handler handler1 = new Handler1();
         Handler handler2 = new Handler2();
         handler1.setNext(handler2);
@@ -215,7 +229,8 @@ public class MyClass {
 
     }
 
-    private static void testCommand() {
+    @Test
+    public void testCommand() {
         Invoker invoker = new Invoker(new Command1());
         invoker.call();
         System.out.println("-----------------------");
@@ -223,7 +238,8 @@ public class MyClass {
         invoker.call();
     }
 
-    private static void testStrategy() {
+    @Test
+    public void testStrategy() {
         StrategyContext context = new StrategyContext(new Strategy1());
         context.strategyMethod();
         System.out.println("----------------");
@@ -231,7 +247,8 @@ public class MyClass {
         context.strategyMethod();
     }
 
-    private static void testTemplateMethod() {
+    @Test
+    public void testTemplateMethod() {
         HookConcreteClass hookConcreteClass = new HookConcreteClass();
         hookConcreteClass.templateMethod();
     }
@@ -239,7 +256,8 @@ public class MyClass {
     /**
      * 组合模式
      */
-    private static void testComposite() {
+    @Test
+    public void testComposite() {
         Root root1 = new Root();
         Root root2 = new Root();
         Leaf leaf1 = new Leaf("leaf 1");
@@ -255,7 +273,8 @@ public class MyClass {
     /**
      * 享元模式
      */
-    private static void testFlyweight() {
+    @Test
+    public void testFlyweight() {
         FlyweightFactory factory = new FlyweightFactory();
         IFlyweight a1 = factory.getFlyweight("a");
         IFlyweight a2 = factory.getFlyweight("a");
@@ -273,7 +292,8 @@ public class MyClass {
     /**
      * 外观模式
      */
-    private static void testFacade() {
+    @Test
+    public void testFacade() {
         Facade facade = new Facade();
         facade.method();
     }
@@ -281,7 +301,8 @@ public class MyClass {
     /**
      * 装饰模式
      */
-    private static void testDecorator() {
+    @Test
+    public void testDecorator() {
         IComponent component = new ConcreteComponent();
         Decorator decorator = new ConcreteDecorator1(component);
         decorator.operation();
@@ -293,7 +314,8 @@ public class MyClass {
     /**
      * 桥接模式
      */
-    private static void testBridge() {
+    @Test
+    public void testBridge() {
         IColor color = new Red();
         Bag bag = new HandBag();
         // 只要改变颜色对象及包对象，就可生成不同颜色及类型的包
@@ -308,7 +330,8 @@ public class MyClass {
     /**
      * 对象适配器模式
      */
-    private static void testObjectAdapter() {
+    @Test
+    public void testObjectAdapter() {
         Adaptee adaptee = new Adaptee();
         Target target = new ObjectAdapter(adaptee);
         target.request();
@@ -317,7 +340,8 @@ public class MyClass {
     /**
      * 类适配器模式
      */
-    private static void testClassAdapter() {
+    @Test
+    public void testClassAdapter() {
         Target target = new ClassAdapter();
         target.request();
     }
@@ -325,7 +349,8 @@ public class MyClass {
     /**
      * 代理模式
      */
-    private static void testProxy() {
+    @Test
+    public void testProxy() {
         ISubject realSubject = new RealSubject();
         // 传入不同的真实对象，实现对不同真实对象的代理
         realSubject = new RealSubject1();
@@ -338,7 +363,8 @@ public class MyClass {
     /**
      * 建造者模式
      */
-    private static void testBuilder() {
+    @Test
+    public void testBuilder() {
         AbstractBuilder builder = new Builder1();
         Director director = new Director(builder);
         BuilderProduct product = director.construct();
@@ -354,7 +380,8 @@ public class MyClass {
     /**
      * 深拷贝原型模式
      */
-    private static void testDeepPrototype() {
+    @Test
+    public void testDeepPrototype() {
         DeepPrototype deepPrototype1 = new DeepPrototype();
         deepPrototype1.setName("Joshua");
         deepPrototype1.setAge(18);
@@ -366,8 +393,10 @@ public class MyClass {
         deepPrototype2.setName("lhf");
         deepPrototype2.setAge(20);
         deepPrototype2.getAddress().setCity("ZJ");
+        assertNotSame(deepPrototype1, deepPrototype2);
         System.out.println("MyClass.testDeepPrototype: (deepPrototype1 == deepPrototype2) = [" + (deepPrototype1 == deepPrototype2) + "]");
         // 深拷贝对于对象成员变量也可以进行拷贝
+        assertNotSame(deepPrototype1.getAddress(), deepPrototype2.getAddress());
         System.out.println("MyClass.testDeepPrototype: (deepPrototype1.getAddress() == deepPrototype2.getAddress()) = [" + (deepPrototype1.getAddress() == deepPrototype2.getAddress()) + "]");
         System.out.println("MyClass.testDeepPrototype: deepPrototype1 = [" + deepPrototype1 + "]");
         System.out.println("MyClass.testDeepPrototype: deepPrototype2 = [" + deepPrototype2 + "]");
@@ -376,7 +405,8 @@ public class MyClass {
     /**
      * 浅拷贝原型模式
      */
-    private static void testShallowPrototype() {
+    @Test
+    public void testShallowPrototype() {
         ShallowPrototype shallowPrototype1 = new ShallowPrototype();
         shallowPrototype1.setName("Joshua");
         shallowPrototype1.setAge(18);
@@ -386,8 +416,10 @@ public class MyClass {
             shallowPrototype2.setName("lhf");
             shallowPrototype2.setAge(20);
             shallowPrototype2.getAddress().setCity("ZJ");
+            assertNotSame(shallowPrototype1, shallowPrototype2);
             System.out.println("MyClass.testShallowPrototype: (shallowPrototype1 == shallowPrototype2) = [" + (shallowPrototype1 == shallowPrototype2) + "]");
             // 浅拷贝对于对象成员变量无法进行拷贝，还是指向同一个对象地址
+            assertSame(shallowPrototype1.getAddress(), shallowPrototype2.getAddress());
             System.out.println("MyClass.testShallowPrototype: (shallowPrototype1.getAddress() == shallowPrototype2.getAddress()) = [" + (shallowPrototype1.getAddress() == shallowPrototype2.getAddress()) + "]");
             System.out.println("MyClass.testShallowPrototype: shallowPrototype1 = [" + shallowPrototype1 + "]");
             System.out.println("MyClass.testShallowPrototype: shallowPrototype2 = [" + shallowPrototype2 + "]");
@@ -399,7 +431,8 @@ public class MyClass {
     /**
      * 抽象工厂模式
      */
-    private static void testAbstractFactory() {
+    @Test
+    public void testAbstractFactory() {
         IAbstractFactory factory1 = new AbstractFactory1();
         IProductA productA1 = factory1.createProductA();
         productA1.show();
@@ -416,7 +449,8 @@ public class MyClass {
     /**
      * 简单工厂模式
      */
-    private static void testSimpleFactory() {
+    @Test
+    public void testSimpleFactory() {
         SimpleFactory factory = new SimpleFactory();
 
         IProductA product = factory.createProduct("A1");
@@ -429,7 +463,8 @@ public class MyClass {
     /**
      * 静态内部类单例模式
      */
-    private static void testSingleton4() {
+    @Test
+    public void testSingleton4() {
         System.out.println("MyClass.testSingleton4() called");
         Singleton4 s1 = Singleton4.getInstance();
         Singleton4 s2 = Singleton4.getInstance();
@@ -440,7 +475,8 @@ public class MyClass {
     /**
      * 双重锁懒汉单例模式
      */
-    private static void testSingleton3() {
+    @Test
+    public void testSingleton3() {
         System.out.println("MyClass.testSingleton3() called");
         new Thread(new Runnable() {
             @Override
@@ -461,7 +497,8 @@ public class MyClass {
     /**
      * 懒汉单例模式
      */
-    private static void testSingleton2() {
+    @Test
+    public void testSingleton2() {
         System.out.println("MyClass.testSingleton2() called");
         Singleton2 s1 = Singleton2.getInstance();
         Singleton2 s2 = Singleton2.getInstance();
@@ -472,7 +509,8 @@ public class MyClass {
     /**
      * 饿汉单例模式
      */
-    private static void testSingleton1() {
+    @Test
+    public void testSingleton1() {
         System.out.println("MyClass.testSingleton1() called");
         Singleton1 s1 = Singleton1.getInstance();
         Singleton1 s2 = Singleton1.getInstance();

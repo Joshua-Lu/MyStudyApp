@@ -84,7 +84,7 @@ public class DeepPrototype implements Serializable {
 
     @Override
     public String toString() {
-        return "DeepPrototype{" +
+        return "DeepPrototype[" + super.toString() + "]{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", address=" + address +
