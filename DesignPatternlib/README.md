@@ -36,15 +36,27 @@
 11. 组合模式 Composite Pattern
 ## 行为型模式
 12. 模板方法模式 Template Method Pattern
+
 13. 策略模式 Strategy Pattern
-14. 命令模式 Command Pattern
+
+14. 命令模式 Command Pattern  
+
+    ![命令模式类图](E:\Code\MyStudyApp\DesignPatternlib\README.assets\command.png)
+
 15. 责任链模式 Chain of Responsibility Pattern
+
 16. 状态模式 State Pattern
+
 17. 观察者模式 Observer Pattern
+
 18. 中介者模式 Mediator Pattern
+
 19. 迭代器模式 Iterator Pattern
+
 20. 访问者模式 Visitor Pattern
+
 21. 备忘录模式 Memento Pattern
+
 22. 解释器模式 Interpreter Pattern
 
  
