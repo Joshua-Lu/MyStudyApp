@@ -1,0 +1,18 @@
+@startuml
+
+interface IComposite {
+    void operation()
+}
+class Leaf implements IComposite {
+    + void operation()
+}
+class Root implements IComposite {
+    - ArrayList<IComposite> children
+    + void add(IComposite c)
+    + void remove(IComposite c)
+    + IComposite getChild(int i)
+    + void operation()
+}
+Root o-- IComposite
+
+@enduml
