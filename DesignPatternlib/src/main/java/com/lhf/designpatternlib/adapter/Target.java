@@ -5,5 +5,5 @@ package com.lhf.designpatternlib.adapter;
  * Created by Joshua on 2020/3/29 21:25.
  */
 public interface Target {
-    public void request();
+    void request();
 }

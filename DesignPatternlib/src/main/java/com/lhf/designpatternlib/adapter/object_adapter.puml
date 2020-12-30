@@ -1,0 +1,13 @@
+@startuml
+interface Target {
+request()
+}
+class Adaptee {
+specificRequest()
+}
+class ClassAdapter implements Target{
+Adaptee adaptee
+request()
+}
+ClassAdapter o- Adaptee
+@enduml
