@@ -1,0 +1,27 @@
+@startuml
+
+class BuilderProduct {
+    - String partA
+    - String partB
+    - String partC
+    + void setPartA(String partA)
+    + void setPartB(String partB)
+    + void setPartC(String partC)
+}
+abstract class AbstractBuilder {
+    # BuilderProduct product
+    + abstract AbstractBuilder buildPartA()
+    + abstract AbstractBuilder buildPartB()
+    + abstract AbstractBuilder buildPartC()
+    + BuilderProduct getResult()
+}
+AbstractBuilder *- BuilderProduct
+class Builder1 extends AbstractBuilder
+class Builder2 extends AbstractBuilder
+class Director {
+    - AbstractBuilder builder
+    + BuilderProduct construct()
+}
+Director o- AbstractBuilder
+
+@enduml

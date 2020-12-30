@@ -5,9 +5,9 @@ package com.lhf.designpatternlib.builder;
  * Created by Joshua on 2020/3/29 15:08.
  */
 public class BuilderProduct {
-    String partA;
-    String partB;
-    String partC;
+    private String partA;
+    private String partB;
+    private String partC;
 
     public void setPartA(String partA) {
         this.partA = partA;

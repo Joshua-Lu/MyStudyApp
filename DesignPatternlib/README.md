@@ -9,7 +9,9 @@
 
    三种类型：简单工厂模式、工厂方法模式、抽象工厂模式
 
-3. 建造者模式 Builder Pattern
+3. 建造者模式 Builder Pattern  
+
+   ![建造者模式类图](E:\Code\MyStudyApp\DesignPatternlib\README.assets\builder.png)
 
 4. 原型模式 Prototype Pattern
 ## 结构型模式
