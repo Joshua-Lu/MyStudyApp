@@ -6,7 +6,7 @@ package com.lhf.designpatternlib.bridge;
  * Created by Joshua on 2020/4/4.
  */
 public abstract class Bag {
-    IColor color;
+    protected IColor color;
 
     public void setColor(IColor color) {
         this.color = color;
