@@ -1,0 +1,31 @@
+@startuml
+
+interface ICommand {
+    void execute()
+}
+class Command1 implements ICommand {
+    - IReceiver receiver
+    + void execute()
+}
+class Command2 implements ICommand {
+    - IReceiver receiver
+    + void execute()
+}
+Command1 *-- IReceiver
+Command2 *-- IReceiver
+interface IReceiver {
+    void action()
+}
+class ReceiverA implements IReceiver {
+    + void action()
+}
+class ReceiverB implements IReceiver {
+    + void action()
+}
+class Invoker {
+    - ICommand command
+    + void call()
+}
+Invoker o- ICommand
+
+@enduml
