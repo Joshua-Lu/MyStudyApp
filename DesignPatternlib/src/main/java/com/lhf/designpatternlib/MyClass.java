@@ -31,6 +31,10 @@ import com.lhf.designpatternlib.factory.AbstractFactory2;
 import com.lhf.designpatternlib.factory.IAbstractFactory;
 import com.lhf.designpatternlib.factory.IProductA;
 import com.lhf.designpatternlib.factory.IProductB;
+import com.lhf.designpatternlib.factory.ProductA1;
+import com.lhf.designpatternlib.factory.ProductA2;
+import com.lhf.designpatternlib.factory.ProductB1;
+import com.lhf.designpatternlib.factory.ProductB2;
 import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.flyweight.FlyweightFactory;
 import com.lhf.designpatternlib.flyweight.IFlyweight;
@@ -79,6 +83,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 
 public class MyClass {
@@ -436,14 +441,18 @@ public class MyClass {
         IAbstractFactory factory1 = new AbstractFactory1();
         IProductA productA1 = factory1.createProductA();
         productA1.show();
+        assertTrue(productA1 instanceof ProductA1);
         IProductB productB1 = factory1.createProductB();
         productB1.show();
+        assertTrue(productB1 instanceof ProductB1);
 
         IAbstractFactory factory2 = new AbstractFactory2();
         IProductA productA2 = factory2.createProductA();
         productA2.show();
+        assertTrue(productA2 instanceof ProductA2);
         IProductB productB2 = factory2.createProductB();
         productB2.show();
+        assertTrue(productB2 instanceof ProductB2);
     }
 
     /**

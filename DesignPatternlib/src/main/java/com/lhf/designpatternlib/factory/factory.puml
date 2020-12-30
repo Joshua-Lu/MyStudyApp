@@ -1,0 +1,25 @@
+@startuml
+
+interface IProductA {
+    void show()
+}
+class ProductA1 implements IProductA
+class ProductA2 implements IProductA
+interface IProductB {
+    void show()
+}
+class ProductB1 implements IProductB
+class ProductB2 implements IProductB
+interface IAbstractFactory {
+    IProductA createProductA();
+    IProductB createProductB();
+}
+class AbstractFactory1 implements IAbstractFactory
+class AbstractFactory2 implements IAbstractFactory
+
+AbstractFactory1 *-- ProductA1
+AbstractFactory1 *-- ProductB1
+AbstractFactory2 *-- ProductA2
+AbstractFactory2 *-- ProductB2
+
+@enduml
