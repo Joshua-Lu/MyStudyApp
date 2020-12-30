@@ -1,0 +1,18 @@
+@startuml
+
+interface IColor {
+    getColor()
+}
+class Green implements IColor
+class Red implements IColor
+
+abstract class Bag {
+    # IColor color
+    + abstract void show()
+}
+class HandBag extends Bag
+class Wallet extends Bag
+
+Bag o- IColor
+
+@enduml
