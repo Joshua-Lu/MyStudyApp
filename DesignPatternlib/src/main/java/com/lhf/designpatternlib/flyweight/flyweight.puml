@@ -1,0 +1,21 @@
+@startuml
+
+class UnsharedStatus {
+    - String info;
+}
+interface IFlyweight {
+    void operation(UnsharedStatus status)
+}
+IFlyweight .> UnsharedStatus
+class FlyweightFactory {
+    - HashMap<String, IFlyweight> flyweights
+    + IFlyweight getFlyweight(String key)
+}
+FlyweightFactory *- IFlyweight
+class ConcreteFlyweight implements IFlyweight {
+    - String key;
+    + ConcreteFlyweight(String key)
+    + void operation(UnsharedStatus status)
+}
+
+@enduml

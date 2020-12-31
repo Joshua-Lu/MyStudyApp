@@ -3,10 +3,10 @@ package com.lhf.designpatternlib.flyweight;
 /**
  * Created by  on 2020/4/4.
  */
-public class UnsharedConcreteFlyweight {
+public class UnsharedStatus {
     private String info;
 
-    public UnsharedConcreteFlyweight(String info) {
+    public UnsharedStatus(String info) {
         this.info = info;
     }
 

@@ -38,7 +38,7 @@ import com.lhf.designpatternlib.factory.ProductB2;
 import com.lhf.designpatternlib.factory.SimpleFactory;
 import com.lhf.designpatternlib.flyweight.FlyweightFactory;
 import com.lhf.designpatternlib.flyweight.IFlyweight;
-import com.lhf.designpatternlib.flyweight.UnsharedConcreteFlyweight;
+import com.lhf.designpatternlib.flyweight.UnsharedStatus;
 import com.lhf.designpatternlib.interpret.Calculator;
 import com.lhf.designpatternlib.iterator.Aggregate;
 import com.lhf.designpatternlib.iterator.IIterator;
@@ -81,6 +81,7 @@ import com.lhf.designpatternlib.visitor.VisitorB;
 
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
@@ -287,11 +288,13 @@ public class MyClass {
         IFlyweight b1 = factory.getFlyweight("b");
         IFlyweight b2 = factory.getFlyweight("b");
         System.out.println();
-        a1.operation(new UnsharedConcreteFlyweight("1st a"));
-        a2.operation(new UnsharedConcreteFlyweight("2nd a"));
-        a3.operation(new UnsharedConcreteFlyweight("3rd a"));
-        b1.operation(new UnsharedConcreteFlyweight("1st b"));
-        b2.operation(new UnsharedConcreteFlyweight("2nd b"));
+        a1.operation(new UnsharedStatus("1st a"));
+        a2.operation(new UnsharedStatus("2nd a"));
+        a3.operation(new UnsharedStatus("3rd a"));
+        assertEquals(a1, a2);// 相同的key获取到的是同一个对象
+        b1.operation(new UnsharedStatus("1st b"));
+        b2.operation(new UnsharedStatus("2nd b"));
+        assertEquals(b1, b2);
     }
 
     /**

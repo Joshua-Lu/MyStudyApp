@@ -12,8 +12,8 @@ public class ConcreteFlyweight implements IFlyweight {
     }
 
     @Override
-    public void operation(UnsharedConcreteFlyweight state) {
+    public void operation(UnsharedStatus status) {
         System.out.println("ConcreteFlyweight.operation: key = [" + key + "]");
-        System.out.println("ConcreteFlyweight.operation() called with: state = [" + state + "]");
+        System.out.println("ConcreteFlyweight.operation() called with: status = [" + status + "]");
     }
 }
