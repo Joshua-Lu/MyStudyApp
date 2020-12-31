@@ -1,0 +1,29 @@
+@startuml
+
+interface IIterator {
+    Object first()
+    Object next()
+    boolean hasNext()
+}
+class Iterator implements IIterator {
+    - List<Object> list
+    - int index
+    + Iterator(List<Object> list)
+    + Object first()
+    + Object next()
+    + boolean hasNext()
+}
+interface IAggregate {
+    void add(Object obj)
+    void remove(Object obj)
+    IIterator getIterator()
+}
+class Aggregate implements IAggregate {
+    - List<Object> list
+    + void add(Object obj)
+    + void remove(Object obj)
+    + IIterator getIterator()
+}
+Aggregate *- Iterator
+
+@enduml
