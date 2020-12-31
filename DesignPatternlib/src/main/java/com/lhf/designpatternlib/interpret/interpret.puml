@@ -1,0 +1,32 @@
+@startuml
+
+interface Node {
+    int interpret()
+}
+abstract class SymbolNode implements Node {
+    # Node left
+    # Node right
+    + SymbolNode(Node left, Node right)
+}
+SymbolNode o-- Node
+class ValueNode implements Node {
+    - int value
+    + ValueNode(int value)
+    + int interpret()
+}
+class MulNode extends SymbolNode {
+    + MulNode(Node left, Node right)
+    + int interpret()
+}
+class DivNode extends SymbolNode {
+    + DivNode(Node left, Node right)
+    + int interpret()
+}
+class Calculator {
+    - Node node;
+    + void build(String statement)
+    + int compute()
+}
+Calculator *- Node
+
+@enduml

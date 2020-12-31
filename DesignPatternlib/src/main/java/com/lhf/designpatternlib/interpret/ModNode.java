@@ -11,4 +11,9 @@ public class ModNode extends SymbolNode {
     public int interpret() {
         return left.interpret() % right.interpret();
     }
+
+    @Override
+    public String toString() {
+        return left + " % " + right;
+    }
 }

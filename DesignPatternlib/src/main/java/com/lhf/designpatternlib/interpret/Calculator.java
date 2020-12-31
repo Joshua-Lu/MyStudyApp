@@ -14,6 +14,7 @@ public class Calculator {
     private Node node;
 
     public void build(String statement) {
+        System.out.println("Calculator.build() called with: statement = [" + statement + "]");
         Node left = null, right = null;
         Stack stack = new Stack();
         String[] statementArr = statement.split(" ");
@@ -38,6 +39,7 @@ public class Calculator {
             }
         }
         this.node = (Node) stack.pop();
+        System.out.println("Calculator.build result: node = [" + node + "]");
     }
 
     public int compute() {

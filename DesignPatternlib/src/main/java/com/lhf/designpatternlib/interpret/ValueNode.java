@@ -14,4 +14,9 @@ public class ValueNode implements Node {
     public int interpret() {
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return value + "";
+    }
 }
