@@ -1,0 +1,18 @@
+@startuml
+
+abstract class Handler {
+    - Handler next
+    + void setNext(Handler next)
+    + Handler getNext()
+    + abstract void handleRequest(int request);
+}
+class Handler1 extends Handler {
+    + void handleRequest(int request)
+}
+class Handler2 extends Handler {
+    + void handleRequest(int request)
+}
+Handler1 *-- Handler
+Handler2 *-- Handler
+
+@enduml
