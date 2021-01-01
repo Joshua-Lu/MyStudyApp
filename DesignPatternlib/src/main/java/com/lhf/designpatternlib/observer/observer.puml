@@ -1,0 +1,20 @@
+@startuml
+
+interface IObserver {
+    void response()
+}
+class Observer1 implements IObserver {
+    + void response()
+}
+class Observer2 implements IObserver {
+    + void response()
+}
+class Observable {
+    # List<IObserver> observers
+    + void add(IObserver observer)
+    + void remove(IObserver observer)
+    + void notifyObserver()
+}
+Observable *- IObserver
+
+@enduml
