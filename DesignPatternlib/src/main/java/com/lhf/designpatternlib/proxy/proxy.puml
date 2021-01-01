@@ -1,0 +1,18 @@
+@startuml
+
+interface ISubject {
+    void request()
+}
+class RealSubject implements ISubject {
+    + void request()
+}
+class ProxySubject implements ISubject {
+    - ISubject realSubject
+    + ProxySubject(ISubject realSubject)
+    + void request()
+    - void postRequest()
+    - void preRequest()
+}
+ProxySubject *-- ISubject
+
+@enduml
