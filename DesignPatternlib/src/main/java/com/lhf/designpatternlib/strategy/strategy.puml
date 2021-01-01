@@ -1,0 +1,14 @@
+@startuml
+
+interface IStrategy {
+    void strategyMethod()
+}
+IStrategy <|.. Strategy1
+IStrategy <|.. Strategy2
+class StrategyContext {
+    - IStrategy strategy
+    + void strategyMethod()
+}
+StrategyContext *- IStrategy
+
+@enduml
