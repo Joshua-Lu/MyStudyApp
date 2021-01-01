@@ -155,12 +155,12 @@ public class MyClass {
     public void testMemento() {
         Originator originator = new Originator();
         Caretaker caretaker = new Caretaker();
-        originator.setState("111111111111");
+        originator.setStatus("111111111111");
         // 保存到备忘录
         caretaker.setMemento(originator.createMemento());
-        originator.setState("22222222222");
+        originator.setStatus("22222222222");
         // 从备忘录恢复
-        originator.restoreMemento(caretaker.getMemento());
+        originator.restoreStatus(caretaker.getMemento());
     }
 
     @Test

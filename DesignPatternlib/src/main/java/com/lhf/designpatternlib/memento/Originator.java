@@ -4,32 +4,32 @@ package com.lhf.designpatternlib.memento;
  * Created by Joshua on 2020/4/6 23:08.
  */
 public class Originator {
-    private String state;
+    private String status;
 
-    public void setState(String state) {
-        System.out.println("Originator.setState() called with: state = [" + state + "]");
-        this.state = state;
+    public void setStatus(String status) {
+        System.out.println("Originator.setStatus() called with: status = [" + status + "]");
+        this.status = status;
     }
 
-    public String getState() {
-        System.out.println("Originator.getState: state = [" + state + "]");
-        return state;
+    public String getStatus() {
+        System.out.println("Originator.getStatus: status = [" + status + "]");
+        return status;
     }
 
     public Memento createMemento() {
-        System.out.println("Originator.createMemento: state = [" + state + "]");
-        return new Memento(state);
+        System.out.println("Originator.createMemento: status = [" + status + "]");
+        return new Memento(status);
     }
 
-    public void restoreMemento(Memento m) {
-        System.out.println("Originator.restoreMemento() called with: m = [" + m + "]");
-        this.setState(m.getState());
+    public void restoreStatus(Memento m) {
+        System.out.println("Originator.restoreStatus() called with: m = [" + m + "]");
+        this.setStatus(m.getState());
     }
 
     @Override
     public String toString() {
         return "Originator{" +
-                "state='" + state + '\'' +
+                "status='" + status + '\'' +
                 '}';
     }
 }

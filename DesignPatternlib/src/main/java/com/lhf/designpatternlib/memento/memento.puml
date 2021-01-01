@@ -1,0 +1,24 @@
+@startuml
+
+class Originator {
+    - String status
+    + void setStatus(String status)
+    + String getStatus()
+    + Memento createMemento()
+    + void restoreStatus(Memento m)
+}
+class Memento {
+    - String state
+    + Memento(String state)
+    + void setState(String state)
+    + String getState()
+}
+Originator o-- Memento
+class Caretaker {
+    - Memento memento;
+    + void setMemento(Memento m)
+    + Memento getMemento()
+}
+Caretaker o-- Memento
+
+@enduml
