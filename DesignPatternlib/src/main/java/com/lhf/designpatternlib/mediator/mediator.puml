@@ -1,0 +1,34 @@
+@startuml
+
+interface IMediator {
+    void register(Colleague colleague)
+    void relay(Colleague colleague)
+}
+class Mediator implements IMediator {
+    - List<Colleague> colleagues
+    + void register(Colleague colleague)
+    + void relay(Colleague colleague)
+}
+Mediator *- Colleague
+abstract class Colleague {
+    - String name;
+    - String msg;
+    # IMediator mediator;
+    + Colleague(String name)
+    + void setMedium(IMediator mediator)
+    + abstract void receive(String from, String msg)
+    + abstract void send(String msg)
+}
+Colleague *- Mediator
+class Colleague1 extends Colleague {
+    + Colleague1(String name)
+    + void receive(String from, String msg)
+    + void send(String msg)
+}
+class Colleague2 extends Colleague {
+    + Colleague1(String name)
+    + void receive(String from, String msg)
+    + void send(String msg)
+}
+
+@enduml
