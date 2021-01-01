@@ -1,0 +1,30 @@
+@startuml
+
+interface IElement {
+    void accept(IVisitor visitor);
+}
+class Element1 implements IElement {
+    + void accept(IVisitor visitor)
+    + void operation()
+}
+class Element2 implements IElement {
+    + void accept(IVisitor visitor)
+    + void operation()
+}
+interface IVisitor {
+    void visit(Element1 element)
+    void visit(Element2 element)
+}
+IVisitor <|.. VisitorA
+IVisitor <|.. VisitorB
+class ElementStructure {
+    - List<IElement> list
+    + void accept(IVisitor visitor)
+    + void add(IElement element)
+    + void remove(IElement element)
+}
+ElementStructure *- IElement
+IElement .> IVisitor
+IVisitor .> IElement
+
+@enduml
