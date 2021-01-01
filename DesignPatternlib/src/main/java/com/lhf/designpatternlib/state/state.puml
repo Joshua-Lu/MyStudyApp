@@ -1,0 +1,34 @@
+@startuml
+
+abstract class ThreadState {
+    # String stateName
+}
+class New{
+    + void start(ThreadContext threadContext)
+}
+class Runnable{
+    + void getCPU(ThreadContext threadContext)
+}
+class Running{
+    + void suspend(ThreadContext threadContext)
+    + void stop(ThreadContext threadContext)
+}
+class Blocked{
+    + void resume(ThreadContext threadContext)
+}
+class ThreadContext {
+    - ThreadState state
+    + void start()
+    + void getCPU()
+    + void suspend()
+    + void stop()
+    + void resume()
+}
+ThreadContext *-- ThreadState
+ThreadState <|-- New
+ThreadState <|--- Runnable
+ThreadState <|---- Running
+ThreadState <|--- Blocked
+ThreadState <|-- Dead
+
+@enduml
