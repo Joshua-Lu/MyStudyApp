@@ -11,9 +11,9 @@ class Mediator implements IMediator {
 }
 Mediator *- Colleague
 abstract class Colleague {
-    - String name;
-    - String msg;
-    # IMediator mediator;
+    - String name
+    - String msg
+    # IMediator mediator
     + Colleague(String name)
     + void setMedium(IMediator mediator)
     + abstract void receive(String from, String msg)
