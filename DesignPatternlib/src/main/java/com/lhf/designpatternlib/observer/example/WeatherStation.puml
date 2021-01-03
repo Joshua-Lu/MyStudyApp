@@ -1,0 +1,35 @@
+@startuml
+
+class java.util.Observable {
+    # List<IObserver> observers
+    + void add(Observer observer)
+    + void remove(Observer observer)
+    + void notifyObservers()
+}
+interface java.util.Observer {
+    void update(Observable o, Object arg)
+}
+class WeatherData extends java.util.Observable {
+    - int temperature
+    - int humidity
+    - int pressure
+    + int getTemperature()
+    + int getHumidity()
+    + int getPressure()
+    + void measurementsChanged()
+    + void setMeasurements(int temperature, int humidity, int pressure)
+}
+interface DisplayElement {
+    void display()
+}
+class CurrentConditionsDisplay implements java.util.Observer, DisplayElement {
+    - int temperature
+    - int humidity
+    - Observable weatherData
+    + CurrentConditionsDisplay(Observable weatherData)
+    + void update(Observable o, Object arg)
+    + void display()
+}
+CurrentConditionsDisplay *- WeatherData
+
+@enduml
