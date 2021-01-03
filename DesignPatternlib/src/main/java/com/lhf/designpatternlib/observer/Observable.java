@@ -9,6 +9,7 @@ import java.util.List;
  * Created by Joshua on 2020/4/6 20:46.
  */
 public class Observable {
+    String data;
     protected List<IObserver> observers = new ArrayList<IObserver>();
 
     //增加观察者方法
@@ -28,8 +29,12 @@ public class Observable {
         System.out.println("Observable.notifyObserver() called");
         for (IObserver observer :
                 observers) {
-            observer.response();
+            observer.response(data);
         }
     }
 
+    public void setData(String data) {
+        this.data = data;
+        notifyObserver();
+    }
 }

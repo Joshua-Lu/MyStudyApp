@@ -5,7 +5,7 @@ package com.lhf.designpatternlib.observer;
  */
 public class Observer1 implements IObserver {
     @Override
-    public void response() {
-        System.out.println("Observer1.response() called");
+    public void response(String data) {
+        System.out.println("Observer1.response() called with: data = [" + data + "]");
     }
 }

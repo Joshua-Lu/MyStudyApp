@@ -209,10 +209,10 @@ public class MyClass {
         Observer2 observer2 = new Observer2();
         observable.add(observer1);
         observable.add(observer2);
-        observable.notifyObserver();
-        System.out.println("--------------------");
+        observable.setData("data 111");
+        System.out.println("----------remove observer1----------");
         observable.remove(observer1);
-        observable.notifyObserver();
+        observable.setData("data 222");
     }
 
     @Test

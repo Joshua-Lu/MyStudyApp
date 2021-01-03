@@ -1,13 +1,13 @@
 @startuml
 
 interface IObserver {
-    void response()
+    void response(String data)
 }
 class Observer1 implements IObserver {
-    + void response()
+    + void response(String data)
 }
 class Observer2 implements IObserver {
-    + void response()
+    + void response(String data)
 }
 class Observable {
     # List<IObserver> observers
