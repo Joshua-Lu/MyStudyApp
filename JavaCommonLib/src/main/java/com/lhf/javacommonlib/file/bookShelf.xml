@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<bookShelf>
+    <book>
+        <title>Head First Java</title>
+        <author>Kathy Sierra</author>
+        <price>79</price>
+    </book>
+    <book>
+        <title>Head First 设计模式</title>
+        <author>Elisabeth Freeman</author>
+        <price>98</price>
+    </book>
+</bookShelf>

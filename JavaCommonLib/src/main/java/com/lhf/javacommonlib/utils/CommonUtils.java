@@ -1,4 +1,4 @@
-package com.lhf.javacommonlib.util;
+package com.lhf.javacommonlib.utils;
 
 import java.util.Scanner;
 

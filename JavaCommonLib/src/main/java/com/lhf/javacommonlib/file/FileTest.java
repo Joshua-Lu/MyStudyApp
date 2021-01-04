@@ -1,5 +1,6 @@
 package com.lhf.javacommonlib.file;
 
+import com.lhf.javacommonlib.common.Constants;
 import com.lhf.javacommonlib.common.Person;
 
 import org.junit.Before;
@@ -31,12 +32,11 @@ import java.util.Set;
  * Created by Joshua on 2020/9/14 0:12
  */
 public class FileTest {
-    private static final String rootPathName = "src\\main\\java\\com\\lhf\\javacommonlib\\file\\";
     public File rootPath;
 
     @Before
     public void init() {
-        rootPath = new File(rootPathName);
+        rootPath = new File(Constants.FILE_ROOT_PATH);
     }
 
     /**
@@ -46,7 +46,7 @@ public class FileTest {
     @Test
     public void testPrintStream() {
         try {
-            PrintStream ps = new PrintStream(rootPathName + "print.txt");
+            PrintStream ps = new PrintStream(Constants.FILE_ROOT_PATH + "print.txt");
             ps.println(1);
             ps.println("String 2");
             ps.println('a');
@@ -347,7 +347,7 @@ public class FileTest {
      */
     @Test
     public void testReader() {
-        File file = new File(rootPathName, "buffered.txt");
+        File file = new File(Constants.FILE_ROOT_PATH, "buffered.txt");
         FileReader fr = null;
         try {
             System.out.println("FileTest.testReader: file.exists() = [" + file.exists() + "]");

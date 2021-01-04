@@ -1,6 +1,6 @@
 package com.lhf.javacommonlib.media;
 
-import com.lhf.javacommonlib.util.CommonUtils;
+import com.lhf.javacommonlib.utils.CommonUtils;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiEvent;
