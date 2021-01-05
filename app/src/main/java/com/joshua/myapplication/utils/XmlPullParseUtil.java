@@ -1,39 +1,44 @@
 package com.joshua.myapplication.utils;
 
+import android.util.Log;
+import android.util.Xml;
+
 import com.lhf.javacommonlib.common.Book;
 import com.lhf.javacommonlib.common.Constants;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
 /**
+ * Pull解析XML文件
  * Created by Joshua on 2021/1/5 1:05
  */
 public class XmlPullParseUtil {
 
-    public static void main(String[] args) {
-        ArrayList<Book> books = XmlPullParseUtil.pullParse(Constants.FILE_XML_BOOK_SHELF);
-        System.out.println(books);
-    }
+    private static final String TAG = "XmlPullParseUtil";
 
-    public static ArrayList<Book> pullParse(String fileName) {
+    public static ArrayList<Book> pullParse(File file) {
         ArrayList<Book> books = null;
         Book book = null;
         try {
-            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
-            XmlPullParser parser = xmlPullParserFactory.newPullParser();
+            // 获取XmlPullParser对象，要在Android环境下运行，否则会报错（除非额外导入对应的包）
+            // 方式一
+//            XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+//            XmlPullParser parser = xmlPullParserFactory.newPullParser();
+            // 方式二
+            XmlPullParser parser = Xml.newPullParser();
 
-            parser.setInput(new FileInputStream(fileName), "UTF-8");
+            Log.d(TAG, "pullParse: file.getAbsolutePath() = [" + file.getAbsolutePath() + "]");
+            parser.setInput(new FileInputStream(file), "UTF-8");
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 String name = parser.getName();
                 switch (eventType) {
                     case XmlPullParser.START_TAG:
                         if (name != null) {
-                            String content = parser.nextText();
                             switch (name) {
                                 case Constants.XmlTag.BOOK_SHELF:
                                     books = new ArrayList<>();
@@ -43,17 +48,17 @@ public class XmlPullParseUtil {
                                     break;
                                 case Constants.XmlTag.TITLE:
                                     if (book != null) {
-                                        book.setTitle(content);
+                                        book.setTitle(parser.nextText());
                                     }
                                     break;
                                 case Constants.XmlTag.AUTHOR:
                                     if (book != null) {
-                                        book.setAuthor(content);
+                                        book.setAuthor(parser.nextText());
                                     }
                                     break;
                                 case Constants.XmlTag.PRICE:
                                     if (book != null) {
-                                        book.setPrice(Integer.parseInt(content));
+                                        book.setPrice(Integer.parseInt(parser.nextText()));
                                     }
                                     break;
                             }
