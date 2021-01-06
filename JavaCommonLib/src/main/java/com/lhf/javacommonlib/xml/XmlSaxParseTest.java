@@ -15,6 +15,10 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 /**
+ * Sax解析Xml文件
+ * 优点：逐行解析，不用加载整个文档到内存，不会造成内存溢出
+ * 缺点：只能解析，不能修改
+ * <p>
  * Created by Joshua on 2021/1/4 23:57
  */
 public class XmlSaxParseTest {

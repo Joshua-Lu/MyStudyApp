@@ -14,6 +14,10 @@ import java.util.ArrayList;
 
 /**
  * Pull解析XML文件
+ * 跟Sax解析类似：
+ * 优点：逐行解析，不用加载整个文档到内存，不会造成内存溢出
+ * 缺点：只能解析，不能修改
+ * <p>
  * Created by Joshua on 2021/1/5 1:05
  */
 public class XmlPullParseUtil {
