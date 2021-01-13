@@ -8,7 +8,8 @@ import com.lhf.javacommonlib.common.Book;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -23,8 +24,13 @@ public class XmlPullParseUtilTest {
     @Test
     public void testPullParse() {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        File dataDir = appContext.getDataDir();
-        ArrayList<Book> books = XmlPullParseUtil.pullParse(new File(dataDir, "bookShelf.xml"));
+        FileInputStream file = null;
+        try {
+            file = appContext.openFileInput("bookShelf.xml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Book> books = XmlPullParseUtil.pullParse(file);
         Log.d(TAG, "testPullParse: books = [" + books + "]");
         Assert.assertNotNull(books);
     }

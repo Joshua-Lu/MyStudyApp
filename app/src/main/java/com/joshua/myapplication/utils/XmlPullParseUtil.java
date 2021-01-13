@@ -1,6 +1,5 @@
 package com.joshua.myapplication.utils;
 
-import android.util.Log;
 import android.util.Xml;
 
 import com.lhf.javacommonlib.common.Book;
@@ -8,7 +7,6 @@ import com.lhf.javacommonlib.common.Constants;
 
 import org.xmlpull.v1.XmlPullParser;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
@@ -24,7 +22,7 @@ public class XmlPullParseUtil {
 
     private static final String TAG = "XmlPullParseUtil";
 
-    public static ArrayList<Book> pullParse(File file) {
+    public static ArrayList<Book> pullParse(FileInputStream fileInputStream) {
         ArrayList<Book> books = null;
         Book book = null;
         try {
@@ -35,8 +33,7 @@ public class XmlPullParseUtil {
             // 方式二
             XmlPullParser parser = Xml.newPullParser();
 
-            Log.d(TAG, "pullParse: file.getAbsolutePath() = [" + file.getAbsolutePath() + "]");
-            parser.setInput(new FileInputStream(file), "UTF-8");
+            parser.setInput(fileInputStream, "UTF-8");
             int eventType = parser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 String name = parser.getName();
