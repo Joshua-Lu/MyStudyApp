@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.format.Formatter;
 import android.util.Log;
 
 import com.joshua.myapplication.utils.Constants;
@@ -12,6 +13,8 @@ import com.joshua.myapplication.utils.Constants;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -54,5 +57,15 @@ public class ExampleInstrumentedTest {
             }
         });
 
+    }
+
+
+    @Test
+    public void testFormatFileSize() {
+        File filesDir = appContext.getFilesDir();
+        long totalSpace = filesDir.getTotalSpace();
+        Log.d(TAG, "testFormatFileSize: totalSpace = [" + totalSpace + "]");
+        String fileSize = Formatter.formatFileSize(appContext, totalSpace);
+        Log.d(TAG, "testFormatFileSize: fileSize = [" + fileSize + "]");
     }
 }
