@@ -30,10 +30,12 @@ public class MinNumber {
     */
     @Test
     public void test() {
+        // 示例 1
         int[] nums = {10, 2};
         String result = minNumber(nums);
         Assert.assertEquals("102", result);
 
+        // 示例 2
         nums = new int[]{3, 30, 34, 5, 9};
         result = minNumber(nums);
         Assert.assertEquals("3033459", result);

@@ -27,6 +27,7 @@ public class FindRepeatNumber {
 
     @Test
     public void test() {
+        // 示例 1
         int[] nums = {2, 3, 1, 0, 2, 5, 3};
         int repeatNumber = findRepeatNumber(nums);
         Assert.assertEquals(2, repeatNumber);

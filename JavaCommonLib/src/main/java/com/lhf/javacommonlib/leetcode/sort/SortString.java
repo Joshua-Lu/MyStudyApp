@@ -59,22 +59,27 @@ public class SortString {
         String s;
         String result;
 
+        // 示例 1
         s = "aaaabbbbcccc";
         result = sortString(s);
         Assert.assertEquals("abccbaabccba", result);
 
+        // 示例 2
         s = "rat";
         result = sortString(s);
         Assert.assertEquals("art", result);
 
+        // 示例 3
         s = "leetcode";
         result = sortString(s);
         Assert.assertEquals("cdelotee", result);
 
+        // 示例 4
         s = "ggggggg";
         result = sortString(s);
         Assert.assertEquals("ggggggg", result);
 
+        // 示例 5
         s = "spo";
         result = sortString(s);
         Assert.assertEquals("ops", result);
