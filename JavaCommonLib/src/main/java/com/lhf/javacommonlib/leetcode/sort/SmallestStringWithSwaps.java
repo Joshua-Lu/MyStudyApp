@@ -1,7 +1,7 @@
 package com.lhf.javacommonlib.leetcode.sort;
 
 import com.lhf.javacommonlib.leetcode.sort.unionfind.IUnionFind;
-import com.lhf.javacommonlib.leetcode.sort.unionfind.QuickUnionFind;
+import com.lhf.javacommonlib.leetcode.sort.unionfind.WeightQuickUnionUF;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -80,9 +80,9 @@ public class SmallestStringWithSwaps {
     public String smallestStringWithSwaps(String s, List<List<Integer>> pairs) {
         System.out.println("SmallestStringWithSwaps.smallestStringWithSwaps() called with: s = [" + s + "], pairs = [" + pairs + "]");
         int length = s.length();
-        IUnionFind unionFind = new QuickUnionFind(length);
+        IUnionFind unionFind = new WeightQuickUnionUF(length);
         for (List<Integer> pair : pairs) {
-            unionFind.unionElements(pair.get(0), pair.get(1));
+            unionFind.union(pair.get(0), pair.get(1));
         }
 
         Map<Integer, PriorityQueue<Character>> map = new HashMap<>();
