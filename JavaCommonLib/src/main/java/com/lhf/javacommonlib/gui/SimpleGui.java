@@ -1,5 +1,6 @@
 package com.lhf.javacommonlib.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,21 +63,18 @@ public class SimpleGui {
 
         radioButton.setBackground(Color.GREEN);
         button.setSize(100, 100);
-        button.setLocation(20, 10);
 
         radioButton.setBackground(Color.RED);
         radioButton.setSize(100, 100);
-        radioButton.setLocation(200, 200);
 
         // 先获取pane，才能add
-        frame.getContentPane().add(button);
-        frame.getContentPane().add(radioButton);
+        frame.getContentPane().add(BorderLayout.WEST, radioButton);
+        frame.getContentPane().add(BorderLayout.SOUTH, button);
 
         // 设置关闭window时，退出程序
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.setSize(300, 300);
-        frame.setLayout(null);// 不设Layout为null，默认控件会撑满全屏
         frame.setVisible(true);
 
     }
