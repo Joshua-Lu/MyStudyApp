@@ -5,4 +5,8 @@ package com.lhf.designpatternlib.command;
  */
 public interface ICommand {
     void execute();
+
+    default void undo() {
+        System.out.println(getClass().getSimpleName() + ".undo() called");
+    }
 }
