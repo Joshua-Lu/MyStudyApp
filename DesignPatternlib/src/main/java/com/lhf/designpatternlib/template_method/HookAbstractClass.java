@@ -7,7 +7,7 @@ package com.lhf.designpatternlib.template_method;
  */
 public abstract class HookAbstractClass {
 
-    public void templateMethod() {//模板方法
+    public final void templateMethod() {//模板方法，一般定义成final，算法步骤固定，不让子类覆盖
         System.out.println("HookAbstractClass.templateMethod() called");
         abstractMethod1();
         hookMethod1();
