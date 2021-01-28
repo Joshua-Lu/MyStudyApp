@@ -83,13 +83,14 @@ public class SearchInsert {
     /**
      * 二分查找
      * 因 nums 有序且不重复，因此可使用二分查找
+     * 参考：https://mp.weixin.qq.com/s/fCf5QbPDtE6SSlZ1yh_q8Q
      * <p>
      * 时间：O(n)
      * 空间：O(1)
      */
     public int searchInsert2(int[] nums, int target) {
         int left = 0;
-        int right = nums.length;
+        int right = nums.length;// 定义target在左闭右开的区间里，[left, right）
         while (left < right) {
             int middle = (left + right) / 2;
             if (target > nums[middle]) {

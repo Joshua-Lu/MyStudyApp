@@ -10,6 +10,7 @@ import java.util.Arrays;
  */
 public class MinSubArrayLen {
     /*
+    https://leetcode-cn.com/problems/minimum-size-subarray-sum/
     209. 长度最小的子数组
     给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。
     如果不存在符合条件的子数组，返回 0。
@@ -106,6 +107,7 @@ public class MinSubArrayLen {
     /**
      * 思路：滑动窗口
      * right作为for循环变量，比用left写起来简洁一点
+     * 参考：https://mp.weixin.qq.com/s/UrZynlqi4QpyLlLhBPglyg
      * <p>
      * 时间：O(n)
      * 空间：O(1)
