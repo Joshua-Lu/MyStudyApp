@@ -7,30 +7,30 @@ import java.util.Objects;
  * <p>
  * Created by Joshua on 2021/1/28.
  */
-public class ListNode {
+public class SingleListNode {
     int val;
-    ListNode next;
+    SingleListNode next;
 
-    ListNode() {
+    SingleListNode() {
     }
 
-    ListNode(int val) {
+    SingleListNode(int val) {
         this.val = val;
     }
 
-    ListNode(int val, ListNode next) {
+    SingleListNode(int val, SingleListNode next) {
         this.val = val;
         this.next = next;
     }
 
-    ListNode(int[] nodeValues) {
+    SingleListNode(int[] nodeValues) {
         if (nodeValues == null || nodeValues.length == 0) {
             return;
         }
-        ListNode dummyRoot = new ListNode(0);
-        ListNode ptr = dummyRoot;
+        SingleListNode dummyRoot = new SingleListNode(0);
+        SingleListNode ptr = dummyRoot;
         for (int item : nodeValues) {
-            ptr.next = new ListNode(item);
+            ptr.next = new SingleListNode(item);
             ptr = ptr.next;
         }
         val = dummyRoot.next.val;
@@ -41,7 +41,7 @@ public class ListNode {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListNode listNode = (ListNode) o;
+        SingleListNode listNode = (SingleListNode) o;
         return val == listNode.val &&
                 Objects.equals(next, listNode.next);
     }
@@ -53,7 +53,7 @@ public class ListNode {
 
     @Override
     public String toString() {
-        ListNode node = this;
+        SingleListNode node = this;
         StringBuilder result = new StringBuilder();
         while (node != null) {
             result.append(node.val).append("->");
