@@ -3,6 +3,7 @@ package com.lhf.javacommonlib.leetcode.linkedlist;
 import java.util.Objects;
 
 /**
+ * 单向链表Node
  * Definition for singly-linked list.
  * <p>
  * Created by Joshua on 2021/1/28.
@@ -28,10 +29,10 @@ public class SingleListNode {
             return;
         }
         SingleListNode dummyRoot = new SingleListNode(0);
-        SingleListNode ptr = dummyRoot;
+        SingleListNode prev = dummyRoot;
         for (int item : nodeValues) {
-            ptr.next = new SingleListNode(item);
-            ptr = ptr.next;
+            prev.next = new SingleListNode(item);
+            prev = prev.next;
         }
         val = dummyRoot.next.val;
         next = dummyRoot.next.next;

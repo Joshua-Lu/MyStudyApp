@@ -1,6 +1,8 @@
 package com.lhf.javacommonlib.leetcode.linkedlist;
 
 /**
+ * 单向链表
+ * <p>
  * Created by Joshua on 2021/1/28.
  */
 public class MySingleLinkedList {
@@ -36,17 +38,20 @@ public class MySingleLinkedList {
         请不要使用内置的 LinkedList 库。
     */
 
-    private SingleListNode dummyRoot = new SingleListNode();
+    // 虚拟头结点
+    private SingleListNode dummyRoot;
     private int size;
 
     /**
      * Initialize your data structure here.
      */
     public MySingleLinkedList() {
-
+        dummyRoot = new SingleListNode();
+        size = 0;
     }
 
     public MySingleLinkedList(int[] nodeValues) {
+        this();
         dummyRoot.next = new SingleListNode(nodeValues);
     }
 
@@ -127,7 +132,9 @@ public class MySingleLinkedList {
             index--;
         }
         // 循环结束，此时 prev 是要删除位置的前一个结点
-        prev.next = prev.next.next;
+        SingleListNode toDelete = prev.next;
+        prev.next = toDelete.next;
+        toDelete.next = null;// 将要删除的结点的next变量置空，释放该结点内存
         size--;
     }
 
