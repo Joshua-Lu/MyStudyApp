@@ -6,6 +6,12 @@ package com.lhf.designpatternlib.state;
  * Created by Joshua on 2020/4/6 20:16.
  */
 public class ThreadContext {
+    ThreadState newState;
+    ThreadState runnableState;
+    ThreadState runningState;
+    ThreadState blockedState;
+    ThreadState deadState;
+
     private ThreadState state;
 
     public ThreadState getState() {
@@ -17,47 +23,52 @@ public class ThreadContext {
     }
 
     public ThreadContext() {
-        state = new New();
+        newState = new New();
+        runnableState = new Runnable();
+        runningState = new Running();
+        blockedState = new Blocked();
+        deadState = new Dead();
+        state = newState;
+    }
+
+    public ThreadState getNewState() {
+        return newState;
+    }
+
+    public ThreadState getRunnableState() {
+        return runnableState;
+    }
+
+    public ThreadState getRunningState() {
+        return runningState;
+    }
+
+    public ThreadState getBlockedState() {
+        return blockedState;
+    }
+
+    public ThreadState getDeadState() {
+        return deadState;
     }
 
     public void start() {
-        if (state instanceof New) {
-            ((New) state).start(this);
-        } else {
-            System.out.println("state is NOT instanceof New, can NOT invoke method start()");
-        }
+        state.start(this);
     }
 
     public void getCPU() {
-        if (state instanceof Runnable) {
-            ((Runnable) state).getCPU(this);
-        } else {
-            System.out.println("state is NOT instanceof Runnable, can NOT invoke method getCPU()");
-        }
+        state.getCPU(this);
     }
 
     public void suspend() {
-        if (state instanceof Running) {
-            ((Running) state).suspend(this);
-        } else {
-            System.out.println("state is NOT instanceof Running, can NOT invoke method suspend()");
-        }
+        state.suspend(this);
     }
 
     public void stop() {
-        if (state instanceof Running) {
-            ((Running) state).stop(this);
-        } else {
-            System.out.println("state is NOT instanceof Running, can NOT invoke method stop()");
-        }
+        state.stop(this);
     }
 
     public void resume() {
-        if (state instanceof Blocked) {
-            ((Blocked) state).resume(this);
-        } else {
-            System.out.println("state is NOT instanceof Blocked, can NOT invoke method resume()");
-        }
+        state.resume(this);
     }
 
     @Override

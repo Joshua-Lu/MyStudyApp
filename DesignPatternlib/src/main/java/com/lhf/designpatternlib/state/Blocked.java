@@ -5,12 +5,13 @@ package com.lhf.designpatternlib.state;
  */
 public class Blocked extends ThreadState {
     public Blocked() {
-        stateName = "Blocked";
+        super("Blocked");
         System.out.println("Blocked.Blocked: stateName = [" + stateName + "]");
     }
 
+    @Override
     public void resume(ThreadContext threadContext) {
         System.out.println("Blocked.resume() called with: threadContext = [" + threadContext + "]");
-        threadContext.setState(new Runnable());
+        threadContext.setState(threadContext.getRunnableState());
     }
 }

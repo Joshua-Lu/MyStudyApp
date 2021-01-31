@@ -5,7 +5,7 @@ package com.lhf.designpatternlib.state;
  */
 public class Dead extends ThreadState {
     public Dead() {
-        stateName = "Dead";
+        super("Dead");
         System.out.println("Dead.Dead: stateName = [" + stateName + "]");
     }
 }

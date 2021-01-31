@@ -5,12 +5,13 @@ package com.lhf.designpatternlib.state;
  */
 public class Runnable extends ThreadState {
     public Runnable() {
-        stateName = "Runnable";
+        super("Runnable");
         System.out.println("Runnable.Runnable: stateName = [" + stateName + "]");
     }
 
+    @Override
     public void getCPU(ThreadContext threadContext) {
         System.out.println("Runnable.getCPU() called with: threadContext = [" + threadContext + "]");
-        threadContext.setState(new Running());
+        threadContext.setState(threadContext.getRunningState());
     }
 }

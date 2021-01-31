@@ -5,17 +5,19 @@ package com.lhf.designpatternlib.state;
  */
 public class Running extends ThreadState {
     public Running() {
-        stateName = "Running";
+        super("Running");
         System.out.println("Running.Running: stateName = [" + stateName + "]");
     }
 
+    @Override
     public void suspend(ThreadContext threadContext) {
         System.out.println("Running.suspend() called with: threadContext = [" + threadContext + "]");
-        threadContext.setState(new Blocked());
+        threadContext.setState(threadContext.getBlockedState());
     }
 
+    @Override
     public void stop(ThreadContext threadContext) {
         System.out.println("Running.stop() called with: threadContext = [" + threadContext + "]");
-        threadContext.setState(new Dead());
+        threadContext.setState(threadContext.getDeadState());
     }
 }

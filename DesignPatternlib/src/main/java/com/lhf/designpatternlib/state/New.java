@@ -5,12 +5,13 @@ package com.lhf.designpatternlib.state;
  */
 public class New extends ThreadState {
     public New() {
-        stateName = "New";
+        super("New");
         System.out.println("New.New: stateName = [" + stateName + "]");
     }
 
+    @Override
     public void start(ThreadContext threadContext) {
         System.out.println("New.start() called with: threadContext = [" + threadContext + "]");
-        threadContext.setState(new Runnable());
+        threadContext.setState(threadContext.getRunnableState());
     }
 }

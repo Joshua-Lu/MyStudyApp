@@ -224,6 +224,7 @@ public class MyClass {
         context.resume();
         context.getCPU();
         context.stop();
+//        context.getCPU();// 当前状态不支持的操作抛异常
     }
 
     @Test
