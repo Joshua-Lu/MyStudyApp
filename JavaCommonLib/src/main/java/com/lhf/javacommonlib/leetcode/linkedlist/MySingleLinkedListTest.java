@@ -11,7 +11,9 @@ public class MySingleLinkedListTest {
     @Test
     public void get() {
         MySingleLinkedList linkedList = new MySingleLinkedList(new int[]{0, 1, 2, 3});
+        System.out.println(linkedList);
         int result = linkedList.get(2);
+        Assert.assertEquals(2, result);
         System.out.println("MySingleLinkedListTest.get: result = [" + result + "]");
     }
 

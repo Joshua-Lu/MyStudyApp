@@ -39,20 +39,23 @@ public class MySingleLinkedList {
     */
 
     // 虚拟头结点
-    private SingleListNode dummyRoot;
+    private ListNode dummyRoot;
     private int size;
 
     /**
      * Initialize your data structure here.
      */
     public MySingleLinkedList() {
-        dummyRoot = new SingleListNode();
+        dummyRoot = new ListNode();
         size = 0;
     }
 
     public MySingleLinkedList(int[] nodeValues) {
         this();
-        dummyRoot.next = new SingleListNode(nodeValues);
+        if (nodeValues != null && nodeValues.length != 0) {
+            dummyRoot.next = ListNode.createList(nodeValues);
+            size = nodeValues.length;
+        }
     }
 
     public int size() {
@@ -65,10 +68,11 @@ public class MySingleLinkedList {
     public int get(int index) {
         System.out.println("MySingleLinkedList.get() called with: index = [" + index + "]");
         if (index < 0 || index >= size) {
-            System.err.println("MySingleLinkedList.deleteAtIndex: size = [" + size + "]");
+            System.err.println("MySingleLinkedList.get: size = [" + size + "]");
+            System.err.println("MySingleLinkedList.get index is invalid!");
             return -1;
         }
-        SingleListNode current = dummyRoot.next;
+        ListNode current = dummyRoot.next;
         while (index > 0) {
             current = current.next;
             index--;
@@ -81,7 +85,7 @@ public class MySingleLinkedList {
      */
     public void addAtHead(int val) {
         System.out.println("MySingleLinkedList.addAtHead() called with: val = [" + val + "]");
-        dummyRoot.next = new SingleListNode(val, dummyRoot.next);
+        dummyRoot.next = new ListNode(val, dummyRoot.next);
         size++;
     }
 
@@ -90,11 +94,11 @@ public class MySingleLinkedList {
      */
     public void addAtTail(int val) {
         System.out.println("MySingleLinkedList.addAtTail() called with: val = [" + val + "]");
-        SingleListNode current = dummyRoot;
+        ListNode current = dummyRoot;
         while (current.next != null) {
             current = current.next;
         }
-        current.next = new SingleListNode(val);
+        current.next = new ListNode(val);
         size++;
     }
 
@@ -104,16 +108,17 @@ public class MySingleLinkedList {
     public void addAtIndex(int index, int val) {
         System.out.println("MySingleLinkedList.addAtIndex() called with: index = [" + index + "], val = [" + val + "]");
         if (index < 0 || index > size) {
-            System.err.println("MySingleLinkedList.deleteAtIndex: size = [" + size + "]");
+            System.err.println("MySingleLinkedList.addAtIndex: size = [" + size + "]");
+            System.err.println("MySingleLinkedList.addAtIndex index is invalid!");
             return;
         }
-        SingleListNode prev = dummyRoot;
+        ListNode prev = dummyRoot;
         while (index > 0) {
             prev = prev.next;
             index--;
         }
         // 循环结束，此时 prev 是要插入位置的前一个结点
-        prev.next = new SingleListNode(val, prev.next);
+        prev.next = new ListNode(val, prev.next);
         size++;
     }
 
@@ -124,15 +129,16 @@ public class MySingleLinkedList {
         System.out.println("MySingleLinkedList.deleteAtIndex() called with: index = [" + index + "]");
         if (index < 0 || index >= size) {
             System.err.println("MySingleLinkedList.deleteAtIndex: size = [" + size + "]");
+            System.err.println("MySingleLinkedList.deleteAtIndex index is invalid!");
             return;
         }
-        SingleListNode prev = dummyRoot;
+        ListNode prev = dummyRoot;
         while (index > 0) {
             prev = prev.next;
             index--;
         }
         // 循环结束，此时 prev 是要删除位置的前一个结点
-        SingleListNode toDelete = prev.next;
+        ListNode toDelete = prev.next;
         prev.next = toDelete.next;
         toDelete.next = null;// 将要删除的结点的next变量置空，释放该结点内存
         size--;

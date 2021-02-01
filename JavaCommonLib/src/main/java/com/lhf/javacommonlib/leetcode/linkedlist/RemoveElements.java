@@ -19,15 +19,15 @@ public class RemoveElements {
 
     @Test
     public void test() {
-        SingleListNode head;
+        ListNode head;
         int val;
-        SingleListNode expected;
-        SingleListNode result;
+        ListNode expected;
+        ListNode result;
 
         // 示例 1
-        head = new SingleListNode(new int[]{1, 2, 6, 3, 4, 5, 6});
+        head = ListNode.createList(new int[]{1, 2, 6, 3, 4, 5, 6});
         val = 6;
-        expected = new SingleListNode(new int[]{1, 2, 3, 4, 5});
+        expected = ListNode.createList(new int[]{1, 2, 3, 4, 5});
         result = removeElements(head, val);
         Assert.assertEquals(expected, result);
 
@@ -39,11 +39,11 @@ public class RemoveElements {
      * 时间：O(n)
      * 空间：O(1)
      */
-    public SingleListNode removeElements(SingleListNode head, int val) {
+    public ListNode removeElements(ListNode head, int val) {
         System.out.println("RemoveElements.removeElements() called with: head = [" + head + "], val = [" + val + "]");
         // 加一个虚拟头结点，这样删除头结点和删除其他结点的操作一致
-        SingleListNode dummyRoot = new SingleListNode(0, head);
-        SingleListNode pre = dummyRoot;
+        ListNode dummyRoot = new ListNode(0, head);
+        ListNode pre = dummyRoot;
         while (pre.next != null) {
             if (pre.next.val == val) {
                 pre.next = pre.next.next;
