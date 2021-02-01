@@ -100,7 +100,7 @@
 
 #### 类图
 
-![抽象工厂模式类图](./README.assets/factory.png)
+![抽象工厂模式类图](README.assets/factory.png)
 
 ### 3.建造者模式 Builder Pattern   
 
@@ -138,7 +138,7 @@
 
 #### 类图
 
-![代理模式类图](README.assets\proxy.png)
+![代理模式类图](README.assets/proxy.png)
 
 ### 6.适配器模式 Adapter Pattern    
 
@@ -156,11 +156,11 @@
 
 - 类适配器模式  
 
-![类适配器模式类图](README.assets\class_adapter.png)
+![类适配器模式类图](README.assets/class_adapter.png)
 
 - 对象适配器模式
 
-  ![对象适配器模式类图](README.assets\object_adapter.png)
+  ![对象适配器模式类图](README.assets/object_adapter.png)
 
 ### 7.桥接模式 Bridge Pattern  
 
@@ -172,7 +172,7 @@
 
 #### 类图 
 
-![桥接模式类图](README.assets\bridge.png)
+![桥接模式类图](README.assets/bridge.png)
 
 ### 8.装饰模式 Decorator Pattern  
 
@@ -190,7 +190,7 @@
 
 #### 类图 
 
-![装饰模式类图](README.assets\decorator.png)
+![装饰模式类图](README.assets/decorator.png)
 
 ### 9.外观模式 Facade Pattern  
 
@@ -208,7 +208,7 @@
 
 #### 类图 
 
-![外观模式类图](README.assets\facade.png)
+![外观模式类图](README.assets/facade.png)
 
 ### 10.享元模式 Flyweight Pattern  
 
@@ -220,7 +220,7 @@
 
 #### 类图 
 
-![享元模式类图](README.assets\flyweight.png)
+![享元模式类图](README.assets/flyweight.png)
 
 ### 11.组合模式 Composite Pattern  
 
@@ -236,7 +236,7 @@
 
 #### 类图 
 
-![组合模式类图](README.assets\composite.png)
+![组合模式类图](README.assets/composite.png)
 
 
 
@@ -275,7 +275,7 @@ ThreadPoolExecutor中的四种拒绝策略，RejectedExecutionHandler的实现�
 
 #### 类图
 
-![策略模式类图](README.assets\strategy.png)
+![策略模式类图](README.assets/strategy.png)
 
 ### 14.命令模式 Command Pattern  
 
@@ -291,7 +291,7 @@ ThreadPoolExecutor中的四种拒绝策略，RejectedExecutionHandler的实现�
 
 #### 类图
 
-![命令模式类图](README.assets\command.png)
+![命令模式类图](README.assets/command.png)
 
 ### 15.责任链模式 Chain of Responsibility Pattern  
 
@@ -303,7 +303,7 @@ ThreadPoolExecutor中的四种拒绝策略，RejectedExecutionHandler的实现�
 
 #### 类图 
 
-![责任链模式类图](README.assets\responsibility_chain.png)
+![责任链模式类图](README.assets/responsibility_chain.png)
 
 ### 16.状态模式 State Pattern  
 
@@ -325,7 +325,7 @@ ThreadPoolExecutor中的四种拒绝策略，RejectedExecutionHandler的实现�
 
 #### 类图 
 
-![状态模式类图](README.assets\state.png)
+![状态模式类图](README.assets/state.png)
 
 ### 17.观察者模式 Observer Pattern
 
@@ -346,7 +346,7 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 #### 类图 
 
-![观察者模式类图](README.assets\observer.png)
+![观察者模式类图](README.assets/observer.png)
 
 ### 18.中介者模式 Mediator Pattern  
 
@@ -358,7 +358,7 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 #### 类图 
 
-![中介者模式类图](README.assets\mediator.png)
+![中介者模式类图](README.assets/mediator.png)
 
 ### 19.迭代器模式 Iterator Pattern  
 
@@ -380,7 +380,7 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 #### 类图 
 
-![迭代器模式类图](README.assets\iterator.png)
+![迭代器模式类图](README.assets/iterator.png)
 
 ### 20.访问者模式 Visitor Pattern  
 
@@ -392,7 +392,7 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 #### 类图 
 
-![访问者模式类图](README.assets\visitor.png)
+![访问者模式类图](README.assets/visitor.png)
 
 ### 21.备忘录模式 Memento Pattern  
 
@@ -404,7 +404,7 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 #### 类图 
 
-![备忘录模式类图](README.assets\memento.png)
+![备忘录模式类图](README.assets/memento.png)
 
 ### 22.解释器模式 Interpreter Pattern  
 
@@ -416,7 +416,7 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 #### 类图 
 
-![解释器模式类图](README.assets\interpret.png)
+![解释器模式类图](README.assets/interpret.png)
 
 
 
