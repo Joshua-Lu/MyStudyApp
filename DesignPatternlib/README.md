@@ -100,7 +100,7 @@
 
 #### 类图
 
-![抽象工厂模式类图](README.assets/factory.png)
+![抽象工厂模式类图](./README.assets/factory.png)
 
 ### 3.建造者模式 Builder Pattern   
 
@@ -112,7 +112,7 @@
 
 #### 类图 
 
-![建造者模式类图](README.assets\builder.png)
+![建造者模式类图](README.assets/builder.png)
 
 ### 4.原型模式 Prototype Pattern  
 
