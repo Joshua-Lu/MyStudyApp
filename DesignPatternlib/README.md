@@ -431,6 +431,17 @@ Observer 与 Observable两个类。Observer类可以看作是抽象观察者角�
 
 
 
+## 复合模式  
+
+### 1.MVC模式（模型Model、视图View、控制器Controller）  
+
+* 包含的设计模式：观察者、组合、策略、适配器
+  - 观察者：Model作为被观察者，View和Controller可以对它注册观察者，Model改变时，View和Controller可以做出相应的变化或操作。
+  - 组合：View的组件包括了ViewGroup和View，对应组合和叶节点。
+  - 策略：Controller相当于View的行为，View可以根据需要，调整使用不同的策略（Controller），来实现不同的行为。
+  - 适配器：用来将新的Model适配成现有的Model，给现有的View和Controller使用。
+* 
+
 ##  设计模式比较  
 
 ### 1.装饰者、适配器、外观、代理  
