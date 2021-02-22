@@ -84,9 +84,11 @@ public class Anagram {
         }
         HashMap<String, Integer> record = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
+            // 对应key的value +1
             record.compute(String.valueOf(s.charAt(i)), (key, oldValue) -> oldValue == null ? 1 : oldValue + 1);
         }
         for (int i = 0; i < t.length(); i++) {
+            // 对应key的value -1
             record.compute(String.valueOf(t.charAt(i)), (key, oldValue) -> oldValue == null ? -1 : oldValue - 1);
             // 放这里，可以少遍历一轮record
             if (record.get(String.valueOf(t.charAt(i))) < 0) {

@@ -10,6 +10,7 @@ import java.util.HashSet;
  */
 public class Intersection {
     /*
+    https://leetcode-cn.com/problems/intersection-of-two-arrays/
     349. 两个数组的交集
     给定两个数组，编写一个函数来计算它们的交集。
 
