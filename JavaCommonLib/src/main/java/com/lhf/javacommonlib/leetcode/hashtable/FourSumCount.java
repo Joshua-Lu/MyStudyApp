@@ -46,6 +46,10 @@ public class FourSumCount {
     }
 
 
+    /**
+     * 时间：O(n^2)
+     * 空间：O(n^2)
+     */
     public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
         // A、B的和为key，和值出现的次数为value
         HashMap<Integer, Integer> countAB = new HashMap<>();
