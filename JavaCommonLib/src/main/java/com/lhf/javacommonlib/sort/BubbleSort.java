@@ -2,9 +2,13 @@ package com.lhf.javacommonlib.sort;
 
 /**
  * 冒泡排序
+ * <p>
  * 时间复杂度：平均O(n^2)，最坏O(n^2)，最好O(n)
  * 空间复杂度：O(1)
  * 稳定性：稳定
+ * <p>
+ * 基本不用，太慢
+ * <p>
  * Created by Joshua on 2020/4/30.
  */
 public class BubbleSort implements ISort {

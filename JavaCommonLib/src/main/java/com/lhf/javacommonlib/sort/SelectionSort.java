@@ -2,9 +2,13 @@ package com.lhf.javacommonlib.sort;
 
 /**
  * 选择排序
+ * <p>
  * 时间复杂度：平均O(n^2)，最坏O(n^2)，最好O(n^2)
  * 空间复杂度：O(1)
  * 稳定性：不稳定
+ * <p>
+ * 基本不用，不稳定
+ * <p>
  * Created by Joshua on 2020/4/30.
  */
 public class SelectionSort implements ISort {

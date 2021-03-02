@@ -1,7 +1,6 @@
 package com.lhf.designpatternlib.visitor;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -15,9 +14,8 @@ public class ElementStructure {
     private List<IElement> list = new ArrayList<>();
 
     public void accept(IVisitor visitor) {
-        Iterator<IElement> i = list.iterator();
-        while (i.hasNext()) {
-            ((IElement) i.next()).accept(visitor);
+        for (IElement iElement : list) {
+            iElement.accept(visitor);
         }
     }
 
