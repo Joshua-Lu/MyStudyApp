@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.sort;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 /**
  * 选择排序
  * <p>
@@ -25,7 +27,7 @@ public class SelectionSort implements ISort {
                 }
             }
             // 本次循环找到的最小值，与i位置的数交换
-            SortUtil.swap(array, i, minIndex);
+            CommonUtils.swap(array, i, minIndex);
         }
         return array;
     }

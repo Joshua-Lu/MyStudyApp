@@ -40,19 +40,4 @@ public class SortUtil {
         return outputArray;
     }
 
-    /**
-     * 交换数组两个位置的值
-     *
-     * @param array
-     * @param i
-     * @param j
-     */
-    public static void swap(int[] array, int i, int j) {
-        if (i == j) {
-            return;
-        }
-        int tmp = array[j];
-        array[j] = array[i];
-        array[i] = tmp;
-    }
 }

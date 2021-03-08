@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.sort;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 /**
  * 堆排序
  * 时间复杂度：平均O(nlogn)，最坏O(nlogn)，最好O(nlogn)
@@ -20,7 +22,7 @@ public class HeapSort implements ISort {
         buildMaxHeap(array);
         // 循环将堆顶与堆末位交换，并重新调整堆
         while (length > 0) {
-            SortUtil.swap(array, 0, length - 1);
+            CommonUtils.swap(array, 0, length - 1);
             length--;
             adjustHeap(array, 0);
         }
@@ -41,7 +43,7 @@ public class HeapSort implements ISort {
         }
         // 如果父节点不是最大值，则将父节点与最大值交换，并且递归调整与父节点交换的位置。
         if (maxIndex != i) {
-            SortUtil.swap(array, i, maxIndex);
+            CommonUtils.swap(array, i, maxIndex);
             adjustHeap(array, maxIndex);
         }
     }

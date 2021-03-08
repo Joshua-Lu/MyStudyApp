@@ -22,6 +22,22 @@ public class CommonUtils {
         return scanner.nextLine();
     }
 
+    /**
+     * 交换数组两个位置的值
+     *
+     * @param array 要交换的数组
+     * @param i     数组位置i
+     * @param j     数组位置j
+     */
+    public static void swap(int[] array, int i, int j) {
+        if (i == j) {
+            return;
+        }
+        int tmp = array[j];
+        array[j] = array[i];
+        array[i] = tmp;
+    }
+
     @Test
     public void testGetTimeFromNet() {
         long time = getTimeFromNet();

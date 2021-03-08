@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.sort;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import java.util.Arrays;
 
 /**
@@ -43,11 +45,11 @@ public class QuickSort implements ISort {
         int pivotIndex = start;
         for (int i = start; i <= end; i++) {
             if (array[i] < array[start]) {
-                SortUtil.swap(array, i, pivotIndex + 1);
+                CommonUtils.swap(array, i, pivotIndex + 1);
                 pivotIndex++;
             }
         }
-        SortUtil.swap(array, start, pivotIndex);
+        CommonUtils.swap(array, start, pivotIndex);
         return pivotIndex;
     }
 
@@ -71,7 +73,7 @@ public class QuickSort implements ISort {
             System.out.println("QuickSort.partition2: leftPivot = [" + leftPivot + "], rightPivot = [" + rightPivot + "]");
         if (leftPivot == rightPivot) {
             if (array[leftPivot] < base) {
-                SortUtil.swap(array, start, leftPivot);
+                CommonUtils.swap(array, start, leftPivot);
             }
             if (!SortTest.randomTest)
                 System.out.println("QuickSort.partition2 return: leftPivot = [" + leftPivot + "]");
@@ -83,10 +85,10 @@ public class QuickSort implements ISort {
             if (!SortTest.randomTest)
                 System.out.println("QuickSort.partition2: leftPivot = [" + leftPivot + "], rightPivot = [" + rightPivot + "]");
             if (leftPivot < rightPivot) {
-                SortUtil.swap(array, leftPivot, rightPivot);
+                CommonUtils.swap(array, leftPivot, rightPivot);
             }
         }
-        SortUtil.swap(array, start, --leftPivot);
+        CommonUtils.swap(array, start, --leftPivot);
         if (!SortTest.randomTest)
             System.out.println("QuickSort.partition2 return: leftPivot = [" + leftPivot + "]");
         return leftPivot;
