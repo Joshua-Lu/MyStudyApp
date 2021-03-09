@@ -9,21 +9,16 @@ public class MyQueue<E> implements IQueue<E> {
 
     Object[] data;
     int count;
-    int takeIndex;
-    int putIndex;
 
     public MyQueue() {
         data = new Object[10];
         count = 0;
-        takeIndex = 0;
-        putIndex = 0;
     }
 
     @Override
     public E offer(E e) {
-        ensureCapacity(putIndex + 1);
-        data[putIndex++] = e;
-        count++;
+        ensureCapacity(count + 1);
+        data[count++] = e;
         return e;
     }
 
@@ -40,16 +35,16 @@ public class MyQueue<E> implements IQueue<E> {
 
     @Override
     public E poll() {
-        E pollItem = (E) data[takeIndex];
-        data[takeIndex] = null;
-        takeIndex++;
+        E pollItem = (E) data[0];
+        data[0] = null;
         count--;
+        System.arraycopy(data, 1, data, 0, data.length - 1);
         return pollItem;
     }
 
     @Override
     public E peek() {
-        return (E) data[takeIndex];
+        return (E) data[0];
     }
 
     @Override
@@ -57,8 +52,6 @@ public class MyQueue<E> implements IQueue<E> {
         return "MyQueue{" +
                 "data=" + Arrays.toString(data) +
                 ", count=" + count +
-                ", leftIndex=" + takeIndex +
-                ", rightIndex=" + putIndex +
                 '}';
     }
 }
