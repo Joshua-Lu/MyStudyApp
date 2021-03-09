@@ -7,4 +7,6 @@ interface IQueue<E> {
     E offer(E e);
     E poll();
     E peek();
+
+    boolean empty();
 }

@@ -7,7 +7,8 @@ import org.junit.Test;
  */
 public class MyStackTest {
 
-    MyStack<Integer> stack = new MyStack<>();
+//    IStack<Integer> stack = new MyStack<>();
+IStack<Integer> stack = new MyStack1<>();
 
     @Test
     public void push() {
@@ -48,5 +49,6 @@ public class MyStackTest {
         System.out.println("MyStackTest.search: stack = [" + stack + "]");
         int search = stack.search(5);
         System.out.println("MyStackTest.search: search = [" + search + "]");
+        System.out.println("MyStackTest.search: stack = [" + stack + "]");
     }
 }

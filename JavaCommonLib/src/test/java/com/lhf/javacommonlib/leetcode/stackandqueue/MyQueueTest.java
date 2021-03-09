@@ -7,7 +7,8 @@ import org.junit.Test;
  */
 public class MyQueueTest {
 
-    MyQueue<Integer> queue = new MyQueue<>();
+//    IQueue<Integer> queue = new MyQueue<>();
+IQueue<Integer> queue = new MyQueue1<>();
 
     @Test
     public void offer() {
@@ -36,5 +37,21 @@ public class MyQueueTest {
         Integer peek = queue.peek();
         System.out.println("MyQueueTest.peek: peek = [" + peek + "]");
         System.out.println("MyQueueTest.peek: queue = [" + queue + "]");
+    }
+
+    @Test
+    public void test() {
+        queue.offer(1);
+        queue.offer(2);
+        queue.offer(3);
+        queue.offer(4);
+        queue.poll();
+        queue.offer(5);
+        System.out.println("MyQueueTest.test: queue = [" + queue + "]");
+        Integer poll = queue.poll();
+        System.out.println("MyQueueTest.test: poll = [" + poll + "]");
+        queue.poll();
+        queue.poll();
+        queue.poll();
     }
 }

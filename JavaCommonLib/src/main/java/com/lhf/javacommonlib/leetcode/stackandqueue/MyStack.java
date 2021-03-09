@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.EmptyStackException;
 
 /**
+ * 使用数组，实现栈
  * Created by Joshua on 2021/3/8 23:34
  */
 public class MyStack<E> implements IStack<E> {
@@ -38,9 +39,9 @@ public class MyStack<E> implements IStack<E> {
 
     @Override
     public E pop() {
-        Object item = data[--count];
-        data[count] = null;
-        return ((E) item);
+        E item = peek();
+        data[--count] = null;
+        return item;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.lhf.javacommonlib.leetcode.stackandqueue;
 import java.util.Arrays;
 
 /**
+ * 使用数组，实现队列
  * Created by Joshua on 2021/3/9 0:29
  */
 public class MyQueue<E> implements IQueue<E> {
@@ -35,7 +36,7 @@ public class MyQueue<E> implements IQueue<E> {
 
     @Override
     public E poll() {
-        E pollItem = (E) data[0];
+        E pollItem = peek();
         data[0] = null;
         count--;
         System.arraycopy(data, 1, data, 0, data.length - 1);
@@ -45,6 +46,11 @@ public class MyQueue<E> implements IQueue<E> {
     @Override
     public E peek() {
         return (E) data[0];
+    }
+
+    @Override
+    public boolean empty() {
+        return count == 0;
     }
 
     @Override
