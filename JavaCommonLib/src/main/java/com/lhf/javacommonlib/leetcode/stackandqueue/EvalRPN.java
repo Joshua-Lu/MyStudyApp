@@ -3,8 +3,9 @@ package com.lhf.javacommonlib.leetcode.stackandqueue;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Stack;
+import java.util.Deque;
 
 /**
  * Created by Joshua on 2021/3/10.
@@ -83,7 +84,8 @@ public class EvalRPN {
 
     public int evalRPN(String[] tokens) {
         System.out.println("EvalRPN.evalRPN() called with: tokens = [" + Arrays.toString(tokens) + "]");
-        Stack<Integer> stack = new Stack<>();
+//        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();// 使用Deque可以代替Stack
         int left;
         int right;
         for (String token : tokens) {
