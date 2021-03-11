@@ -51,40 +51,40 @@ public class MaxSlidingWindow {
         int[] expected;
         int[] result;
 
-//        // 示例 1
-//        nums = new int[]{1,3,-1,-3,5,3,6,7};
-//        k = 3;
-//        expected = new int[]{3,3,5,5,6,7};
-//        result = maxSlidingWindow(nums, k);
-//        Assert.assertArrayEquals(expected, result);
-//
-//        // 示例 2
-//        nums = new int[]{1};
-//        k = 1;
-//        expected = new int[]{1};
-//        result = maxSlidingWindow(nums, k);
-//        Assert.assertArrayEquals(expected, result);
-//
-//        // 示例 3
-//        nums = new int[]{1,-1};
-//        k = 1;
-//        expected = new int[]{1,-1};
-//        result = maxSlidingWindow(nums, k);
-//        Assert.assertArrayEquals(expected, result);
-//
-//        // 示例 4
-//        nums = new int[]{9,11};
-//        k = 2;
-//        expected = new int[]{11};
-//        result = maxSlidingWindow(nums, k);
-//        Assert.assertArrayEquals(expected, result);
-//
-//        // 示例 5
-//        nums = new int[]{4,-2};
-//        k = 2;
-//        expected = new int[]{4};
-//        result = maxSlidingWindow(nums, k);
-//        Assert.assertArrayEquals(expected, result);
+        // 示例 1
+        nums = new int[]{1, 3, -1, -3, 5, 3, 6, 7};
+        k = 3;
+        expected = new int[]{3, 3, 5, 5, 6, 7};
+        result = maxSlidingWindow(nums, k);
+        Assert.assertArrayEquals(expected, result);
+
+        // 示例 2
+        nums = new int[]{1};
+        k = 1;
+        expected = new int[]{1};
+        result = maxSlidingWindow(nums, k);
+        Assert.assertArrayEquals(expected, result);
+
+        // 示例 3
+        nums = new int[]{1, -1};
+        k = 1;
+        expected = new int[]{1, -1};
+        result = maxSlidingWindow(nums, k);
+        Assert.assertArrayEquals(expected, result);
+
+        // 示例 4
+        nums = new int[]{9, 11};
+        k = 2;
+        expected = new int[]{11};
+        result = maxSlidingWindow(nums, k);
+        Assert.assertArrayEquals(expected, result);
+
+        // 示例 5
+        nums = new int[]{4, -2};
+        k = 2;
+        expected = new int[]{4};
+        result = maxSlidingWindow(nums, k);
+        Assert.assertArrayEquals(expected, result);
 
         // 示例 6
         nums = new int[]{7, 2, 4};
