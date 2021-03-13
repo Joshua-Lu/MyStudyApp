@@ -8,19 +8,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 二叉树中序遍历
+ * 二叉树前序遍历
  * <p>
- * Created by Joshua on 2021/3/11 22:59
+ * Created by Joshua on 2021/3/13 13:48
  */
-public class InorderTraversal {
+public class PreorderTraversal {
     /*
-    https://leetcode-cn.com/problems/binary-tree-inorder-traversal/
-    94. 二叉树的中序遍历
-    给定一个二叉树的根节点 root ，返回它的 中序 遍历。
+    https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+    144. 二叉树的前序遍历
+    给定一个二叉树的根节点 root ，返回它的 前序 遍历。
 
     示例 1：
         输入：root = [1,null,2,3]
-        输出：[1,3,2]
+        输出：[1,2,3]
     示例 2：
         输入：root = []
         输出：[]
@@ -29,7 +29,7 @@ public class InorderTraversal {
         输出：[1]
     示例 4：
         输入：root = [1,2]
-        输出：[2,1]
+        输出：[1,2]
     示例 5：
         输入：root = [1,null,2]
         输出：[1,2]
@@ -50,54 +50,55 @@ public class InorderTraversal {
 
         // 示例 1
         root = TreeNode.createTree(new Integer[]{1, null, 2, 3});
-        expected = Arrays.asList(1, 3, 2);
-        result = inorderTraversal(root);
+        expected = Arrays.asList(1, 2, 3);
+        result = preorderTraversal(root);
         Assert.assertArrayEquals(expected.toArray(), result.toArray());
 
         // 示例 2
         root = TreeNode.createTree(new Integer[]{1});
         expected = Arrays.asList(1);
-        result = inorderTraversal(root);
+        result = preorderTraversal(root);
         Assert.assertArrayEquals(expected.toArray(), result.toArray());
 
         // 示例 3
         root = TreeNode.createTree(new Integer[]{});
         expected = Arrays.asList();
-        result = inorderTraversal(root);
+        result = preorderTraversal(root);
         Assert.assertArrayEquals(expected.toArray(), result.toArray());
 
         // 示例 4
         root = TreeNode.createTree(new Integer[]{1, 2});
-        expected = Arrays.asList(2, 1);
-        result = inorderTraversal(root);
+        expected = Arrays.asList(1, 2);
+        result = preorderTraversal(root);
         Assert.assertArrayEquals(expected.toArray(), result.toArray());
 
         // 示例
         root = TreeNode.createTree(new Integer[]{1, null, 2});
         expected = Arrays.asList(1, 2);
-        result = inorderTraversal(root);
+        result = preorderTraversal(root);
         Assert.assertArrayEquals(expected.toArray(), result.toArray());
 
     }
 
-    public List<Integer> inorderTraversal(TreeNode root) {
-        return inorderTraversal1(root);
+    public List<Integer> preorderTraversal(TreeNode root) {
+        return preorderTraversal1(root);
     }
 
     /**
      * 递归方式
      */
-    public List<Integer> inorderTraversal1(TreeNode root) {
+    public List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        inorderTraversal1(root, result);
+        preorderTraversal1(root, result);
         return result;
     }
-    private void inorderTraversal1(TreeNode root, List<Integer> result) {
+
+    private void preorderTraversal1(TreeNode root, List<Integer> result) {
         if (root == null) {
             return;
         }
-        inorderTraversal1(root.left, result);
         result.add(root.val);// 先后顺序决定先序中序后序遍历
-        inorderTraversal1(root.right, result);
+        preorderTraversal1(root.left, result);
+        preorderTraversal1(root.right, result);
     }
 }
