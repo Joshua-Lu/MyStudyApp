@@ -44,6 +44,8 @@ Github 地址：https://github.com/Joshua-Lu/MyStudyApp
   
    
 ## DesignPatternLib独立Module
- 常用设计模式简单例子,具体内容见DesignPatternLib下的README.md
+ 常用设计模式简单例子，具体内容见DesignPatternLib下的README.md
 
- 
+##  JavaCommonLib独立Module  
+
+Java基础、算法练习代码，具体内容见JavaCommonLib下的README.md

@@ -22,6 +22,7 @@ public class TestHandlerInThreadActivity extends AppCompatActivity {
     private static final String TAG = "TestHandlerInThread";
 
     Handler subHandler;
+    public Looper looper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class TestHandlerInThreadActivity extends AppCompatActivity {
             // 就抛出异常 RuntimeException: Can't create handler inside thread Thread[Thread-2,5,main] that has not called Looper.prepare()
             // 在主线程可以直接创建是因为在ActivityThread.main方法里有调 Looper.prepareMainLooper()
             Looper.prepare();
+            looper = Looper.myLooper();
 
             subHandler = new Handler() {
                 @Override
@@ -55,5 +57,12 @@ public class TestHandlerInThreadActivity extends AppCompatActivity {
     public void onClick() {
         Log.d(TAG, "onClick() called");
         subHandler.sendEmptyMessage(1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 必须在Activity退出时，调用looper.quit()，否则Looper.loop()一直在循环，Thread无法结束
+        looper.quit();
     }
 }
