@@ -13,6 +13,9 @@ import com.joshua.myapplication.viewutils.ViewUtils;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * 测试注解实现自动 FindViewById 以及 SetOnClickListener
+ */
 public class TestViewUtilsActivity extends AppCompatActivity {
 
     private static final String TAG = "TestViewUtilsActivity";

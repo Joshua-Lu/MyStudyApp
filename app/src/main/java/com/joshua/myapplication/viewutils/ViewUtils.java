@@ -1,6 +1,7 @@
 package com.joshua.myapplication.viewutils;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 
 import java.lang.reflect.Field;
@@ -15,7 +16,10 @@ import java.lang.reflect.Method;
  */
 public class ViewUtils {
 
+    private static final String TAG = "ViewUtils";
+
     public static void init(Activity activity) {
+        Log.d(TAG, "init() called with: activity = [" + activity + "]");
         bindView(activity);
         bindClickListener(activity);
     }
@@ -72,7 +76,11 @@ public class ViewUtils {
                             // 调用添加了注解的对应方法
                             method.invoke(activity, view);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            try {
+                                method.invoke(activity);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
                         }
                     }
                 });

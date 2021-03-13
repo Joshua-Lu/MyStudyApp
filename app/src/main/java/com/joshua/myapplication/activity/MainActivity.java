@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestNotificationActivity.class);
         clsList.add(TestContentObserverActivity.class);
         clsList.add(TestViewUtilsActivity.class);
+        clsList.add(TestHandlerInThreadActivity.class);
     }
 
     public void initData() {
