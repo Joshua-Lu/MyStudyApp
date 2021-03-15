@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 二叉树前序遍历
@@ -81,7 +82,8 @@ public class PreorderTraversal {
     }
 
     public List<Integer> preorderTraversal(TreeNode root) {
-        return preorderTraversal1(root);
+//        return preorderTraversal1(root);
+        return preorderTraversal2(root);
     }
 
     /**
@@ -100,5 +102,30 @@ public class PreorderTraversal {
         result.add(root.val);// 先后顺序决定先序中序后序遍历
         preorderTraversal1(root.left, result);
         preorderTraversal1(root.right, result);
+    }
+
+    /**
+     * 迭代方式，通过Stack实现
+     */
+    public List<Integer> preorderTraversal2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode pop = stack.pop();
+            // 输出
+            result.add(pop.val);
+            // 先push右节点，再push左节点，pop时才是左右的顺序
+            if (pop.right != null) {
+                stack.push(pop.right);
+            }
+            if (pop.left != null) {
+                stack.push(pop.left);
+            }
+        }
+        return result;
     }
 }

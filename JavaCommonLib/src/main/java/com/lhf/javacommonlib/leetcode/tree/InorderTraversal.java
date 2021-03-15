@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 二叉树中序遍历
@@ -81,7 +82,8 @@ public class InorderTraversal {
     }
 
     public List<Integer> inorderTraversal(TreeNode root) {
-        return inorderTraversal1(root);
+//        return inorderTraversal1(root);
+        return inorderTraversal2(root);
     }
 
     /**
@@ -92,6 +94,7 @@ public class InorderTraversal {
         inorderTraversal1(root, result);
         return result;
     }
+
     private void inorderTraversal1(TreeNode root, List<Integer> result) {
         if (root == null) {
             return;
@@ -99,5 +102,27 @@ public class InorderTraversal {
         inorderTraversal1(root.left, result);
         result.add(root.val);// 先后顺序决定先序中序后序遍历
         inorderTraversal1(root.right, result);
+    }
+
+    /**
+     * 迭代方式，通过Stack实现
+     */
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            TreeNode pop = stack.pop();
+            result.add(pop.val);
+            root = pop.right;
+
+        }
+        return result;
     }
 }

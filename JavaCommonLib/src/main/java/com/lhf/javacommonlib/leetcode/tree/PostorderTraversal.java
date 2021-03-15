@@ -5,7 +5,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 二叉树后序遍历
@@ -14,7 +16,7 @@ import java.util.List;
  */
 public class PostorderTraversal {
     /*
-    https://leetcode-cn.com/problems/binary-tree-preorder-traversal/
+    https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
     144. 二叉树的后序遍历
     给定一个二叉树的根节点 root ，返回它的 后序 遍历。
 
@@ -81,7 +83,8 @@ public class PostorderTraversal {
     }
 
     public List<Integer> postorderTraversal(TreeNode root) {
-        return postorderTraversal1(root);
+//        return postorderTraversal1(root);
+        return postorderTraversal2(root);
     }
 
     /**
@@ -92,6 +95,7 @@ public class PostorderTraversal {
         postorderTraversal1(root, result);
         return result;
     }
+
     private void postorderTraversal1(TreeNode root, List<Integer> result) {
         if (root == null) {
             return;
@@ -99,5 +103,30 @@ public class PostorderTraversal {
         postorderTraversal1(root.left, result);
         postorderTraversal1(root.right, result);
         result.add(root.val);// 先后顺序决定先序中序后序遍历
+    }
+
+    /**
+     * 迭代方式，通过Stack实现
+     */
+    public List<Integer> postorderTraversal2(TreeNode root) {
+        List<Integer> result = new LinkedList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode pop = stack.pop();
+            // 输出，插入在尾部的话顺序就是中右左，现在插在头部，则最后输出为左右中
+            result.add(0, pop.val);
+            // 先push左节点，再push右节点，pop时是右左的顺序
+            if (pop.left != null) {
+                stack.push(pop.left);
+            }
+            if (pop.right != null) {
+                stack.push(pop.right);
+            }
+        }
+        return result;
     }
 }
