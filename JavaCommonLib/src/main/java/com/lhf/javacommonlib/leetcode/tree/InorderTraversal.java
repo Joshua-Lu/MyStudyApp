@@ -92,7 +92,7 @@ public class InorderTraversal {
     }
 
     private void inorderTraversal1(TreeNode root, List<Integer> result) {
-        if (root == null || root.val == null) {
+        if (root == null) {
             return;
         }
         inorderTraversal1(root.left, result);

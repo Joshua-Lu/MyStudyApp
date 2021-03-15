@@ -61,7 +61,7 @@ public class LevelOrderTraversal {
 
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
-        if (root.val == null) {
+        if (root == null) {
             return result;
         }
         Deque<TreeNode> deque = new ArrayDeque<>();
@@ -73,10 +73,10 @@ public class LevelOrderTraversal {
                 TreeNode poll = deque.poll();
                 if (poll != null) {
                     list.add(poll.val);
-                    if (poll.left != null && poll.left.val != null) {
+                    if (poll.left != null) {
                         deque.offer(poll.left);
                     }
-                    if (poll.right != null && poll.right.val != null) {
+                    if (poll.right != null) {
                         deque.offer(poll.right);
                     }
                 }
