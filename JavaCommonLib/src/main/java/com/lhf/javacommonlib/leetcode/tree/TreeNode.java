@@ -27,6 +27,12 @@ public class TreeNode {
         this.right = right;
     }
 
+    /**
+     * 构建二叉树
+     *
+     * @param data 二叉树层序遍历对应的数组，孩子结点为空时用null表示
+     * @return 二叉树的根结点
+     */
     public static TreeNode createTree(Integer[] data) {
         System.out.println("TreeNode.createTree() called with: data = [" + Arrays.toString(data) + "]");
         if (data == null || data.length == 0) {
