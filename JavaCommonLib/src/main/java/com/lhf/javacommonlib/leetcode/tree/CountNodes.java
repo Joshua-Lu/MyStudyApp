@@ -71,7 +71,7 @@ public class CountNodes {
         if (root == null) {
             return 0;
         }
-        return countNodes(root.left) + countNodes(root.right) + 1;
+        return countNodes1(root.left) + countNodes1(root.right) + 1;
     }
 
     /**
