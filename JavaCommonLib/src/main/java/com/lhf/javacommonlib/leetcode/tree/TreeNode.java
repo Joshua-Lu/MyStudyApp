@@ -3,6 +3,8 @@ package com.lhf.javacommonlib.leetcode.tree;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Definition for a binary tree node
@@ -70,17 +72,23 @@ public class TreeNode {
 
     @Override
     public String toString() {
+//        return toArrayString();
+        return toTreeString();
+    }
+
+    /**
+     * 通过层序遍历，以数组形式返回Tree
+     */
+    public String toArrayString() {
         StringBuilder sb = new StringBuilder("Tree level order traversal[");
-        Deque<TreeNode> deque = new ArrayDeque<>();
+        Queue<TreeNode> deque = new LinkedList<>();
         deque.offer(this);
         while (!deque.isEmpty()) {
             TreeNode node = deque.poll();
             if (node != null) {
                 sb.append(node.val).append(", ");
-                if (node.left != null) {
+                if (node.left != null || node.right != null) {
                     deque.offer(node.left);
-                }
-                if (node.right != null) {
                     deque.offer(node.right);
                 }
             } else {
@@ -91,4 +99,75 @@ public class TreeNode {
         sb.append("]");
         return sb.toString();
     }
+
+    /**
+     * 通过前序遍历，以树形结构返回Tree
+     */
+    public String toTreeString() {
+        StringBuilder result = new StringBuilder("Tree[\n");
+        result.append(levelOrder(this));
+        result.append("]");
+        return result.toString();
+    }
+
+    private String toTreeString(TreeNode root) {
+        if (root == null) {
+            return "null";
+        }
+        StringBuilder res = new StringBuilder();
+        res.append(root.val);
+        String left = toTreeString(root.left);
+        String right = toTreeString(root.right);
+        return res.append(left).append(right).toString();
+    }
+
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int leftDepth = maxDepth(root.left);
+        int rightDepth = maxDepth(root.right);
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+
+    public String levelOrder(TreeNode root) {
+//        List<List<Integer>> result = new ArrayList<>();
+        StringBuilder res = new StringBuilder();
+        if (root == null) {
+            return res.toString();
+        }
+        int depth = maxDepth(root);
+        String minGap = "  ";
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (depth > 0 && !queue.isEmpty()) {
+            for (int i = 1; i < (1 << (depth - 1)); i++) {
+                res.append(minGap);
+            }
+            int size = queue.size();// 当前这一层有多少个结点
+//            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode poll = queue.poll();
+                if (poll == null) {
+                    poll = new TreeNode(0, new TreeNode(0), new TreeNode(0));
+                }
+                int val = poll.val;
+                if (val < 10) {
+                    res.append(0);
+                }
+//                list.add(poll.val);
+                res.append(val);
+                for (int j = 1; j < (1 << depth); j++) {
+                    res.append(minGap);
+                }
+                queue.offer(poll.left);
+                queue.offer(poll.right);
+            }
+//            result.add(list);
+            res.append("\n");
+            depth--;
+        }
+        return res.toString();
+    }
+
 }

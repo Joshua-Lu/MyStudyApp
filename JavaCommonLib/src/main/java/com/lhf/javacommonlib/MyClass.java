@@ -6,10 +6,14 @@ import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Stack;
 
 public class MyClass {
 
@@ -142,5 +146,13 @@ public class MyClass {
         System.out.println("MyClass.testCalendar: calendar.getTime() = [" + calendar.getTime() + "]");
         calendar.set(Calendar.DATE, 2);// 直接设置日
         System.out.println("MyClass.testCalendar: calendar.getTime() = [" + calendar.getTime() + "]");
+    }
+
+    @Test
+    public void testAddNull() {
+        new Stack<>().push(null);
+        new ArrayList<>().add(null);
+        new LinkedList<>().add(null);
+        new ArrayDeque<>().offer(null);// ArrayDeque 不能添加null
     }
 }
