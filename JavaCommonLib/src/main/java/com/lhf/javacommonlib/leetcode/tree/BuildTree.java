@@ -67,7 +67,7 @@ public class BuildTree {
         int rootVal = postorder[postRight - 1];
         TreeNode root = new TreeNode(rootVal);
         int rootIndex = 0;
-        // 根据根结点的值找到该值在中序数组inorder里的位置
+        // 根据根结点的值找到该值在中序数组inorder里的位置（前提是：树中没有重复的元素）
         for (int i = inLeft; i < inRight; i++) {
             if (inorder[i] == rootVal) {
                 rootIndex = i;
@@ -78,6 +78,39 @@ public class BuildTree {
                 postorder, postLeft, postLeft + (rootIndex - inLeft));
         root.right = buildTree1(inorder, rootIndex + 1, inRight,
                 postorder, postLeft + (rootIndex - inLeft), postRight - 1);
+        return root;
+    }
+
+    /**
+     * https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+     * 105. 从前序与中序遍历序列构造二叉树
+     * 思路跟 “106. 从中序与后序遍历序列构造二叉树” 一样
+     */
+    public TreeNode buildTree2(int[] inorder, int inLeft, int inRight,
+                               int[] preorder, int preLeft, int preRight) {
+        // 没有元素了
+        if (inRight - inLeft < 1) {
+            return null;
+        }
+        // 只有一个元素了
+        if (inRight - inLeft == 1) {
+            return new TreeNode(inorder[inLeft]);
+        }
+        // 前序数组preorder里第一个即为根结点
+        int rootVal = preorder[preLeft];
+        TreeNode root = new TreeNode(rootVal);
+        int rootIndex = 0;
+        // 根据根结点的值找到该值在中序数组inorder里的位置（前提是：树中没有重复的元素）
+        for (int i = inLeft; i < inRight; i++) {
+            if (inorder[i] == rootVal) {
+                rootIndex = i;
+            }
+        }
+        // 根据rootIndex划分左右子树
+        root.left = buildTree1(inorder, inLeft, rootIndex,
+                preorder, preLeft + 1, preLeft + 1 + (rootIndex - inLeft));
+        root.right = buildTree1(inorder, rootIndex + 1, inRight,
+                preorder, preLeft + 1 + (rootIndex - inLeft), preRight);
         return root;
     }
 }
