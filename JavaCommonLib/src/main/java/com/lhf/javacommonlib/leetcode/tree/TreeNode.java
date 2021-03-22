@@ -67,6 +67,7 @@ public class TreeNode {
                 deque.offer(rightNode);
             }
         }
+        System.out.println("TreeNode.createTree returned: root = [" + root + "]");
         return root;
     }
 
@@ -149,14 +150,18 @@ public class TreeNode {
             for (int i = 0; i < size; i++) {
                 TreeNode poll = queue.poll();
                 if (poll == null) {
-                    poll = new TreeNode(0, new TreeNode(0), new TreeNode(0));
+                    poll = new TreeNode(Integer.MIN_VALUE, new TreeNode(Integer.MIN_VALUE), new TreeNode(Integer.MIN_VALUE));
                 }
                 int val = poll.val;
-                if (val < 10) {
-                    res.append(0);
+                if (val != Integer.MIN_VALUE) {
+                    if (val > 0 && val < 10) {
+                        res.append(0);
+                    }
+//                  list.add(poll.val);
+                    res.append(val);
+                } else {
+                    res.append(minGap);
                 }
-//                list.add(poll.val);
-                res.append(val);
                 for (int j = 1; j < (1 << depth); j++) {
                     res.append(minGap);
                 }
