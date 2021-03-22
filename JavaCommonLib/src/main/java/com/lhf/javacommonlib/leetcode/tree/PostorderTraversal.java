@@ -84,7 +84,8 @@ public class PostorderTraversal {
 
     public List<Integer> postorderTraversal(TreeNode root) {
 //        return postorderTraversal1(root);
-        return postorderTraversal2(root);
+//        return postorderTraversal2(root);
+        return postorderTraversal3(root);
     }
 
     /**
@@ -106,7 +107,7 @@ public class PostorderTraversal {
     }
 
     /**
-     * 迭代方式，通过Stack实现
+     * 迭代方式，通过Stack实现，result通过LinkedList头插
      */
     public List<Integer> postorderTraversal2(TreeNode root) {
         List<Integer> result = new LinkedList<>();
@@ -125,6 +126,34 @@ public class PostorderTraversal {
             }
             if (pop.right != null) {
                 stack.push(pop.right);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 迭代方式，通过Stack实现
+     */
+    public List<Integer> postorderTraversal3(TreeNode root) {
+        List<Integer> result = new LinkedList<>();
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode prev = null;
+        while (root != null || !stack.isEmpty()) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            TreeNode peek = stack.peek();
+            if (peek.right == null || peek.right == prev) {
+                // 输出
+                result.add(peek.val);
+                stack.pop();
+                prev = peek;
+            } else {
+                root = peek.right;
             }
         }
         return result;
