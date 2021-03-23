@@ -56,7 +56,9 @@ public class SearchBST {
 
     public TreeNode searchBST(TreeNode root, int val) {
 //        return searchBST1(root, val);
-        return searchBST2(root, val);
+//        return searchBST1Optimize(root, val);
+//        return searchBST2(root, val);
+        return searchBST2Optimize(root, val);
     }
 
     // 递归
@@ -69,6 +71,18 @@ public class SearchBST {
             return left;
         }
         return searchBST1(root.right, val);
+    }
+
+    // 递归，利用二叉搜索树特点，优化
+    public TreeNode searchBST1Optimize(TreeNode root, int val) {
+        if (root == null || root.val == val) {
+            return root;
+        }
+        if (val < root.val) {
+            return searchBST1Optimize(root.left, val);
+        } else {
+            return searchBST1Optimize(root.right, val);
+        }
     }
 
     // 迭代
@@ -88,6 +102,23 @@ public class SearchBST {
             }
             if (pop.left != null) {
                 stack.push(pop.left);
+            }
+        }
+        return null;
+    }
+
+    // 迭代，利用二叉搜索树特点，优化，可以不需要栈
+    public TreeNode searchBST2Optimize(TreeNode root, int val) {
+        if (root == null || root.val == val) {
+            return root;
+        }
+        while (root != null) {
+            if (root.val == val) {
+                return root;
+            } else if (val < root.val) {
+                root = root.left;
+            } else {
+                root = root.right;
             }
         }
         return null;
