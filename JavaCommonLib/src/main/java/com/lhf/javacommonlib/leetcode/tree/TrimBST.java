@@ -121,32 +121,8 @@ public class TrimBST {
             return trimBST(root.left, low, high);
         }
         // root在[low,high]范围内
-        // 处理left
-        TreeNode deleteLeft = root;
-        TreeNode parentLeft = null;
-        // 找第一个小于low的结点
-        while (deleteLeft != null && deleteLeft.val >= low) {
-            parentLeft = deleteLeft;
-            deleteLeft = deleteLeft.left;
-        }
-        // 注意这里还要递归调用
-        if (deleteLeft != null) {
-            parentLeft.left = trimBST(deleteLeft.right, low, high);
-        }
-
-        // 处理right
-        TreeNode deleteRight = root;
-        TreeNode parentRight = null;
-        // 找到第一个大于high的结点
-        while (deleteRight != null && deleteRight.val <= high) {
-            parentRight = deleteRight;
-            deleteRight = deleteRight.right;
-        }
-        // 注意这里还要递归调用
-        if (deleteRight != null) {
-            parentRight.right = trimBST(deleteRight.left, low, high);
-        }
-
+        root.left = trimBST(root.left, low, high);
+        root.right = trimBST(root.right, low, high);
         return root;
     }
 }

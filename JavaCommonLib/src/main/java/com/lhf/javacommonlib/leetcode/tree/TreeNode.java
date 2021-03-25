@@ -88,10 +88,8 @@ public class TreeNode {
             TreeNode node = deque.poll();
             if (node != null) {
                 sb.append(node.val).append(", ");
-                if (node.left != null || node.right != null) {
-                    deque.offer(node.left);
-                    deque.offer(node.right);
-                }
+                deque.offer(node.left);
+                deque.offer(node.right);
             } else {
                 sb.append("null").append(", ");
             }
