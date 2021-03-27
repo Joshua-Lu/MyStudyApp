@@ -38,6 +38,19 @@ public class CommonUtils {
         array[i] = tmp;
     }
 
+    /**
+     * 封装Thread.sleep，这样就不用每个地方都写try,catch
+     *
+     * @param millis 线程休眠时间 ms
+     */
+    public static void threadSleep(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     public void testGetTimeFromNet() {
         long time = getTimeFromNet();

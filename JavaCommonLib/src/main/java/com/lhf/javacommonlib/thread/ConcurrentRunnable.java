@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.thread;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -52,11 +54,7 @@ class ConcurrentRunnable implements Runnable {
     // 会出现count值重复，或小于等于0的情况
     private void normalRun() {
         while (count > 0) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.threadSleep(100);
             System.out.println(Thread.currentThread().getName() + ": count = [" + count + "]");
             count--;
         }

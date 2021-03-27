@@ -1,5 +1,7 @@
 package com.lhf.designpatternlib.mvc;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +46,7 @@ public class BeatModel implements BeatModelInterface, Runnable {
         while (!stop) {
             playBeat();
             notifyBeatObservers();
-            try {
-                Thread.sleep(60000 / getBPM());
-            } catch (Exception e) {
-            }
+            CommonUtils.threadSleep(60000 / getBPM());
         }
     }
 

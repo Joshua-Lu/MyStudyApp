@@ -21,8 +21,22 @@
 6. 默认情况下，一个应用所有的组件都运行在同一个进程的同一个线程（main线程）里。
 7. 进程的5级优先级：前台进程、可见进程、服务进程、后台进程、空进程。
 8. 装箱、拆箱：
-9. ThreadLocal：
-10. Handler原理：
+9. 强软弱虚引用：
+    - 强引用：只用引用断开（**设为null**），对象才能被回收
+    - 软引用：**内存不足**时，gc会回收，通常用于**缓存**
+    - 弱引用：只要**gc**，对象就会被回收，防止**内存泄漏**，JDK中的应用**ThreadLocal**
+    - 虚引用：管理**堆外内存**，gc回收时会将该对象的一些信息，放到一个queue里，gc线程会遍历这个queue，拿到信息后就会删除对应的堆外内存
+10. ThreadLocal：
+    - set(T value)：
+      - 首先获取到**当前线程**的ThreadLocal.ThreadLocalMap成员变量，然后将当前**ThreadLocal对象作为key**，传进来的value作为value，保存到线程的map对象里。
+      - 所以value其实是set到了当前线程的map对象里，因此与线程**绑定**在一起了，不会影响其他线程。
+      - 这个map对象，里面其实是一个**数组**，存放的是ThreadLocalMap.Entry对象，Entry对象继承WeakReference<ThreadLocal<?>>，弱引用指向的是ThreadLocal对象，还有一个成员变量，保存value。
+    - get()：
+      - 首先也是获取到当前线程的map对象，然后以当前ThreadLocal对象作为key，获取到对应的value。
+    - remove()：
+      - 从map中移除当前ThreadLocal对象作为key的Entry。
+      - ThreadLocal对象不再使用时，一定要调用remove方法，否则会造成内存泄漏。（虽然key是弱引用，内存不足时会回收，但是不remove的话，entry会一直在map里，对应的value对象内存泄漏）
+11. Handler原理：
    - Looper.prepare()
      * new了一个Looper对象，并在Looper的构造方法里，创建了MessageQueue对象
      * 将创建的Looper对象通过ThreadLocal与当前线程绑定
@@ -39,4 +53,65 @@
 11. 子线程**不能更新UI**的原因：更新的时候会走View.requestLayout方法，最后调到ViewRootImpl.checkThread，在该方法中会判断当前线程是否是主线程，若不是则抛出异常CalledFromWrongThreadException。因此在某些情况下（更新不会导致requestLayout调用、ViewRootImpl还没创建等），**checkThread**没有走到，更新UI就不会抛异常，如ProgressBar。当然开发过程中还是要注意在主线程去更新UI。
 12. 子线程**不能弹Toast**的原因：在Toast的构造方法里，会去调用Looper.myLooper()，获取到loop对象，若**loop为null**则抛出异常。因此，若在子线程主动调用Looper.prepare()之后，弹toast，并在最后调Looper.loop()，也是能正常弹出toast，但一般不建议这么做。至于loop的用处，是用来创建handler对象，toast显示其实也是通过handler发消息。
 13. 子线程**不能创建Handler**的原因：这个原因其实与不能弹Toast一样，也是因为没有调用Looper.prepare()，**loop对象为空**，抛出异常。
-14. 
+14. 统计：友盟
+    retrofit：反射、动态代理
+    IntentService：任务执行完毕，自动结束service
+     lock锁、semaphore、CountDownLatch、阻塞队列BlockingQueue
+    AQS、模板方法
+    启动流程
+    binder通信
+    打包
+    builder模式，url创建
+    viewpager 适配器模式
+    适配器模式，playinfo
+
+## 多线程  
+
+### 1. 线程的基本方法
+
+- start()：启动线程，新起一个线程执行run方法，不能直接调run()，否则还是在当前线程里。
+- sleep(long millis)：休眠一定时间，该期间不会获得CPU。
+- yield()：放弃CPU，回到ready状态，其他线程可竞争CPU。
+- join()：在一个线程里调用另一个线程的join()，会先去执行另一个线程，执行完了，再返回当前线程。
+
+### 2. 线程的状态
+
+![image-20210327164701525](AndroidNote.assets/image-20210327164701525.png)
+
+### 3. synchronized
+
+- 是可重入的
+- 抛异常会自动释放锁
+- 锁升级过程：
+  - 无锁：刚**new**出来，还**没有**线程访问
+  - 偏向锁：有**一个**线程访问，升级为偏向锁，在被锁对象的对象头的markword，记录这个线程id。
+  - 自旋锁：有**多个**线程争用，升级为自旋锁，开启一个循环，等待锁被释放。适合**线程数少**，锁住的代码执行**时间短**的情况。
+  - 重量级锁：自旋**超过10次**，升级为重量级锁，由操作系统来处理，进入等待队列。适合**线程数多**，锁住的代码执行**时间长**的情况。
+
+### 4. volatile  
+
+- 保证线程可见性
+  - 默认情况，每个线程在使用变量时，都会从**堆内存**里，**拷贝一份副本**到自己线程的**专属内存**，因此一个线程里改变变量的值，另一个线程并**不会**获取到最新的值。
+  - 加上volatile之后，一个线程里的修改，会被立刻同步给另一个线程
+- 禁止指令重排序
+  - 默认情况，为了提高执行效率，CPU会在不影响执行结果的情况下，对一些指令的顺序进行重新排列。
+  - 加上volatile之后，就可以禁止这种重排序。
+- 典型应用：双重校验单例模式（DCL，Double Check Lock）
+  - 不加volatile时，虽然也能保证单例，但是在**初始化对象**和**对象赋值给引用**这两条**指令重排序**后，会出现引用不为null，但是初始化还未完成的情况，导致获取到**半初始化对象**的情况。
+
+### 5. AtomicInteger  
+
+- 使用的原理CAS（Compare And Swap）：是一种**乐观锁**，里面会有一个循环，判断当前变量是否是期望的值，即是否有被其他线程修改过，若**是期望值**，则直接执行操作**修改**，否则，替换期望值为最新的值，再进到循环里判断。
+- ABA问题
+  - 出现的原理：如int变量被另一个线程从0修改为1再修改回0，对于基本数据类型，ABA问题并不会产生什么问题，但对于引用类型就可能产生问题。
+  - 解决办法：添加版本号或时间戳，同时比较值和版本号（时间戳）。
+
+### 6. ReentrantLock  
+
+### 7. CountDownLatch
+
+### 8. ReentrantReadWriteLock  
+
+### 9. Semaphore  
+
+- 限流

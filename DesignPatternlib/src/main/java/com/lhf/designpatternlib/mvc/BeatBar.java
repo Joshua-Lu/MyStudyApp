@@ -1,5 +1,7 @@
 package com.lhf.designpatternlib.mvc;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import javax.swing.JProgressBar;
 
 public class BeatBar extends JProgressBar implements Runnable {
@@ -19,11 +21,7 @@ public class BeatBar extends JProgressBar implements Runnable {
 			value = (int) (value * .75);
 			setValue(value);
 			repaint();
-			try {
-				Thread.sleep(50);
-			} catch (Exception e) {
-			}
-			;
+			CommonUtils.threadSleep(50);
 		}
 	}
 }

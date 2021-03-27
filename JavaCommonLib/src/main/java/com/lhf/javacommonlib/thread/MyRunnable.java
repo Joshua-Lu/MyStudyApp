@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.thread;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import java.util.Date;
 
 /**
@@ -14,11 +16,7 @@ public class MyRunnable implements Runnable {
         String name = Thread.currentThread().getName();// 获取当前线程的名称
         System.out.println("MyRunnable.run: name = [" + name + "], startTime = [" + new Date() + "]");
         for (int i = 0; i < 5; i++) {
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            CommonUtils.threadSleep(200);
             System.out.println("MyRunnable.run: name = [" + name + "], i = [" + i + "]");
         }
         System.out.println("MyRunnable.run: name = [" + name + "], endTime = [" + new Date() + "]");

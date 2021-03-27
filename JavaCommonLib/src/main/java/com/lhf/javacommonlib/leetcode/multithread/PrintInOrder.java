@@ -1,9 +1,10 @@
 package com.lhf.javacommonlib.leetcode.multithread;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import org.junit.Test;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Arrays;
 
 /**
  * Created by Joshua on 2021/3/26.
@@ -49,7 +50,29 @@ public class PrintInOrder {
 
     尽管输入中的数字似乎暗示了顺序，但是我们并不保证线程在操作系统中的调度顺序。
     你看到的输入格式主要是为了确保测试的全面性。*/
-    Foo foo = new Foo();
+
+    static class Foo {
+
+        public Foo() {
+        }
+
+        public void first(Runnable printFirst) throws InterruptedException {
+            // printFirst.run() outputs "first". Do not change or remove this line.
+            printFirst.run();
+        }
+
+        public void second(Runnable printSecond) throws InterruptedException {
+            // printSecond.run() outputs "second". Do not change or remove this line.
+            printSecond.run();
+        }
+
+        public void third(Runnable printThird) throws InterruptedException {
+            // printThird.run() outputs "third". Do not change or remove this line.
+            printThird.run();
+        }
+    }
+
+    Foo foo;
     Runnable first = () -> {
         try {
             foo.first(() -> System.out.println("first"));
@@ -77,74 +100,77 @@ public class PrintInOrder {
     public void test() {
 
         int[] indexs;
-        indexs = new int[]{1, 3, 2};
+
+        foo = new SynchronizedFoo();
+        indexs = new int[]{1, 2, 3};
+        System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
+        for (int index : indexs) {
+            new Thread(runnables[index - 1]).start();
+        }
+
+        CommonUtils.threadSleep(100);
+        foo = new SynchronizedFoo();
+        indexs = new int[]{2, 1, 3};
+        System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
+        for (int index : indexs) {
+            new Thread(runnables[index - 1]).start();
+        }
+
+        CommonUtils.threadSleep(100);
+        foo = new SynchronizedFoo();
+        indexs = new int[]{3, 2, 1};
+        System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
         for (int index : indexs) {
             new Thread(runnables[index - 1]).start();
         }
     }
 
-    class Foo {
+    /**
+     * synchronized + int 变量实现
+     */
+    static class SynchronizedFoo extends Foo {
 
-        ReentrantLock lock;
         int num;
-        Condition condition1, condition2, condition3;
 
-        public Foo() {
-            lock = new ReentrantLock();
-            condition1 = lock.newCondition();
-            condition2 = lock.newCondition();
-            condition3 = lock.newCondition();
+        public SynchronizedFoo() {
+            super();
             num = 1;
         }
 
+        @Override
         public void first(Runnable printFirst) throws InterruptedException {
-            lock.lock();
-            try {
+            synchronized (this) {
                 while (num != 1) {
-                    condition1.wait();
+                    wait();
                 }
-                // printFirst.run() outputs "first". Do not change or remove this line.
-                printFirst.run();
+                super.first(printFirst);
                 num = 2;
-                condition2.signal();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
+                notifyAll();
             }
         }
 
+        @Override
         public void second(Runnable printSecond) throws InterruptedException {
-            lock.lock();
-            try {
+            synchronized (this) {
                 while (num != 2) {
-                    condition2.wait();
+                    wait();
                 }
-                // printSecond.run() outputs "second". Do not change or remove this line.
-                printSecond.run();
+                super.second(printSecond);
                 num = 3;
-                condition3.signal();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
+                notifyAll();
             }
+
         }
 
+        @Override
         public void third(Runnable printThird) throws InterruptedException {
-            lock.lock();
-            try {
+            synchronized (this) {
                 while (num != 3) {
-                    condition3.wait();
+                    wait();
                 }
-                // printThird.run() outputs "third". Do not change or remove this line.
-                printThird.run();
+                super.third(printThird);
                 num = 1;
-                condition1.signal();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                lock.unlock();
+                notifyAll();
             }
         }
     }

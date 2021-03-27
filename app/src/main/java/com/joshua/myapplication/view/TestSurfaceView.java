@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
@@ -52,12 +53,7 @@ public class TestSurfaceView extends SurfaceViewTemplate {
     @Override
     public void run() {
         super.run();
-        try {
-            // 防止刷新过快，影响性能
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        SystemClock.sleep(50);
     }
 
     @Override
