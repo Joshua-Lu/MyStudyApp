@@ -108,10 +108,17 @@
 
 ### 6. ReentrantLock  
 
-### 7. CountDownLatch
+### 7. CountDownLatch  
+
+- 调用await()，如果count为**0**，则直接**往下执行**，否则等待
+- 调用countDown()会将里面存的值减一
+- countDown()到0，await()之后的代码才会执行
 
 ### 8. ReentrantReadWriteLock  
 
 ### 9. Semaphore  
 
-- 限流
+- 调用acquire()会判断里面存的值，如果值**大于0**，则将里面存的值减一，直接**往下执行**，否则等待
+- 调用release()会将值加一
+- 跟CountDownLatch 有点相反，这是要大于0，acquire()之后的代码才会执行
+- 可应用于限流

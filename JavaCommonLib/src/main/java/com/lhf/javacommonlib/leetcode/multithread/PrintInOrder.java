@@ -5,6 +5,8 @@ import com.lhf.javacommonlib.utils.CommonUtils;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by Joshua on 2021/3/26.
@@ -54,6 +56,7 @@ public class PrintInOrder {
     static class Foo {
 
         public Foo() {
+            reset();
         }
 
         public void first(Runnable printFirst) throws InterruptedException {
@@ -69,6 +72,10 @@ public class PrintInOrder {
         public void third(Runnable printThird) throws InterruptedException {
             // printThird.run() outputs "third". Do not change or remove this line.
             printThird.run();
+        }
+
+        public void reset() {
+
         }
     }
 
@@ -101,28 +108,33 @@ public class PrintInOrder {
 
         int[] indexs;
 
-        foo = new SynchronizedFoo();
-        indexs = new int[]{1, 2, 3};
-        System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
-        for (int index : indexs) {
-            new Thread(runnables[index - 1]).start();
-        }
+//        foo = new SynchronizedFoo();
+//        foo = new CountDownLatchFoo();
+        foo = new SemaphoreFoo();
 
-        CommonUtils.threadSleep(100);
-        foo = new SynchronizedFoo();
         indexs = new int[]{2, 1, 3};
+        foo.reset();
         System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
         for (int index : indexs) {
             new Thread(runnables[index - 1]).start();
         }
+        CommonUtils.threadSleep(10);
 
-        CommonUtils.threadSleep(100);
-        foo = new SynchronizedFoo();
-        indexs = new int[]{3, 2, 1};
+        indexs = new int[]{1, 2, 3};
+        foo.reset();
         System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
         for (int index : indexs) {
             new Thread(runnables[index - 1]).start();
         }
+        CommonUtils.threadSleep(10);
+
+        indexs = new int[]{3, 2, 1};
+        foo.reset();
+        System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
+        for (int index : indexs) {
+            new Thread(runnables[index - 1]).start();
+        }
+        CommonUtils.threadSleep(10);
     }
 
     /**
@@ -134,6 +146,10 @@ public class PrintInOrder {
 
         public SynchronizedFoo() {
             super();
+        }
+
+        @Override
+        public void reset() {
             num = 1;
         }
 
@@ -172,6 +188,85 @@ public class PrintInOrder {
                 num = 1;
                 notifyAll();
             }
+        }
+    }
+
+    /**
+     * 使用两个CountDownLatch实现
+     */
+    static class CountDownLatchFoo extends Foo {
+
+        CountDownLatch countDownLatch12;
+        CountDownLatch countDownLatch23;
+
+        public CountDownLatchFoo() {
+            super();
+        }
+
+        @Override
+        public void reset() {
+            countDownLatch12 = new CountDownLatch(1);
+            countDownLatch23 = new CountDownLatch(1);
+        }
+
+        @Override
+        public void first(Runnable printFirst) throws InterruptedException {
+            super.first(printFirst);
+            countDownLatch12.countDown();
+        }
+
+        @Override
+        public void second(Runnable printSecond) throws InterruptedException {
+            countDownLatch12.await();
+            super.second(printSecond);
+            countDownLatch23.countDown();
+        }
+
+        @Override
+        public void third(Runnable printThird) throws InterruptedException {
+            countDownLatch23.await();
+            super.third(printThird);
+        }
+    }
+
+    /**
+     * 使用两个Semaphore实现
+     * <p>
+     * 跟使用CountDownLatch原理基本一样，只是CountDownLatch是为0时才能执行await后面的代码
+     * Semaphore是大于0时，才能执行acquire后面的代码
+     */
+    static class SemaphoreFoo extends Foo {
+
+        Semaphore semaphore12;
+        Semaphore semaphore23;
+
+        public SemaphoreFoo() {
+            super();
+        }
+
+        @Override
+        public void reset() {
+            semaphore12 = new Semaphore(0);
+            semaphore23 = new Semaphore(0);
+        }
+
+        @Override
+        public void first(Runnable printFirst) throws InterruptedException {
+            super.first(printFirst);
+            semaphore12.release();
+        }
+
+        @Override
+        public void second(Runnable printSecond) throws InterruptedException {
+            semaphore12.acquire();
+            super.second(printSecond);
+            semaphore23.release();
+        }
+
+        @Override
+        public void third(Runnable printThird) throws InterruptedException {
+            semaphore23.acquire();
+            super.third(printThird);
         }
     }
 }
