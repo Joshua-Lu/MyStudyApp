@@ -113,6 +113,7 @@
 - 调用await()，如果count为**0**，则直接**往下执行**，否则等待
 - 调用countDown()会将里面存的值减一
 - countDown()到0，await()之后的代码才会执行
+- 应用：需要几个前置任务都完成后，才能往下执行的情况
 
 ### 8. ReentrantReadWriteLock  
 
@@ -121,4 +122,14 @@
 - 调用acquire()会判断里面存的值，如果值**大于0**，则将里面存的值减一，直接**往下执行**，否则等待
 - 调用release()会将值加一
 - 跟CountDownLatch 有点相反，这是要大于0，acquire()之后的代码才会执行
-- 可应用于限流
+- 应用：限流
+
+### 10. CyclicBarrier  
+
+- 跟CountDownLatch类似，等待一定数量的线程执行完，再继续执行
+
+### 11. LockSupport  
+
+- LockSupport.park()：暂停当前线程
+- LockSupport.unpark(Thread t)：指定线程继续执行
+
