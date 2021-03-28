@@ -57,7 +57,7 @@
     retrofit：反射、动态代理
     IntentService：任务执行完毕，自动结束service
      lock锁、semaphore、CountDownLatch、阻塞队列BlockingQueue
-    AQS、模板方法
+    
     启动流程
     binder通信
     打包
@@ -108,6 +108,8 @@
 
 ### 6. ReentrantLock  
 
+- Condition 本质是不同的等待队列
+
 ### 7. CountDownLatch  
 
 - 调用await()，如果count为**0**，则直接**往下执行**，否则等待
@@ -133,3 +135,10 @@
 - LockSupport.park()：暂停当前线程
 - LockSupport.unpark(Thread t)：指定线程继续执行
 
+### 12. 生产者消费者问题
+
+### 13. AQS  
+
+- 模板方法
+- state
+- Node：线程
