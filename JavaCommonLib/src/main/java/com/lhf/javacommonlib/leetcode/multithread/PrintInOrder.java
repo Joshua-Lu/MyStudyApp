@@ -1,6 +1,7 @@
 package com.lhf.javacommonlib.leetcode.multithread;
 
 import com.lhf.javacommonlib.utils.CommonUtils;
+import com.lhf.javacommonlib.utils.JoshuaThreadPool;
 
 import org.junit.Test;
 
@@ -10,9 +11,10 @@ import java.util.concurrent.Semaphore;
 
 /**
  * Created by Joshua on 2021/3/26.
+ *
  */
 public class PrintInOrder {
-    /*
+    /**
     https://leetcode-cn.com/problems/print-in-order/
     1114. 按序打印
     我们提供了一个类：
@@ -116,25 +118,25 @@ public class PrintInOrder {
         foo.reset();
         System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
         for (int index : indexs) {
-            new Thread(runnables[index - 1]).start();
+            JoshuaThreadPool.getInstance().execute(String.valueOf(index), runnables[index - 1]);
         }
-        CommonUtils.threadSleep(10);
+        CommonUtils.threadSleep(100);
 
         indexs = new int[]{1, 2, 3};
         foo.reset();
         System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
         for (int index : indexs) {
-            new Thread(runnables[index - 1]).start();
+            JoshuaThreadPool.getInstance().execute(String.valueOf(index), runnables[index - 1]);
         }
-        CommonUtils.threadSleep(10);
+        CommonUtils.threadSleep(100);
 
         indexs = new int[]{3, 2, 1};
         foo.reset();
         System.out.println("PrintInOrder.test: indexs = [" + Arrays.toString(indexs) + "]");
         for (int index : indexs) {
-            new Thread(runnables[index - 1]).start();
+            JoshuaThreadPool.getInstance().execute(String.valueOf(index), runnables[index - 1]);
         }
-        CommonUtils.threadSleep(10);
+        CommonUtils.threadSleep(100);
     }
 
     /**

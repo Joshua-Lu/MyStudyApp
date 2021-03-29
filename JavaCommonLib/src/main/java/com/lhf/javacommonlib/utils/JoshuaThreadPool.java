@@ -29,7 +29,6 @@ public class JoshuaThreadPool {
     }
 
     private JoshuaThreadPool(String threadPoolName, int initPoolSize, int maxPoolSize) {
-        System.out.println("JoshuaThreadPool.JoshuaThreadPool() called with: threadPoolName = [" + threadPoolName + "], initPoolSize = [" + initPoolSize + "], maxPoolSize = [" + maxPoolSize + "]");
         mWorkThreadFactory = new WorkThreadFactory(threadPoolName);
         BlockingQueue<Runnable> mPoolWorkQueue = new LinkedBlockingQueue<>();
         mExecutor = new ThreadPoolExecutor(
