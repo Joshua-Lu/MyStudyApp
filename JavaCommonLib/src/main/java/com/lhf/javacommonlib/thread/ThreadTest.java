@@ -1,5 +1,7 @@
 package com.lhf.javacommonlib.thread;
 
+import com.lhf.javacommonlib.utils.CommonUtils;
+
 import org.junit.Test;
 
 import java.util.concurrent.ArrayBlockingQueue;
@@ -53,8 +55,15 @@ public class ThreadTest {
                 corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue,
                 threadFactory, handler);
         for (int i = 0; i < 20; i++) {
+            System.out.println("i = " + i);
             threadPoolExecutor.submit(new MyRunnable());
+            System.out.println("threadPoolExecutor.getPoolSize() = " + threadPoolExecutor.getPoolSize());
+            System.out.println("threadPoolExecutor.getQueue() = " + threadPoolExecutor.getQueue());
         }
+        CommonUtils.threadSleep(10000);
+        System.out.println("threadPoolExecutor.getPoolSize() = " + threadPoolExecutor.getPoolSize());
+        System.out.println("threadPoolExecutor.getQueue() = " + threadPoolExecutor.getQueue());
+
     }
 
     /**

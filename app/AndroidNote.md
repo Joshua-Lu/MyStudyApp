@@ -76,7 +76,7 @@
 
 ### 2. 线程的状态
 
-![image-20210327164701525](AndroidNote.assets/image-20210327164701525.png)
+![线程状态图](AndroidNote.assets/image-20210327164701525.png)
 
 ### 3. synchronized
 
@@ -143,14 +143,24 @@
 - state
 - Node：线程
 
+### 14. 并发的三大特性  
 
+- 可见性
+- 有序性
+- 原子性
 
-### 线程池
+### 15. 线程池
 
-- 类图
+- ThreadPoolExecutor类图
 
   ![ThreadPoolExecutor类图](AndroidNote.assets/ThreadPoolExecutor类图.png)
 
+- 系统的几种线程池
+
+  - newCachedThreadPool：占CPU高，创建的线程是无限的
+  - newFixedThreadPool：占内存高，等待队列是无限的
+  - newSingleThreadExecutor：占内存高，等待队列是无限的
+  
 - `AtomicInteger ctl`：保存线程池运行状态与工作线程数
 
   - 工作线程数：用**低29位**表示，可通过`workerCountOf(int c)`从ctl中获取
@@ -166,11 +176,26 @@
     TERMINATED =  3 << COUNT_BITS // terminated()执行完毕
     ```
 
-- executor
+- 线程池中线程处理executor流程
+
+  - 提交优先级：核心线程->队列->非核心线程
+
+    ![线程池任务提交流程](AndroidNote.assets/image-20210331004052123.png)
+    
+    ![线程池execute流程](AndroidNote.assets/image-20210331003950973.png)
+  
+  - 执行优先级：核心线程->非核心线程->队列
+
 - `addWorker(Runnable firstTask, boolean core)`
   1. **自旋**检查**运行状态**run status，并**自旋**通过**CAS**增加**工作线程数**work count，直到增加成功
   2. 新建Worker，将Task传进去，Worker里面会使用ThreadFactory**创建线程**，**启动线程**
   3. 线程启动后，会在run方法里调用`runWorker(Worker w)`执行任务
 
 - `runWorker(Worker w)`
+  
   - 会开启一个循环，先执行当前任务（这也是Worker的变量叫firstTask的原因），执行完后，会不断的从队列中获取任务执行（这是线程复用的关键）
+
+- execute与submit的区别：
+
+  - 没有返回值与有返回值
+  - **同步与异步**？？
