@@ -142,3 +142,35 @@
 - 模板方法
 - state
 - Node：线程
+
+
+
+### 线程池
+
+- 类图
+
+  ![ThreadPoolExecutor类图](AndroidNote.assets/ThreadPoolExecutor类图.png)
+
+- `AtomicInteger ctl`：保存线程池运行状态与工作线程数
+
+  - 工作线程数：用**低29位**表示，可通过`workerCountOf(int c)`从ctl中获取
+
+  - 运行状态：用**高3位**表示，可通过`runStateOf(int c)`从ctl中获取
+
+    ```java
+    // COUNT_BITS == 29
+    RUNNING    = -1 << COUNT_BITS // 可以接收新任务，并且可以处理队列任务
+    SHUTDOWN   =  0 << COUNT_BITS // 不可以接收新任务，但可以处理队列任务
+    STOP       =  1 << COUNT_BITS // 不可以接收新任务，也不可以处理队列任务
+    TIDYING    =  2 << COUNT_BITS // 全部任务已经结束，工作线程数为0，会执行terminated()
+    TERMINATED =  3 << COUNT_BITS // terminated()执行完毕
+    ```
+
+- executor
+- `addWorker(Runnable firstTask, boolean core)`
+  1. **自旋**检查**运行状态**run status，并**自旋**通过**CAS**增加**工作线程数**work count，直到增加成功
+  2. 新建Worker，将Task传进去，Worker里面会使用ThreadFactory**创建线程**，**启动线程**
+  3. 线程启动后，会在run方法里调用`runWorker(Worker w)`执行任务
+
+- `runWorker(Worker w)`
+  - 会开启一个循环，先执行当前任务（这也是Worker的变量叫firstTask的原因），执行完后，会不断的从队列中获取任务执行（这是线程复用的关键）

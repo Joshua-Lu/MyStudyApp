@@ -1,0 +1,13 @@
+@startuml
+class ThreadPoolExecutor extends AbstractExecutorService
+abstract class AbstractExecutorService implements ExecutorService
+interface ExecutorService extends Executor
+interface Executor {
+    void execute(Runnable command)
+}
+interface ExecutorService {
+    Future<?> submit(Runnable task)
+    <T> Future<T> submit(Callable<T> task)
+    <T> Future<T> submit(Runnable task, T result)
+}
+@enduml
