@@ -242,3 +242,36 @@
   - `addViewHolderToRecycledViewPool()`：将ViewHolder放到**RecycledViewPool**里的方法。
     1. `dispatchViewRecycled(holder)`：这里会触发`onViewRecycled()`方法。
     2. `getRecycledViewPool().putRecycledView(holder)`：获取ViewType，找到对应的缓存，若缓存已满，直接return，否则，将holder的一些状态等清除，再放到该缓存里。
+
+### 3. 用到的设计模式
+
+- 适配器模式
+  - 适配的是不同类型的数据（被适配者）。
+  - Adapter中统一接口，对不同类型都通过`bindViewHolder()`绑定到holder上。
+  - 这其实**不是**一个**标准**的适配器模式，它没有对接口进行转换，但其思想还是同适配器模式的。
+- 观察者模式
+  - Adapter内部有一个AdapterDataObservable **mObservable**变量，继承自**Observable\<AdapterDataObserver\>**，作为**被观察者**。
+  - 调用`setAdapter()`时，会为mObservable注册**观察者**RecyclerViewDataObserver **mObserver**，继承自**AdapterDataObserver**。
+  - 在调用adapter的`notifyDataSetChanged()`、`notifyItemXXX()`这些方法时就会调用**mObservable**的对应notify方法，来通知**mObserver**。
+  - 这个观察者模式还使用了**泛型**，Observer类型可以通过泛型指定，相比普通的观察者模式更加灵活。
+
+### 4. 优化  
+
+- `RecyclerView.setHasFixedSize(true)`
+  - **适用条件**：RecyclerView的**大小固定**，不会随adapter的数据改变而改变时，可以设置该变量为true。
+  - **原理**：当调用`notifyItemXXX()`这些方法（调`notifyDataSetChanged()`无效），会去判断mHasFixedSize等变量，满足条件则，不会去调用`requestLayout()`，实现优化。
+
+- 复用RecycledViewPool
+  - 适用条件：多个RecyclerView有相同的ViewHolder时，可设置共享的RecycledViewPool
+  - 原理：手动开启这个特性：**layout.setRecycleChildrenOnDetach(true)**后，当Item从RecyclerView上detach时，就会立刻被回收到RecycledViewPool里，这样另外一个RecyclerView就可以直接复用了。
+
+- `LinearLayoutManager.getExtraLayoutSpace()`预加载额外的空间
+  - 适用条件：根据实际情况，需要提前加载的情况。
+  - 原理：重写getExtraLayoutSpace方法，返回需要加载的额外空间，就可以提前加载，在屏幕外不可见的View。但也不能设置太大，否则会**占用大量内存**，也会**降低性能**。
+
+- `setItemViewCacheSize()`：设置**mCachedViews**的大小
+  - 适用条件：设置多大合适？设置**一行的大小**，这样来回滚动的时候，效率会比较高。设太大，内存占用会过大。
+  - 原理：增加**mCachedViews**缓存的大小，该缓存会保存holder的所有信息，复用时可直接使用，不用再'bindViewHolder()'。
+
+- `onBindViewHolder ()`里尽量减少对象创建、减少不必要的代码，因为该方法会经常调用到。
+- 滑动时，停止图片的加载，滑动停止后再加载。
