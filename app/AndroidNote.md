@@ -199,3 +199,46 @@
 
   - 没有返回值与有返回值
   - **同步与异步**？？
+
+## RecyclerView  
+
+### 1. 主要的六个类  
+
+- Adapter：创建ViewHolder以及绑定数据。
+- ViewHolder：承载ItemView，控制item的显示，也用于回收复用。
+- LayoutMananger：负责Item的布局管理，RecyclerView在onLayout里，调用了该类里的`onLayoutChildren()`。
+- ItemDecoration：Item添加装饰，如子类DividerItemDecoration实现分隔线，子类ItemTouchHelper可以实现滑动删除等效果。
+- ItemAnimator：添加删除Item时的动画。
+- Recycler：管理ViewHolder的回收复用。
+
+### 2. 回收复用原理
+
+> 参考资料：[RecyclerView回收和复用机制分析](https://www.jianshu.com/p/467ae8a7ca6e) 
+
+- 四级缓存
+  - 屏幕内缓存：屏幕内的View，有数据改变的缓存在**mChangedScrap**、没有改变的缓存在**mAttachedScrap**。
+  - 屏幕外缓存：滑动到屏幕外的View，缓存在**mCachedViews**，**默认大小为2**，View的所有属性都保存着（包括position），复用时可直接使用不用调用`onBindViewHolder()`，但是这里的View只有position也是对应的才能复用，其他位置不能复用。
+  - 自定义缓存：通过继承ViewCacheExtension实现`getViewForPositionAndType`，自定义缓存。作用在系统缓存池之前。
+  - 缓存池缓存：当**mCachedViews**放不下之后，会将它里面最老的放到**RecycledViewPool**里，新的缓存在mCachedViews。RecycledViewPool里维护了一个SparseArray，key为**ViewType**，value为一个ArrayList，**默认每个list大小为5**。即根据类型缓存，默认每种类型缓存5个。可以调用`setMaxRecycledViews(int viewType, int max)`分别设置每种类型的缓存大小。
+- 复用
+  - `Recycler.getViewForPosition()`：Recycler提供的获取**复用**View的方法，在LayoutManager的`fill()`方法里调用。
+  - **`tryGetViewHolderForPositionByDeadline()`**：View复用的**核心方法**。
+    1. `getChangedScrapViewForPosition()`：从**mChangedScrap**里获取，一般在adapter调用**`notifyItemChanged()`**等方法时会用到该缓存。
+    2. `getScrapOrHiddenOrCachedHolderForPosition()`
+       1. 先从**mAttachedScrap**里获取，这个缓存里的view没有数据改变，不会重走`onBindViewHolder()`
+       2. `mChildHelper.findHiddenNonRemovedView()`：从mHiddenViews里获取，这是没有被回收，但是看不见的View
+       3. 从**mCachedViews**里获取，这是**真正被回收了**的View的**第一级**缓存
+    3. `getScrapOrCachedViewForId()`：跟`getScrapOrHiddenOrCachedHolderForPosition()`方法基本相同，只是这个是根据**ItemId**从**mAttachedScrap**和**mCachedViews**里面获取，调用这个方法有一个**前提**是，要设置mHasStableIds为true，并且adapter里要重写`getItemId()`.
+    4. `getRecycledViewPool().getRecycledView(type)`：从**RecycledViewPool**里获取，先根基ViewType找到对应的缓存，再从中获取最后一个。
+    5. RecycledViewPool也没获取到，就会调用`Adapter.onCreateViewHolder()`**创建新的ViewHolder**。
+    6. 在一定条件`(!holder.isBound() || holder.needsUpdate() || holder.isInvalid())`下，去调用adapter的`onBindViewHolder()`。如：mChangedScrap里获取的、RecycledViewPool里获取的、onCreateViewHolder新创建的。
+- 回收
+
+  - `Recycler.recycleView()`：Recycler提供的获取**回收**View的方法，在LayoutManager的`fill()`方法里调用。
+  - **`recycleViewHolderInternal()`**:View回收的**核心方法**。
+    1. 将ViewHolder放到**mCachedViews**里：如果这里已满，要先将里面最老的一个移除，放到**RecycledViewPool**里，再将新的放到**mCachedViews**里。
+    2. 如果**mViewCacheMax小于0**，则直接将ViewHolder放到**RecycledViewPool**里。
+
+  - `addViewHolderToRecycledViewPool()`：将ViewHolder放到**RecycledViewPool**里的方法。
+    1. `dispatchViewRecycled(holder)`：这里会触发`onViewRecycled()`方法。
+    2. `getRecycledViewPool().putRecycledView(holder)`：获取ViewType，找到对应的缓存，若缓存已满，直接return，否则，将holder的一些状态等清除，再放到该缓存里。
