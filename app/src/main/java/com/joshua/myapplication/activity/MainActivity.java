@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestContentObserverActivity.class);
         clsList.add(TestViewUtilsActivity.class);
         clsList.add(TestHandlerInThreadActivity.class);
+        clsList.add(TestViewPagerActivity.class);
     }
 
     public void initData() {
