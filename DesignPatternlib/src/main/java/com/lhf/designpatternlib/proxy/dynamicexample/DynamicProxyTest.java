@@ -43,6 +43,8 @@ public class DynamicProxyTest {
     }
 
     private IPerson getPersonProxy(IPerson person, InvocationHandler invocationHandler) {
+        //设置系统属性，保存动态生成的代理类，E:\Code\MyStudyApp\com\sun\proxy\$Proxy0.class
+        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         return (IPerson) Proxy.newProxyInstance(
                 person.getClass().getClassLoader(),
                 person.getClass().getInterfaces(),
