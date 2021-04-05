@@ -283,3 +283,44 @@
 
 - `onBindViewHolder ()`里尽量减少对象创建、减少不必要的代码，因为该方法会经常调用到。
 - 滑动时，停止图片的加载，滑动停止后再加载。
+
+
+## ViewPager+Fragment  
+
+- `populate(mCurItem)`
+
+## Binder机制  
+
+### 1. 基本概念  
+
+- 解决的问题：不同进程之间，拥有**不同**的**用户空间**，无法直接进行通信。
+- 解决的方法：不同进程之间，拥有**共同**的**内核空间**，可以将一个进程的请求打包，通过内核空间，传递到另一个进程，在另一个进程获取到请求的内容，通过调用进程本地的方法，获取结果，将结果打包，通过内核空间返回给请求的进程。
+
+### 2. 绑定服务原理  
+
+- 绑定服务的整体流程图
+
+  ![bindService流程图](AndroidNote.assets/image-20210405135933100.png)
+
+- 主要组成部分
+
+  - Client：客户端，请求服务，想要调用服务端的方法。
+  - Service：服务端，提供服务，给客户端返回数据。
+  - ServiceManager：提供注册、获取系统服务的服务。
+  - ActivityManagerService（AMS）：管理Activity、Service等组件的运行状态。
+
+- 绑定服务的流程分析
+
+  ![bindService时序图](AndroidNote.assets/image-20210405191725751.png)
+
+  - `ContextImpl.bindService()`：通过ServiceManager获取到AMS服务，然后调用`AMS.bindService()`。
+  - `AMS.bindService()`：调用到`ActivityThread.ApplicationThread.scheduleBindService()`，在该方法里调用ActivityThread**内部Handler（H类）**对象发送消息`H.BIND_SERVICE`，最后在`handleBindService()`里，真正创建IBinder对象。
+  - `ActivityThread.handleBindService()`：首先从**mServices**（service创建后，会保存在该集合里）里获取到对应的service，然后调用**`service.onBind()`方法**获取到Service里返回的**IBinder对象**，最后调用`AMS.publishService()`方法。
+  - `AMS.publishService()`：会调用到`LoadedApk.ServiceDispatcher.InnerConnection.connected()`方法，这里回调到**`ServiceConnection.onServiceConnected()`方法**，返回**IBinder对象service**。
+
+### 3.Binder调用流程  
+
+- bindService成功后，会在**`ServiceConnection.onServiceConnected()`方法**里返回**IBinder对象service**。
+- 首先调用对应接口的`Stub.asInterface(service)`，就可以返回的IBinder对象转换成服务的**Proxy对象**，通过该对象就可以像请求本地方法一样请求远程方法了。
+- 调用Proxy对象的方法时，会将对应方法的一个code，参数等，通过调用**`mRemote.transact()`传到服务端**，服务端在**`onTransact()`**解析传过来的数据，然后调用对应的方法，并将返回值写到reply对象里返回。
+
