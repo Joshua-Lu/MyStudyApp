@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestViewUtilsActivity.class);
         clsList.add(TestHandlerInThreadActivity.class);
         clsList.add(TestViewPagerActivity.class);
+        clsList.add(TestGlideActivity.class);
+        clsList.add(TestFrescoActivity.class);
     }
 
     public void initData() {
