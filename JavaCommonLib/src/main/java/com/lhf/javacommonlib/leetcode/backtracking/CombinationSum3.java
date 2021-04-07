@@ -1,5 +1,6 @@
 package com.lhf.javacommonlib.leetcode.backtracking;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -38,12 +39,14 @@ https://leetcode-cn.com/problems/combination-sum-iii/
         n = 7;
         combinationSum3(k, n);
         System.out.println("CombinationSum3.test: res = [" + res + "]");
+        Assert.assertEquals("[[4, 2, 1]]", res.toString());
 
         // 示例 2
         k = 3;
         n = 9;
         combinationSum3(k, n);
         System.out.println("CombinationSum3.test: res = [" + res + "]");
+        Assert.assertEquals("[[6, 2, 1], [5, 3, 1], [4, 3, 2]]", res.toString());
 
     }
 

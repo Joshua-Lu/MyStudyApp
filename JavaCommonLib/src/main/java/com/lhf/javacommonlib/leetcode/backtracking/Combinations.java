@@ -1,5 +1,6 @@
 package com.lhf.javacommonlib.leetcode.backtracking;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -38,9 +39,10 @@ public class Combinations {
         // 示例 1
         n = 4;
         k = 2;
-        exp = Arrays.asList(Arrays.asList(2, 4), Arrays.asList(3, 4), Arrays.asList(2, 3), Arrays.asList(1, 2), Arrays.asList(1, 3), Arrays.asList(1, 4));
+        exp = Arrays.asList(Arrays.asList(4, 3), Arrays.asList(4, 2), Arrays.asList(4, 1), Arrays.asList(3, 2), Arrays.asList(3, 1), Arrays.asList(2, 1));
         res = combine(n, k);
         System.out.println("Combinations.test: res = [" + res + "]");
+        Assert.assertEquals(exp.toString(), res.toString());
     }
 
     List<List<Integer>> res = new ArrayList<>();
