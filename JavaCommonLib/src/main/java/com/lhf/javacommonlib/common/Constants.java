@@ -15,4 +15,8 @@ public interface Constants {
         String AUTHOR = "author";
         String PRICE = "price";
     }
+
+    interface Url {
+        String BaiDu = "https://www.baidu.com/";
+    }
 }
