@@ -395,3 +395,12 @@
 - `enqueue()`和`execute()`对比
   - `execute()`调用后，会直接运行`getResponseWithInterceptorChain()`获取请求结果。
   - `enqueue()`调用后，要通过Dispatcher先放到**等待队列**里，然后从等待队列里找到符合条件的请求，放到**运行队列**里，并交给**线程池执行**，才能获取到请求结果。
+
+### 2. Retrofit  
+
+- Retrofit是对OkHttp的封装
+- 请求的封装：写一个接口，接口里的方法加上注解，来添加请求的地址、参数等。
+- 结果的封装：通过addConverterFactory，可以添加一个factory（如GsonConverterFactory）来实现，请求结果的转换。
+- Retrofit对象主要变量
+  - `callFactory = new OkHttpClient()`：是一个OkHttpClient对象，用于创建RealCall
+  - `callbackExecutor = platform.defaultCallbackExecutor()`：在Android平台下内部是一个Handler，用于将回调发送到**主线程**。
