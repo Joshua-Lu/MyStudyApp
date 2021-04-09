@@ -86,7 +86,7 @@
 
 ### 2. 线程的状态
 
-![线程状态图](AndroidNote.assets/image-20210327164701525.png)
+![线程状态图](AndroidNote.assets/线程状态图.png)
 
 ### 3. synchronized
 
@@ -190,9 +190,9 @@
 
   - 提交优先级：核心线程->队列->非核心线程
 
-    ![线程池任务提交流程](AndroidNote.assets/image-20210331004052123.png)
+    ![线程池任务提交流程](AndroidNote.assets/线程池任务提交流程图.png)
 
-    ![线程池execute流程](AndroidNote.assets/image-20210331003950973.png)
+    ![线程池execute流程](AndroidNote.assets/线程池execute流程图.png)
 
   - 执行优先级：核心线程->非核心线程->队列
 
@@ -308,7 +308,7 @@
 
 - 绑定服务的整体流程图
 
-  ![bindService流程图](AndroidNote.assets/image-20210405135933100.png)
+  ![bindService流程图](AndroidNote.assets/bindService流程图.png)
 
 - 主要组成部分
 
@@ -319,7 +319,7 @@
 
 - 绑定服务的流程分析
 
-  ![bindService时序图](AndroidNote.assets/image-20210405191725751.png)
+  ![bindService时序图](AndroidNote.assets/bindService时序图.png)
 
   - `ContextImpl.bindService()`：通过ServiceManager获取到AMS服务，然后调用`AMS.bindService()`。
   - `AMS.bindService()`：调用到`ActivityThread.ApplicationThread.scheduleBindService()`，在该方法里调用ActivityThread**内部Handler（H类）**对象发送消息`H.BIND_SERVICE`，最后在`handleBindService()`里，真正创建IBinder对象。
@@ -333,6 +333,8 @@
 - 调用Proxy对象的方法时，会将对应方法的一个code，参数等，通过调用**`mRemote.transact()`传到服务端**，服务端在**`onTransact()`**解析传过来的数据，然后调用对应的方法，并将返回值写到reply对象里返回。
 
 ## 图片加载框架  
+
+![图片加载框架对比](AndroidNote.assets/四大图片框架对比.png)
 
 ### 1. Fresco  
 
@@ -355,7 +357,7 @@
   - 保持单例：OkHttpClient对象应该保持**单例**，因为该对象有**连接池**connectionPool、dispatcher（里面有**线程池**executorService）等应该重复利用的资源，保持单例可以**减少内存占用**，提高性能。
   - 创建方式：直接new或通过OkHttpClient.Builder对象创建，通过builder对象创建，可以自定义一些配置，如拦截器、缓存等。也可通过`client.newBuilder().build()`方法创建，这样虽然**不是单例**，但是连接池、线程池等配置，都是**复用**的.
 
-- Dispatcher：分发器，
+- Dispatcher：分发器，主要在**异步请求**过程中，对请求进行队列以及线程池操作。
 
 - Interceptor ：拦截器，**责任链模式**
 
@@ -404,3 +406,10 @@
 - Retrofit对象主要变量
   - `callFactory = new OkHttpClient()`：是一个OkHttpClient对象，用于创建RealCall
   - `callbackExecutor = platform.defaultCallbackExecutor()`：在Android平台下内部是一个Handler，用于将回调发送到**主线程**。
+  - `callAdapterFactories`：默认会添加一个DefaultCallAdapterFactory，**解析注解**的时候，会根据returnType，调用`DefaultCallAdapterFactory.get()`，获取到一个CallAdapter。调用**invoke方法**时，会调用CallAdapter的**adapt方法**，返回一个封装过的Call对象。
+  - `converterFactories`：使用较多的是**GsonConverterFactory**，可以将Bean对象转换成请求RequestBody，也可将响应ResponseBody转换成Bean对象。
+
+- `retrofit.create(Interface.class)`：将接口通过**动态代理**，转换成一个该接口的代理类对象返回。
+- 调用代理对象的接口方法：会调用到代理对象里的InvocationHandler对象的**`invok()`**方法，在该方法里会**解析**对应接口方法上的**注解**等内容，并返回一个经过CallAdapter**封装过的Call对象**。
+- 获得Call对象后，就可以调用`execute()`或`enqueue()`方法执行请求了。
+- 请求的响应对象，会经过ConverterFactory转换封装后再返回，一般是转成Bean对象。
