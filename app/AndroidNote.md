@@ -2,30 +2,30 @@
 
 1. Intent可以传递的数据类型：基本数据、String、CharSequence、序列化对象，以及他们的**数组**和**Array List**。
 2. SparseArray：  
-    - **android特有**，在数据量少（源码里写的几百个，实际测试小于2.5万左右SparseArray快，否则HashMap快）、key为int类型时，代替HashMap可以减少**内存**占用，
-    - 内部维护**两个数组**，一个int数组保存key值（**有序**的，二分查找的前提），一个Object数组保存value值。
-    - **remove()**:不会真正删除，只是做了**标记**，值设为 DELETED，只有执行gc()时才会**回收**，整理数组。
-    - **put()**:根据key值，通过**二分查找**找到对应位置，如果该位置上已经有值或被标记为 DELETED，就更新，否则gc()整理数组，重新找位置，再插入。
-    - **get()**:根据key值，通过**二分查找**找到对应位置，再根据位置取得对应的值。
-    - **扩容**：默认**初始容量10**，超出当前大小，扩容为**2倍**。
+   - **android特有**，在数据量少（源码里写的几百个，实际测试小于2.5万左右SparseArray快，否则HashMap快）、key为int类型时，代替HashMap可以减少**内存**占用，
+   - 内部维护**两个数组**，一个int数组保存key值（**有序**的，二分查找的前提），一个Object数组保存value值。
+   - **remove()**:不会真正删除，只是做了**标记**，值设为 DELETED，只有执行gc()时才会**回收**，整理数组。
+   - **put()**:根据key值，通过**二分查找**找到对应位置，如果该位置上已经有值或被标记为 DELETED，就更新，否则gc()整理数组，重新找位置，再插入。
+   - **get()**:根据key值，通过**二分查找**找到对应位置，再根据位置取得对应的值。
+   - **扩容**：默认**初始容量10**，超出当前大小，扩容为**2倍**。
 3. ArrayMap：基本跟SparseArray类似，主要区别在于：
-    - key值可以是**任意类型**，而SparseArray的key值只能是**int类型**，但也因此SparseArray没有装箱、计算hashCode等操作，效率更高。
-    - 内部也维护了**两个数组**，但其中的int数组不是直接保存key值，而是对应的**hashCode**。
-    - **扩容**：默认**初始容量0**，超出当前大小，扩容为**1.5倍**。
+   - key值可以是**任意类型**，而SparseArray的key值只能是**int类型**，但也因此SparseArray没有装箱、计算hashCode等操作，效率更高。
+   - 内部也维护了**两个数组**，但其中的int数组不是直接保存key值，而是对应的**hashCode**。
+   - **扩容**：默认**初始容量0**，超出当前大小，扩容为**1.5倍**。
 4. HashMap：
-    - **put**节点，JDK1.8之前头插，JDK1.8开始，尾插，改成尾插的原因：头插法在**多线程**扩容的时候会造成**链表环**。1.8还加入了**红黑树**，在链表个数**大于8**时使用，提高get的效率。
-    - **hash函数**：(n - 1) & hash，在n为**2的n次方**时，产生hash**冲突的概率最低**（这也是HashMap初始默认容量为16，**扩容为2倍的原因**）。这种情况概率低的原因是：此时（n - 1）的二进制表示每位都是1，1&0 = 0,1&1 = 1，而如果二进制位上是0的话，0&0 = 0，0&1 = 0，就冲突了。
-    - **线程不安全**：HashTable和ConcurrentHashMap是线程安全的，HashTable是将put和get方法都加synchronized，ConcurrentHashMap是在这两个方法里对当前操作的链表加synchronized，因此只有put和get操作的链表相同时，锁才会生效，这样效率会更高。
-    - **扩容**：默认**初始容量16**，超出**当前大小*加载因子**（默认0.75），扩容为**2倍**。
+   - **put**节点，JDK1.8之前头插，JDK1.8开始，尾插，改成尾插的原因：头插法在**多线程**扩容的时候会造成**链表环**。1.8还加入了**红黑树**，在链表个数**大于8**时使用，提高get的效率。
+   - **hash函数**：(n - 1) & hash，在n为**2的n次方**时，产生hash**冲突的概率最低**（这也是HashMap初始默认容量为16，**扩容为2倍的原因**）。这种情况概率低的原因是：此时（n - 1）的二进制表示每位都是1，1&0 = 0,1&1 = 1，而如果二进制位上是0的话，0&0 = 0，0&1 = 0，就冲突了。
+   - **线程不安全**：HashTable和ConcurrentHashMap是线程安全的，HashTable是将put和get方法都加synchronized，ConcurrentHashMap是在这两个方法里对当前操作的链表加synchronized，因此只有put和get操作的链表相同时，锁才会生效，这样效率会更高。
+   - **扩容**：默认**初始容量16**，超出**当前大小*加载因子**（默认0.75），扩容为**2倍**。
 5. Dialog的创建必须使用**Activity**的Context不能使用Application的，因为Dialog必须在Activity上创建，属于Activity的一部分，这也是弹Dialog，**不会走**Activity的**onPause**方法的原因。
 6. 默认情况下，一个应用所有的组件都运行在同一个进程的同一个线程（main线程）里。
 7. 进程的5级优先级：前台进程、可见进程、服务进程、后台进程、空进程。
 8. 装箱、拆箱：
 9. 强软弱虚引用：
-    - 强引用：只用引用断开（**设为null**），对象才能被回收
-    - 软引用：**内存不足**时，gc会回收，通常用于**缓存**
-    - 弱引用：只要**gc**，对象就会被回收，防止**内存泄漏**，JDK中的应用**ThreadLocal**
-    - 虚引用：管理**堆外内存**，gc回收时会将该对象的一些信息，放到一个queue里，gc线程会遍历这个queue，拿到信息后就会删除对应的堆外内存
+   - 强引用：只用引用断开（**设为null**），对象才能被回收
+   - 软引用：**内存不足**时，gc会回收，通常用于**缓存**
+   - 弱引用：只要**gc**，对象就会被回收，防止**内存泄漏**，JDK中的应用**ThreadLocal**
+   - 虚引用：管理**堆外内存**，gc回收时会将该对象的一些信息，放到一个queue里，gc线程会遍历这个queue，拿到信息后就会删除对应的堆外内存
 10. ThreadLocal：
     - set(T value)：
       - 首先获取到**当前线程**的ThreadLocal.ThreadLocalMap成员变量，然后将当前**ThreadLocal对象作为key**，传进来的value作为value，保存到线程的map对象里。
@@ -37,6 +37,7 @@
       - 从map中移除当前ThreadLocal对象作为key的Entry。
       - ThreadLocal对象不再使用时，一定要调用remove方法，否则会造成内存泄漏。（虽然key是弱引用，内存不足时会回收，但是不remove的话，entry会一直在map里，对应的value对象内存泄漏）
 11. Handler原理：
+
    - Looper.prepare()
      * new了一个Looper对象，并在Looper的构造方法里，创建了MessageQueue对象
      * 将创建的Looper对象通过ThreadLocal与当前线程绑定
@@ -50,6 +51,7 @@
      * 开启死循环，不断的从MessageQueue中获取Message
      * 获取到msg对象后，通过msg.target拿到发送该msg的Handler对象
      * 然后调用handler的dispatchMessage，在该方法里会回调handleMessage方法
+
 11. 子线程**不能更新UI**的原因：更新的时候会走View.requestLayout方法，最后调到ViewRootImpl.checkThread，在该方法中会判断当前线程是否是主线程，若不是则抛出异常CalledFromWrongThreadException。因此在某些情况下（更新不会导致requestLayout调用、ViewRootImpl还没创建等），**checkThread**没有走到，更新UI就不会抛异常，如ProgressBar。当然开发过程中还是要注意在主线程去更新UI。
 
 12. 子线程**不能弹Toast**的原因：在Toast的构造方法里，会去调用Looper.myLooper()，获取到loop对象，若**loop为null**则抛出异常。因此，若在子线程主动调用Looper.prepare()之后，弹toast，并在最后调Looper.loop()，也是能正常弹出toast，但一般不建议这么做。至于loop的用处，是用来创建handler对象，toast显示其实也是通过handler发消息。
@@ -168,7 +170,7 @@
   - newCachedThreadPool：占CPU高，创建的线程是无限的
   - newFixedThreadPool：占内存高，等待队列是无限的
   - newSingleThreadExecutor：占内存高，等待队列是无限的
-  
+
 - `AtomicInteger ctl`：保存线程池运行状态与工作线程数
 
   - 工作线程数：用**低29位**表示，可通过`workerCountOf(int c)`从ctl中获取
@@ -189,20 +191,26 @@
   - 提交优先级：核心线程->队列->非核心线程
 
     ![线程池任务提交流程](AndroidNote.assets/image-20210331004052123.png)
-    
+
     ![线程池execute流程](AndroidNote.assets/image-20210331003950973.png)
-  
+
   - 执行优先级：核心线程->非核心线程->队列
 
 - `addWorker(Runnable firstTask, boolean core)`
+
   1. **自旋**检查**运行状态**run status，并**自旋**通过**CAS**增加**工作线程数**work count，直到增加成功
   2. 新建Worker，将Task传进去，Worker里面会使用ThreadFactory**创建线程**，**启动线程**
   3. 线程启动后，会在run方法里调用`runWorker(Worker w)`执行任务
 
 - `runWorker(Worker w)`
-  
-  - 会开启一个循环，先执行当前任务（这也是Worker的变量叫firstTask的原因），执行完后，会不断的从队列中获取任务执行（这是线程复用的关键）
 
+  - 会开启一个循环，先执行当前任务（这也是Worker的变量叫firstTask的原因），执行完后，会不断的调用`getTask()`从队列中获取任务执行（这是**线程复用**的关键）
+
+- `getTask()`
+
+  - 不断的从任务队列里获取任务
+  - 根据`boolean timed = allowCoreThreadTimeOut || wc > corePoolSize`这个变量（允许核心线程超时销毁或当前线程数大于核心线程数），决定从队列获取任务是调用`workQueue.poll()`还是`workQueue.take()`。调用`workQueue.take()`时，若获取不到任务，则线程会等待，这是默认**核心线程不会被销毁的原因**；若是调用`workQueue.poll()`没获取到任务，返回后，`runWorker(Worker w)`里的循环就会结束，然后调用`processWorkerExit()`移除一个Worker。
+  
 - execute与submit的区别：
 
   - 没有返回值与有返回值
@@ -337,3 +345,53 @@
   - 
 
 ### 2. Glide
+
+## 网络框架  
+
+### 1. OkHttp  
+
+- OkHttpClient：客户端，用来创建Call，以及维护了dispatcher、connectionPool、interceptors、cache等重要模块。
+
+  - 保持单例：OkHttpClient对象应该保持**单例**，因为该对象有**连接池**connectionPool、dispatcher（里面有**线程池**executorService）等应该重复利用的资源，保持单例可以**减少内存占用**，提高性能。
+  - 创建方式：直接new或通过OkHttpClient.Builder对象创建，通过builder对象创建，可以自定义一些配置，如拦截器、缓存等。也可通过`client.newBuilder().build()`方法创建，这样虽然**不是单例**，但是连接池、线程池等配置，都是**复用**的.
+
+- Dispatcher：分发器，
+
+- Interceptor ：拦截器，**责任链模式**
+
+  > 参考资料：[你该知道的okhttp3拦截器的那些事](https://blog.csdn.net/c10wtiybq1ye3/article/details/101398117/)
+
+  1. RetryAndFollowUpInterceptor：开启一个**循环**，负责**失败重试和重定向**。
+  2. BridgeInterceptor：主要处理**请求头**和**响应头**。
+  3. CacheInterceptor：
+     - Cache：缓存实现，`client.cache`会传到这里，里面具体实现是一个**DiskLruCache**。
+     - CacheStrategy：缓存策略，通过`CacheStrategy.Factory(now, request, cacheResponse).compute()`获取到具体的策略，在该方法中，主要通过request和cacheResponse对象，以及服务器的HTTP缓存策略，来最终决定使用哪种策略。
+
+  ![缓存策略](AndroidNote.assets/okhttp缓存策略.png)
+
+  4. ConnectInterceptor：建立连接，初始化了一个Exchange，传给下一个Interceptor。
+     - Exchange：里面持有ExchangeFinder对象，而ExchangeFinder对象持有RealConnectionPool对象，因此Exchange主要负责管理**连接池**，以及发送请求获取结果等。
+     - RealConnection：连接实现，该对象是被RealCall持有，连接的真正实现，实现了Connection接口，内部利用**Socket**建立连接。
+  5. CallServerInterceptor：真正请求数据，在ConnectInterceptor中已经建立了连接，这里只要将请求信息通过exchange发送给服务器，然后获取到返回结果。
+
+- `enqueue()`流程
+
+  - `RealCall.enqueue(Callback)`：调用后会用传进来的Callback对象，创建一个AsyncCall，转给`Dispatcher.enqueue(AsyncCall)`处理。
+  - `Dispatcher.enqueue(AsyncCall)`：首先将AsyncCall**放到readyAsyncCalls队列**里，然后调用`promoteAndExecute()`从队列里获取请求并执行。
+  - `Dispatcher.promoteAndExecute()`：**遍历readyAsyncCalls**，根据**两个条件判断**是否将遍历到的AsyncCall从readyAsyncCalls里拿出来，放到runningAsyncCalls里，并调用`asyncCall.executeOn(executorService)`给到线程池executorService去执行。
+    - 两个判断条件
+      1. `(runningAsyncCalls.size >= this.maxRequests)`：当前执行的请求已经大于等于maxRequests（默认64），直接**结束遍历**。
+      2. `(asyncCall.callsPerHost.get() >= this.maxRequestsPerHost)`：当前执行的请求相同host的个数已经大于等于maxRequestsPerHost（默认5），**跳过当前遍历**，遍历下一个请求。
+
+  - `asyncCall.executeOn(executorService)`：放到线程池后，就会执行asyncCall的**`run()`方法**，在该方法里，会调用`getResponseWithInterceptorChain()`去获取到请求结果。
+  - `getResponseWithInterceptorChain()`：在该方法里，经过拦截器的处理后，**返回请求结果**。
+  - `dispatcher.finished(AsyncCall)`：最后执行完请求后，**将该请求移除**，并调用`promoteAndExecute()`去**取下一个请求**。
+
+- `execute()`流程
+  - `dispatcher.executed(RealCall)`：将请求放到runningSyncCalls里。
+  - `getResponseWithInterceptorChain()`：获取请求结果。
+  - `dispatcher.finished(RealCall)`：最后执行完请求后，**将该请求移除**，并调用`promoteAndExecute()`去**取下一个请求**。
+
+- `enqueue()`和`execute()`对比
+  - `execute()`调用后，会直接运行`getResponseWithInterceptorChain()`获取请求结果。
+  - `enqueue()`调用后，要通过Dispatcher先放到**等待队列**里，然后从等待队列里找到符合条件的请求，放到**运行队列**里，并交给**线程池执行**，才能获取到请求结果。

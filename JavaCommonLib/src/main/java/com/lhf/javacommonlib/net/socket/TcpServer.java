@@ -1,4 +1,4 @@
-package com.lhf.javacommonlib.net;
+package com.lhf.javacommonlib.net.socket;
 
 import java.io.File;
 import java.io.FileOutputStream;

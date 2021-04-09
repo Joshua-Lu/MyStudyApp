@@ -1,4 +1,4 @@
-package com.lhf.javacommonlib.okhttp;
+package com.lhf.javacommonlib.net.okhttp;
 
 import com.lhf.javacommonlib.common.Constants;
 import com.lhf.javacommonlib.utils.CommonUtils;
@@ -21,13 +21,13 @@ import okhttp3.Response;
 public class OkHttpTest {
     @Test
     public void test() {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder().build();
 
         Request request = new Request.Builder().url(Constants.Url.BaiDu).build();
         Call call = client.newCall(request);
 
-        // execute() 同步请求
-        // 放在try()里的资源，出现异常，会被自动关闭
+        // 1.同步请求 execute()
+        // 放在try()里的资源（要实现AutoCloseable），try结束后，会被自动关闭
         try (Response response = call.execute()) {
             System.out.println("OkHttpTest.test: 同步请求 response = [" + response + "]");
             System.out.println("OkHttpTest.test: 同步请求 response.body() = [" + response.body().string() + "]");
@@ -36,7 +36,7 @@ public class OkHttpTest {
         }
         System.out.println("同步请求结束");
 
-        // enqueue() 异步请求
+        // 2.异步请求 enqueue()
         // call只能执行一次，所以要先clone才能重新执行
         call = call.clone();
         call.enqueue(new Callback() {
