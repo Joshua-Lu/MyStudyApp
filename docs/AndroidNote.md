@@ -403,15 +403,22 @@
 ### 2. Retrofit  
 
 - Retrofit是对OkHttp的封装
-- 请求的封装：写一个接口，接口里的方法加上注解，来添加请求的地址、参数等。
-- 结果的封装：通过addConverterFactory，可以添加一个factory（如GsonConverterFactory）来实现，请求结果的转换。
+  - 请求的封装：写一个接口，接口里的方法加上注解，来添加请求的地址、参数等。
+  - 结果的封装：通过addConverterFactory，可以添加一个factory（如GsonConverterFactory）来实现，请求结果的转换。
 - Retrofit对象主要变量
   - `callFactory = new OkHttpClient()`：是一个OkHttpClient对象，用于创建RealCall
   - `callbackExecutor = platform.defaultCallbackExecutor()`：在Android平台下内部是一个Handler，用于将回调发送到**主线程**。
   - `callAdapterFactories`：默认会添加一个DefaultCallAdapterFactory，**解析注解**的时候，会根据returnType，调用`DefaultCallAdapterFactory.get()`，获取到一个CallAdapter。调用**invoke方法**时，会调用CallAdapter的**adapt方法**，返回一个封装过的Call对象。
   - `converterFactories`：使用较多的是**GsonConverterFactory**，可以将Bean对象转换成请求RequestBody，也可将响应ResponseBody转换成Bean对象。
+- 主要流程
+  - `retrofit.create(Interface.class)`：将接口通过**动态代理**，转换成一个该接口的代理类对象返回。
+  - 调用代理对象的接口方法：会调用到代理对象里的InvocationHandler对象的**`invok()`**方法，在该方法里会**解析**对应接口方法上的**注解**等内容，并返回一个经过CallAdapter**封装过的Call对象**。
+  - 获得Call对象后，就可以调用`execute()`或`enqueue()`方法执行请求了。
+  - 请求的响应对象，会经过ConverterFactory转换封装后再返回，一般是转成Bean对象。
 
-- `retrofit.create(Interface.class)`：将接口通过**动态代理**，转换成一个该接口的代理类对象返回。
-- 调用代理对象的接口方法：会调用到代理对象里的InvocationHandler对象的**`invok()`**方法，在该方法里会**解析**对应接口方法上的**注解**等内容，并返回一个经过CallAdapter**封装过的Call对象**。
-- 获得Call对象后，就可以调用`execute()`或`enqueue()`方法执行请求了。
-- 请求的响应对象，会经过ConverterFactory转换封装后再返回，一般是转成Bean对象。
+- 用到的设计模式
+  - Builder模式：Retrofit.Builder、Request.Builder。
+  - 动态代理模式：请求接口动态转换成代理类。
+  - 工厂模式：`CallAdapter.Factory.get()`根据返回值类型等获取对应的CallAdapter、`Converter.Factory.requestBodyConverter()/responseBodyConverter()`根据要转换的数据类型获取对应的Converter。
+  - 适配器模式：`CallAdapter.adapt()`将Call对象，适配成其他类型的对象，如ExecutorCallbackCall，在Android中会将请求结果通过Handler发送到主线程。
+  - 策略模式：`Retrofit.Builder().addConverterFactory()/addCallAdapterFactory()`设置不同的ConverterFactory/CallAdapterFactory，相当于设置不同的获取Converter/CallAdapter的策略。
