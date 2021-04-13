@@ -116,6 +116,10 @@
   - 出现的原理：如int变量被另一个线程从0修改为1再修改回0，对于基本数据类型，ABA问题并不会产生什么问题，但对于引用类型就可能产生问题。
   - 解决办法：添加版本号或时间戳，同时比较值和版本号（时间戳）。
 
+- **LongAdder**
+  - AtomicInteger内部只保存一个变量value，对其进行CAS操作。
+  - LongAdder内部有一个变量base，还有一个`Cell[] cells`变量，当对base进行CAS操作失败时，则会对cells里的变量进行CAS操作。最后返回结果时，返回的是**cells里的所有变量**以及**base**的和。**效率更高**。
+
 ### 6. ReentrantLock  
 
 - Condition 本质是不同的等待队列
