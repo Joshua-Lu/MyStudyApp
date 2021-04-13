@@ -20,11 +20,11 @@ public class SortTest {
 
     @Before
     public void beforeSetSort() {
-//        inputArray = new int[]{3, 5, 10, 8, 6, 1, 4, 9, 2, 7};
+        inputArray = new int[]{3, 5, 10, 8, 6, 1, 4, 9, 2, 7};
 //        inputArray = new int[]{3, 5, 10, 8, 6, 1, 4, 9, 2, 7, 0};
 //        inputArray = new int[]{3, 5, 10, 8, 6, 1, 4, 9, 2, 7, 0, 10};
 //        inputArray = new int[]{3, 5, 10, 8, 6, 1, 4, 9, 2, 7, 0, 10, 6};
-        inputArray = new int[]{6, 4};
+//        inputArray = new int[]{6, 4};
 //        inputArray = new int[]{27, 55, 92, 84};
         sortUtil = new SortUtil();
     }
@@ -84,5 +84,10 @@ public class SortTest {
     @Test
     public void testCountSort() {
         sortUtil.setSort(new CountSort());// 计数排序
+    }
+
+    @Test
+    public void testMySort() {
+        sortUtil.setSort(new QuickSort1());
     }
 }

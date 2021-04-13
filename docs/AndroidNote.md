@@ -363,7 +363,7 @@
   - 加载完成回调
 
 - 缓存
-- 
+
 
 ### 2. Glide
 
@@ -439,3 +439,12 @@
   - 工厂模式：`CallAdapter.Factory.get()`根据返回值类型等获取对应的CallAdapter、`Converter.Factory.requestBodyConverter()/responseBodyConverter()`根据要转换的数据类型获取对应的Converter。
   - 适配器模式：`CallAdapter.adapt()`将Call对象，适配成其他类型的对象，如ExecutorCallbackCall，在Android中会将请求结果通过Handler发送到主线程。
   - 策略模式：`Retrofit.Builder().addConverterFactory()/addCallAdapterFactory()`设置不同的ConverterFactory/CallAdapterFactory，相当于设置不同的获取Converter/CallAdapter的策略。
+
+## 组件化  
+
+## 插件化
+
+## MVVM  
+
+
+
