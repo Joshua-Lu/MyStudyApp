@@ -1,0 +1,24 @@
+@startuml
+title AQS acquire 流程
+
+' AQS实现类指ReentrantLock、Semaphore、CountDownLatch等具体锁的实现
+AQS实现类 -> AQS: acquire
+
+AQS实现类 <- AQS: tryAcquire
+note right
+tryAcquire若返回true，则表示线程获取到锁，流程结束;
+若返回false，则表示线程没有获取到锁，继续下面的流程。
+end note
+
+AQS实现类 -> AQS: return false
+
+AQS -> AQS: addWaiter
+note right: 将当前线程放到队列里
+
+AQS -> AQS: acquireQueued
+note right
+若该线程是等待队列里的第一个（head指针的下一个）,则调用tryAcquire尝试获取锁；
+获取成功，则将head指针移到当前位置，否则判断是否park当前线程。
+end note
+
+@enduml

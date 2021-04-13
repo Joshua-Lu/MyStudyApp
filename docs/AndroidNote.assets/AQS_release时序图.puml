@@ -1,0 +1,18 @@
+@startuml
+title AQS release 流程
+
+' AQS实现类指ReentrantLock、Semaphore、CountDownLatch等具体锁的实现
+AQS实现类 -> AQS: release
+
+AQS实现类 <- AQS: tryRelease
+note right
+tryRelease若返回true，则表示线程释放锁成功，继续下面的流程;
+若返回false，则表示线程释放锁失败，流程结束。
+end note
+
+AQS实现类 -> AQS: return true
+
+AQS -> AQS: unparkSuccessor
+note right: 唤醒下一个结点的线程
+
+@enduml

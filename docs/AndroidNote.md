@@ -149,9 +149,26 @@
 
 ### 13. AQS  
 
-- 模板方法
-- state
-- Node：线程
+- 概述：AbstractQuenedSynchronizer抽象的队列式同步器。常用的锁ReentrantLock、Semaphore、CountDownLatch等都是基于AQS实现的。AQS主要维护了一个int变量state和一个双向队列，如下图。
+
+  ![AQS框架图](AndroidNote.assets/AQS框架图.png)
+
+- acquire流程
+
+  ![AQS_acquire时序图](AndroidNote.assets/AQS_acquire时序图.png)
+
+- release流程
+
+  ![AQS_release时序图](AndroidNote.assets/AQS_release时序图.png)
+
+- AQS实现
+
+  - 互斥锁子类主要实现tryAcquire和tryRelease方法，对state变量的修改。
+  - 若是共享锁，则需实现tryAcquireShared和tryReleaseShared。
+
+- 设计模式
+
+  - 模板方法：acquire、release等核心方法都定义成**final类型的模板**，里面调用的tryAcquire、tryRelease方法**空实现**，留给**子类实现**。
 
 ### 14. 并发的三大特性  
 
