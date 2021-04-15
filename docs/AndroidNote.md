@@ -1,5 +1,7 @@
 # Android Note  
 
+## 常见问题  
+
 1. Intent可以传递的数据类型：基本数据、String、CharSequence、序列化对象，以及他们的**数组**和**Array List**。
 2. SparseArray：  
    - **android特有**，在数据量少（源码里写的几百个，实际测试小于2.5万左右SparseArray快，否则HashMap快）、key为int类型时，代替HashMap可以减少**内存**占用，
@@ -30,7 +32,7 @@
     - set(T value)：
       - 首先获取到**当前线程**的ThreadLocal.ThreadLocalMap成员变量，然后将当前**ThreadLocal对象作为key**，传进来的value作为value，保存到线程的map对象里。
       - 所以value其实是set到了当前线程的map对象里，因此与线程**绑定**在一起了，不会影响其他线程。
-      - 这个map对象，里面其实是一个**数组**，存放的是ThreadLocalMap.Entry对象，Entry对象继承WeakReference<ThreadLocal<?>>，弱引用指向的是ThreadLocal对象，还有一个成员变量，保存value。
+      - 这个map对象，里面其实是一个**数组**，存放的是ThreadLocalMap.Entry对象，Entry对象继承WeakReference<ThreadLocal<?>>，**弱引用**指向的是ThreadLocal对象，还有一个成员变量，保存value。
     - get()：
       - 首先也是获取到当前线程的map对象，然后以当前ThreadLocal对象作为key，获取到对应的value。
     - remove()：
@@ -45,7 +47,7 @@
      * 通过Looper类中的ThreadLocal获取到prepare()中绑定的Looper对象
      * 然后通过Looper对象，获取到MessageQueue的引用
    - handler.sendMessage(msg)
-     * 设置msg.target = this(即调用sendMessage方法的handler对象)
+     * 设置**msg.target = this**(即调用sendMessage方法的handler对象)
      * 把msg添加到MessageQueue中
    - Looper.loop()
      * 开启死循环，不断的从MessageQueue中获取Message
@@ -450,5 +452,19 @@
 
 ## MVVM  
 
+## 性能优化  
 
+- 布局优化
+  - 过渡渲染
+- 内存优化
+  - 内存抖动：大量对象的创建回收，gc频繁。
+    - 如onDraw、onMeasure等**频繁调用**的方法中创建对象---------将方法内部对象改成成员变量，在其他地方创建
+  - 内存泄漏：长生命周期对象，持有短生命周期对象的引用，导致短生命周期对象无法释放。
+    - 如handler发送延时消息，匿名内部类会默认持有外部类的引用------使用静态内部类、使用弱引用
 
+- 启动优化
+  - 冷启动
+
+## 问题  
+
+滑动冲突

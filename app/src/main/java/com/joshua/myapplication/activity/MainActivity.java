@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestViewPagerActivity.class);
         clsList.add(TestGlideActivity.class);
         clsList.add(TestFrescoActivity.class);
+        clsList.add(TestMapActivity.class);
     }
 
     public void initData() {

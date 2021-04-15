@@ -145,6 +145,8 @@
 
 #### JDK中的应用 
 
+- 动态代理
+
 #### 相关设计原则
 
 #### 类图
@@ -263,6 +265,7 @@
 
 - Arrays.sort()：sort()为模板方法，定义了排序算法，但里面的具体排序规则是Comparable.compareTo()方法，该方法由排序的元素去实现。（该方法不是严格意义上的模板方法模式，它没有使用子类继承，但思想一样，用一个类的方法填补模板方法中的一个方法的实现）。
 - InputStream.read()：该方法是由子类（如FileInputStream、ObjectInputStream等）去实现的，而这个方法又会被read(byte b[], int off, int len)模板方法调用。
+- AQS锁的实现
 
 #### 相关设计原则  
 
@@ -309,6 +312,8 @@ ThreadPoolExecutor中的四种拒绝策略，RejectedExecutionHandler的实现�
 #### 定义
 
 #### JDK中的应用 
+
+- OkHttp的拦截器
 
 #### 相关设计原则
 
