@@ -1,0 +1,52 @@
+@startuml
+title Glide into() 流程(还没完善)
+
+RequestBuilder -> RequestBuilder: into(ImageView view)
+
+RequestBuilder -> ImageViewTargetFactory: buildImageViewTarget(view, transcodeClass)
+note right
+view:传进来的ImageView控件
+transcodeClass:获取到的图片要转换的类型（Bitmap.class、Drawable.class等）
+end note
+
+RequestBuilder <- ImageViewTargetFactory: return ViewTarget<ImageView, X>
+note right: X根据上面传进来的transcodeClass找到对应的类型（Bitmap、Drawable等）
+
+RequestBuilder -> RequestBuilder: into(ViewTarget target)
+
+RequestBuilder -> RequestBuilder: buildRequest
+note right: 根据传进来的参数，创建Request对象
+
+RequestBuilder -> RequestTracker: runRequest(Request request)
+RequestTracker -> SingleRequest: request.begin()
+SingleRequest -> SingleRequest: onSizeReady(width, height)
+SingleRequest -> Engine: engine.load()
+note right
+这里开始真正的请求图片
+包括从缓存获取和从网络请求
+内存缓存中没有获取到则调用waitForExistingOrStartNewJob()
+end note
+
+Engine -> Engine: waitForExistingOrStartNewJob()
+Engine -> EngineJob: engineJob.start(decodeJob)
+note right: 这里将decodeJob放到线程池里执行
+
+EngineJob -> DecodeJob: run()
+DecodeJob -> DecodeJob: runWrapped()
+DecodeJob -> DecodeJob: decodeFromRetrievedData()
+DecodeJob -> DecodeJob: decodeFromData()
+DecodeJob -> DecodeJob: decodeFromFetcher()
+DecodeJob -> DecodeJob: runLoadPath()
+
+DecodeJob -> LoadPath: path.load()
+LoadPath -> LoadPath: loadWithExceptionList()
+
+LoadPath -> DecodePath: decode()
+DecodePath -> DecodePath: decodeResource()
+DecodePath -> DecodePath: decodeResourceWithList()
+
+' 还要调试，再看下流程。最终调到HttpUrlFetcher.loadData 请求数据
+' Downsampler.decodeStream() 处理请求回来的图片
+' ImageViewTarget.onResourceReady() 图片处理完成后，会回调到该方法，然后再这里调用setResource()真正将资源设给ImageView
+
+@enduml

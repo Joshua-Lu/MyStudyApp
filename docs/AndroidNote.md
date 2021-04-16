@@ -370,8 +370,63 @@
 
 - 缓存
 
+### 2. Glide  
 
-### 2. Glide
+- 特点
+
+  - 绑定生命周期：调用`Glide.with(this)`方法时，会创建一个**无UI的Fragment**，该Fragment持有LifeCycle，通过LifeCycle通知生命周期的变化。
+  - 自动调整图片大小：根据ImageView的大小，自动压缩图片像素，再给到ImageView显示，可以有效的**降低内存占用**。不想自动调整，也可通过`override(width, height)`方法固定图片的大小。
+
+- `Glide.with(context)`流程
+
+  - 根据传进来的context，主要分为两种情况，context为**Application对象**（主动传的Application或者是在**非主线**程调用的）和**非Application对象**，结果都是**返回RequestManager**。
+    - context为**Application对象**：调用`getApplicationManager()`，直接通过RequestManagerFactory返回RequestManager对象，该对象是通过**双重检查单例模式**返回的**单例对象**。
+    - context为**非Application对象**：创建一个**无UI的Fragment**，并绑定生命周期，然后返回RequestManager。
+
+- `RequestManager.load()`流程
+
+  - 先调用`asDrawable()`返回RequestBuilder\<Drawable\>对象，再调用该对象的`loadGeneric()`方法。
+  - `loadGeneric()`只是设置model为传进来的url参数，并返回RequestBuilder对象。
+
+- `RequestBuilder.into()`流程（Glide的主要流程）
+
+  ![Glide_into时序图](AndroidNote.assets/Glide_into时序图.png)
+
+  - `RequestBuilder.buildRequest()`：创建请求，然后调用runRequest，**执行请求**。
+  - `Engine.load()`：从缓存或网络中获取图片。
+  - `HttpUrlFetcher.loadData()`：真正请求网络下载图片，通过**HttpURLConnection**。
+  - `Downsampler.decode()`：解析请求回来的图片流，对图片的**压缩**，甚至还有**旋转**、**圆角**等逻辑处理都在这里。
+  - `ImageViewTarget.onResourceReady()`： 图片处理完成后，会回调到该方法，然后再这里调用setResource()，真正**将资源设给ImageView**。
+
+- 缓存机制
+
+  > 参考资料：[Android图片加载框架最全解析（三），深入探究Glide的缓存机制](https://juejin.cn/post/6914213320182464526)
+
+  1. 缓存Key
+
+     - 主要包含，请求图片的地址、宽高、类型等8个参数。
+
+  2. 内存缓存
+
+     - 默认开启，可以通过`skipMemoryCache(true)`禁用该缓存，一般不要设。
+
+     - LruResourceCache实现缓存
+
+     - 获取内存缓存的流程
+
+       ![Engine_load内存缓存流程](AndroidNote.assets/Engine_load内存缓存流程.png)
+
+  3. 硬盘缓存
+
+     - 四种缓存类型
+       - DiskCacheStrategy.NONE： 表示不缓存任何内容。
+       - DiskCacheStrategy.SOURCE： 表示只缓存原始图片。
+       - DiskCacheStrategy.RESULT： 表示只缓存转换过后的图片（**默认选项**）。
+       - DiskCacheStrategy.ALL ： 表示既缓存原始图片，也缓存转换过后的图片。
+
+     - 获取硬盘缓存的流程
+
+       
 
 ## 网络框架  
 

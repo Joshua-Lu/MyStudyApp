@@ -1,0 +1,41 @@
+@startuml
+title Engine load 内存缓存流程
+
+autoactivate on
+[-> Engine: load()
+    Engine -> Engine #yellow: loadFromMemory()
+    return
+    note right: loadFromMemory返回值不为空，则结束流程
+    |||
+    Engine -> Engine #yellow: waitForExistingOrStartNewJob()
+    note right: loadFromMemory返回值为空，才会执行该方法
+        Engine -> EngineJob: engineJob.start(decodeJob)
+        note right: 这里将decodeJob放到线程池里执行run()
+            EngineJob -> DecodeJob: run()
+                DecodeJob -> DecodeJob: runWrapped()
+                    DecodeJob -> DecodeJob: runGenerators()
+                    loop
+                        DecodeJob -> DataFetcherGenerator: startNext()
+                        note right
+                        调用DataFetcherGenerator的实现类的startNext()
+                        共3个实现类DataCacheGenerator、SourceGenerator、ResourceCacheGenerator
+                        end note
+
+                        return
+
+                        DecodeJob -> DecodeJob: getNextGenerator()
+                        note right: 获取到的是DataFetcherGenerator的实现类
+                        return
+                    end
+                    return
+                return
+            return
+        return
+    return
+    note right
+        获取成功后，会先放到activeResources里，
+        资源调用release()后，acquired变量等于0时，
+        说明该资源未使用了，就会从activeResources里，移到LruResourceCache里
+    end note
+return onResourceReady
+@enduml

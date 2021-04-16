@@ -1,0 +1,41 @@
+@startuml
+title Engine load 内存缓存流程
+
+autoactivate on
+[-> Engine: load()
+    Engine -> Engine #yellow: loadFromMemory()
+        Engine -> Engine: loadFromActiveResources()
+            Engine -> ActiveResources: get()
+            note right
+                从Map activeEngineResources里获取，
+                存的是资源的弱引用，缓存正在使用中的图片
+            end note
+            return #blue ActiveResources里的缓存资源
+        return
+        note right: loadFromActiveResources返回值不为空，则结束流程
+        |||
+        Engine -> Engine: loadFromCache()
+            Engine -> Engine: getEngineResourceFromCache()
+                Engine -> LruResourceCache: remove()
+                return #blue LruResourceCache里的缓存资源
+                note right
+                    从LruResourceCache里获取，
+                    如果获取到，会将它移除，并放到activeResources里，
+                    使用中的图片不能放在LruResourceCache里，防止被LRU算法回收
+                end note
+            return
+        return
+        note right: loadFromCache返回值不为空，则结束流程
+    return
+    note right: loadFromMemory返回值不为空，则结束流程
+    |||
+    Engine -> Engine #yellow: waitForExistingOrStartNewJob()
+    note right: loadFromMemory返回值为空，才会执行该方法
+    return
+    note right
+        获取成功后，会先放到activeResources里，
+        资源调用release()后，acquired变量等于0时，
+        说明该资源未使用了，就会从activeResources里，移到LruResourceCache里
+    end note
+return onResourceReady
+@enduml
