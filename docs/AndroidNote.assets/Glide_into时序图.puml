@@ -1,5 +1,5 @@
 @startuml
-title Glide into() 流程(还没完善)
+title Glide into() 流程
 
 RequestBuilder -> RequestBuilder: into(ImageView view)
 
@@ -27,26 +27,20 @@ note right
 内存缓存中没有获取到则调用waitForExistingOrStartNewJob()
 end note
 
-Engine -> Engine: waitForExistingOrStartNewJob()
-Engine -> EngineJob: engineJob.start(decodeJob)
-note right: 这里将decodeJob放到线程池里执行
+Engine -[#blue]> Engine: loadFromMemory()
+note right: 从内存缓存中获取数据
+Engine -[#blue]> Engine: waitForExistingOrStartNewJob()
+note right: 从硬盘缓存中获取数据、从网络请求数据
 
-EngineJob -> DecodeJob: run()
-DecodeJob -> DecodeJob: runWrapped()
-DecodeJob -> DecodeJob: decodeFromRetrievedData()
-DecodeJob -> DecodeJob: decodeFromData()
-DecodeJob -> DecodeJob: decodeFromFetcher()
-DecodeJob -> DecodeJob: runLoadPath()
-
-DecodeJob -> LoadPath: path.load()
-LoadPath -> LoadPath: loadWithExceptionList()
-
-LoadPath -> DecodePath: decode()
-DecodePath -> DecodePath: decodeResource()
-DecodePath -> DecodePath: decodeResourceWithList()
-
-' 还要调试，再看下流程。最终调到HttpUrlFetcher.loadData 请求数据
-' Downsampler.decodeStream() 处理请求回来的图片
-' ImageViewTarget.onResourceReady() 图片处理完成后，会回调到该方法，然后再这里调用setResource()真正将资源设给ImageView
+Engine -> SingleRequest: onResourceReady
+note right: 数据获取成功后，会回调到该方法
+SingleRequest -> SingleRequest: onResourceReady
+SingleRequest -> ImageViewTarget: onResourceReady
+ImageViewTarget -> ImageViewTarget: setResourceInternal
+ImageViewTarget -[#blue]> ImageViewTarget: setResource
+note right
+这里最终会调用到ImageViewTarget的具体子类，
+将资源设置给ImageView
+end note
 
 @enduml

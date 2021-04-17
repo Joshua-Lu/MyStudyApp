@@ -2,43 +2,64 @@
 
 ## 常见问题  
 
-1. Intent可以传递的数据类型：基本数据、String、CharSequence、序列化对象，以及他们的**数组**和**Array List**。
-2. SparseArray：  
+### 1. Intent可以传递的数据类型
+
+   - 基本数据、String、CharSequence、序列化对象，以及他们的**数组**和**Array List**。
+
+### 2. SparseArray
+
    - **android特有**，在数据量少（源码里写的几百个，实际测试小于2.5万左右SparseArray快，否则HashMap快）、key为int类型时，代替HashMap可以减少**内存**占用，
    - 内部维护**两个数组**，一个int数组保存key值（**有序**的，二分查找的前提），一个Object数组保存value值。
    - **remove()**:不会真正删除，只是做了**标记**，值设为 DELETED，只有执行gc()时才会**回收**，整理数组。
    - **put()**:根据key值，通过**二分查找**找到对应位置，如果该位置上已经有值或被标记为 DELETED，就更新，否则gc()整理数组，重新找位置，再插入。
    - **get()**:根据key值，通过**二分查找**找到对应位置，再根据位置取得对应的值。
    - **扩容**：默认**初始容量10**，超出当前大小，扩容为**2倍**。
-3. ArrayMap：基本跟SparseArray类似，主要区别在于：
-   - key值可以是**任意类型**，而SparseArray的key值只能是**int类型**，但也因此SparseArray没有装箱、计算hashCode等操作，效率更高。
-   - 内部也维护了**两个数组**，但其中的int数组不是直接保存key值，而是对应的**hashCode**。
-   - **扩容**：默认**初始容量0**，超出当前大小，扩容为**1.5倍**。
-4. HashMap：
+
+### 3. ArrayMap
+
+- 基本跟SparseArray类似，主要区别在于：
+     - key值可以是**任意类型**，而SparseArray的key值只能是**int类型**，但也因此SparseArray没有装箱、计算hashCode等操作，效率更高。
+     - 内部也维护了**两个数组**，但其中的int数组不是直接保存key值，而是对应的**hashCode**。
+     - **扩容**：默认**初始容量0**，超出当前大小，扩容为**1.5倍**。
+
+### 4. HashMap
    - **put**节点，JDK1.8之前头插，JDK1.8开始，尾插，改成尾插的原因：头插法在**多线程**扩容的时候会造成**链表环**。1.8还加入了**红黑树**，在链表个数**大于8**时使用，提高get的效率。
    - **hash函数**：(n - 1) & hash，在n为**2的n次方**时，产生hash**冲突的概率最低**（这也是HashMap初始默认容量为16，**扩容为2倍的原因**）。这种情况概率低的原因是：此时（n - 1）的二进制表示每位都是1，1&0 = 0,1&1 = 1，而如果二进制位上是0的话，0&0 = 0，0&1 = 0，就冲突了。
    - **线程不安全**：HashTable和ConcurrentHashMap是线程安全的，HashTable是将put和get方法都加synchronized，ConcurrentHashMap是在这两个方法里对当前操作的链表加synchronized，因此只有put和get操作的链表相同时，锁才会生效，这样效率会更高。
    - **扩容**：默认**初始容量16**，超出**当前大小*加载因子**（默认0.75），扩容为**2倍**。
-5. Dialog的创建必须使用**Activity**的Context不能使用Application的，因为Dialog必须在Activity上创建，属于Activity的一部分，这也是弹Dialog，**不会走**Activity的**onPause**方法的原因。
-6. 默认情况下，一个应用所有的组件都运行在同一个进程的同一个线程（main线程）里。
-7. 进程的5级优先级：前台进程、可见进程、服务进程、后台进程、空进程。
-8. 装箱、拆箱：
-9. 强软弱虚引用：
+
+### 5. Dialog创建的Context
+
+- Dialog的创建必须使用**Activity**的Context不能使用Application的，因为Dialog必须在Activity上创建，属于Activity的一部分，这也是弹Dialog，**不会走**Activity的**onPause**方法的原因。
+
+### 6. 组件运行在同一线程
+
+- 默认情况下，一个应用所有的组件都运行在同一个进程的同一个线程（main线程）里。
+
+### 7. 进程的5级优先级  
+
+- 前台进程、可见进程、服务进程、后台进程、空进程。
+
+### 8. 装箱、拆箱
+
+### 9. 强软弱虚引用
    - 强引用：只用引用断开（**设为null**），对象才能被回收
    - 软引用：**内存不足**时，gc会回收，通常用于**缓存**
    - 弱引用：只要**gc**，对象就会被回收，防止**内存泄漏**，JDK中的应用**ThreadLocal**
    - 虚引用：管理**堆外内存**，gc回收时会将该对象的一些信息，放到一个queue里，gc线程会遍历这个queue，拿到信息后就会删除对应的堆外内存
-10. ThreadLocal：
-    - set(T value)：
-      - 首先获取到**当前线程**的ThreadLocal.ThreadLocalMap成员变量，然后将当前**ThreadLocal对象作为key**，传进来的value作为value，保存到线程的map对象里。
-      - 所以value其实是set到了当前线程的map对象里，因此与线程**绑定**在一起了，不会影响其他线程。
-      - 这个map对象，里面其实是一个**数组**，存放的是ThreadLocalMap.Entry对象，Entry对象继承WeakReference<ThreadLocal<?>>，**弱引用**指向的是ThreadLocal对象，还有一个成员变量，保存value。
-    - get()：
-      - 首先也是获取到当前线程的map对象，然后以当前ThreadLocal对象作为key，获取到对应的value。
-    - remove()：
-      - 从map中移除当前ThreadLocal对象作为key的Entry。
-      - ThreadLocal对象不再使用时，一定要调用remove方法，否则会造成内存泄漏。（虽然key是弱引用，内存不足时会回收，但是不remove的话，entry会一直在map里，对应的value对象内存泄漏）
-11. Handler原理：
+
+### 10. ThreadLocal 
+- set(T value)：
+  - 首先获取到**当前线程**的ThreadLocal.ThreadLocalMap成员变量，然后将当前**ThreadLocal对象作为key**，传进来的value作为value，保存到线程的map对象里。
+  - 所以value其实是set到了当前线程的map对象里，因此与线程**绑定**在一起了，不会影响其他线程。
+  - 这个map对象，里面其实是一个**数组**，存放的是ThreadLocalMap.Entry对象，Entry对象继承WeakReference<ThreadLocal<?>>，**弱引用**指向的是ThreadLocal对象，还有一个成员变量，保存value。
+- get()：
+  - 首先也是获取到当前线程的map对象，然后以当前ThreadLocal对象作为key，获取到对应的value。
+- remove()：
+  - 从map中移除当前ThreadLocal对象作为key的Entry。
+  - ThreadLocal对象不再使用时，一定要调用remove方法，否则会造成内存泄漏。（虽然key是弱引用，内存不足时会回收，但是不remove的话，entry会一直在map里，对应的value对象内存泄漏）
+
+### 11. Handler原理
 
    - Looper.prepare()
      * new了一个Looper对象，并在Looper的构造方法里，创建了MessageQueue对象
@@ -54,28 +75,25 @@
      * 获取到msg对象后，通过msg.target拿到发送该msg的Handler对象
      * 然后调用handler的dispatchMessage，在该方法里会回调handleMessage方法
 
-11. 子线程**不能更新UI**的原因：更新的时候会走View.requestLayout方法，最后调到ViewRootImpl.checkThread，在该方法中会判断当前线程是否是主线程，若不是则抛出异常CalledFromWrongThreadException。因此在某些情况下（更新不会导致requestLayout调用、ViewRootImpl还没创建等），**checkThread**没有走到，更新UI就不会抛异常，如ProgressBar。当然开发过程中还是要注意在主线程去更新UI。
+- 子线程**不能弹Toast**的原因：在Toast的构造方法里，会去调用Looper.myLooper()，获取到loop对象，若**loop为null**则抛出异常。因此，若在子线程主动调用Looper.prepare()之后，弹toast，并在最后调Looper.loop()，也是能正常弹出toast，但一般不建议这么做。至于loop的用处，是用来创建handler对象，toast显示其实也是通过handler发消息。
 
-12. 子线程**不能弹Toast**的原因：在Toast的构造方法里，会去调用Looper.myLooper()，获取到loop对象，若**loop为null**则抛出异常。因此，若在子线程主动调用Looper.prepare()之后，弹toast，并在最后调Looper.loop()，也是能正常弹出toast，但一般不建议这么做。至于loop的用处，是用来创建handler对象，toast显示其实也是通过handler发消息。
+- 子线程**不能创建Handler**的原因：这个原因其实与不能弹Toast一样，也是因为没有调用Looper.prepare()，**loop对象为空**，抛出异常。
 
-13. 子线程**不能创建Handler**的原因：这个原因其实与不能弹Toast一样，也是因为没有调用Looper.prepare()，**loop对象为空**，抛出异常。
+### 12. 子线程**不能更新UI**的原因
 
-14. 动态代理：
+- 更新的时候会走View.requestLayout方法，最后调到ViewRootImpl.checkThread，在该方法中会判断当前线程是否是主线程，若不是则抛出异常CalledFromWrongThreadException。因此在某些情况下（更新不会导致requestLayout调用、ViewRootImpl还没创建等），**checkThread**没有走到，更新UI就不会抛异常，如ProgressBar。当然开发过程中还是要注意在主线程去更新UI。
 
-    - 在调用`Proxy.newProxyInstance()`之前，设置一个属性`System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");`之后就能看到生成的代理类的class文件了，该类**继承Proxy**，并**实现代理的接口**。
-    - 从该文件中可以看到，它还自动添加了Object类的`equals()`、`toString()`、`hashCode()`3个方法，以及代理的接口中的所有方法。并且调用这些方法，都是转交给**InvocationHandler的`invoke()`方法**处理。
+### 13. 动态代理：
 
-15. 统计：友盟
-    retrofit：反射、动态代理
-    IntentService：任务执行完毕，自动结束service
-     lock锁、semaphore、CountDownLatch、阻塞队列BlockingQueue
+   - 在调用`Proxy.newProxyInstance()`之前，设置一个属性`System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");`之后就能看到生成的代理类的class文件了，该类**继承Proxy**，并**实现代理的接口**。
+   - 从该文件中可以看到，它还自动添加了Object类的`equals()`、`toString()`、`hashCode()`3个方法，以及代理的接口中的所有方法。并且调用这些方法，都是转交给**InvocationHandler的`invoke()`方法**处理。
 
-    启动流程
-    binder通信
-    打包
-    builder模式，url创建
-    viewpager 适配器模式
-    适配器模式，playinfo
+### 14. 统计：友盟
+### 15. IntentService：任务执行完毕，自动结束service
+### 16. 启动流程
+### 17. 打包
+
+
 
 ## 多线程  
 
@@ -239,6 +257,8 @@
   - 没有返回值与有返回值
   - **同步与异步**？？
 
+
+
 ## RecyclerView  
 
 ### 1. 主要的六个类  
@@ -316,9 +336,12 @@
 - 滑动时，停止图片的加载，滑动停止后再加载。
 
 
+
 ## ViewPager+Fragment  
 
 - `populate(mCurItem)`
+
+
 
 ## Binder机制  
 
@@ -355,6 +378,8 @@
 - 首先调用对应接口的`Stub.asInterface(service)`，就可以返回的IBinder对象转换成服务的**Proxy对象**，通过该对象就可以像请求本地方法一样请求远程方法了。
 - 调用Proxy对象的方法时，会将对应方法的一个code，参数等，通过调用**`mRemote.transact()`传到服务端**，服务端在**`onTransact()`**解析传过来的数据，然后调用对应的方法，并将返回值写到reply对象里返回。
 
+
+
 ## 图片加载框架  
 
 ![图片加载框架对比](AndroidNote.assets/四大图片框架对比.png)
@@ -377,26 +402,37 @@
   - 绑定生命周期：调用`Glide.with(this)`方法时，会创建一个**无UI的Fragment**，该Fragment持有LifeCycle，通过LifeCycle通知生命周期的变化。
   - 自动调整图片大小：根据ImageView的大小，自动压缩图片像素，再给到ImageView显示，可以有效的**降低内存占用**。不想自动调整，也可通过`override(width, height)`方法固定图片的大小。
 
-- `Glide.with(context)`流程
+- Glide流程
 
-  - 根据传进来的context，主要分为两种情况，context为**Application对象**（主动传的Application或者是在**非主线**程调用的）和**非Application对象**，结果都是**返回RequestManager**。
-    - context为**Application对象**：调用`getApplicationManager()`，直接通过RequestManagerFactory返回RequestManager对象，该对象是通过**双重检查单例模式**返回的**单例对象**。
-    - context为**非Application对象**：创建一个**无UI的Fragment**，并绑定生命周期，然后返回RequestManager。
+  > 参考资料：[Android图片加载框架解析（二），从源码的角度理解Glide的执行流程（上）](https://juejin.cn/post/6913799833841041422)
+  >
+  > [Android图片加载框架解析（二），从源码的角度理解Glide的执行流程（中）](https://juejin.cn/post/6913806249667035144)
+  >
+  > [Android图片加载框架解析（二），从源码的角度理解Glide的执行流程（下）](https://juejin.cn/post/6913813341790011405)
 
-- `RequestManager.load()`流程
+  1. `Glide.with(context)`流程
 
-  - 先调用`asDrawable()`返回RequestBuilder\<Drawable\>对象，再调用该对象的`loadGeneric()`方法。
-  - `loadGeneric()`只是设置model为传进来的url参数，并返回RequestBuilder对象。
+     - 根据传进来的context，主要分为两种情况，context为**Application对象**（主动传的Application或者是在**非主线**程调用的）和**非Application对象**，结果都是**返回RequestManager**。
 
-- `RequestBuilder.into()`流程（Glide的主要流程）
+       - context为**Application对象**：调用`getApplicationManager()`，直接通过RequestManagerFactory返回RequestManager对象，该对象是通过**双重检查单例模式**返回的**单例对象**。
 
-  ![Glide_into时序图](AndroidNote.assets/Glide_into时序图.png)
+       - context为**非Application对象**：创建一个**无UI的Fragment**，并绑定生命周期，然后返回RequestManager。
 
-  - `RequestBuilder.buildRequest()`：创建请求，然后调用runRequest，**执行请求**。
-  - `Engine.load()`：从缓存或网络中获取图片。
-  - `HttpUrlFetcher.loadData()`：真正请求网络下载图片，通过**HttpURLConnection**。
-  - `Downsampler.decode()`：解析请求回来的图片流，对图片的**压缩**，甚至还有**旋转**、**圆角**等逻辑处理都在这里。
-  - `ImageViewTarget.onResourceReady()`： 图片处理完成后，会回调到该方法，然后再这里调用setResource()，真正**将资源设给ImageView**。
+  2. `RequestManager.load()`流程
+
+     - 先调用`asDrawable()`返回RequestBuilder\<Drawable\>对象，再调用该对象的`loadGeneric()`方法。
+
+     - `loadGeneric()`只是设置model为传进来的url参数，并返回RequestBuilder对象。
+
+  3. `RequestBuilder.into()`流程（Glide的主要流程）
+
+     ![Glide_into时序图](AndroidNote.assets/Glide_into时序图.png)
+
+     - `RequestBuilder.buildRequest()`：创建请求，然后调用runRequest，**执行请求**。
+      - `Engine.load()`：从缓存或网络中获取图片。
+      - `HttpUrlFetcher.loadData()`：真正请求网络下载图片，通过**HttpURLConnection**。
+      - `Downsampler.decode()`：解析请求回来的图片流，对图片的**压缩**，甚至还有**旋转**、**圆角**等逻辑处理都在这里。
+      - `ImageViewTarget.onResourceReady()`： 图片处理完成后，会回调到该方法，然后再这里调用setResource()，真正**将资源设给ImageView**。
 
 - 缓存机制
 
@@ -426,7 +462,9 @@
 
      - 获取硬盘缓存的流程
 
-       
+       ![Engine_load硬盘缓存流程](AndroidNote.assets/Engine_load硬盘缓存流程.png)
+
+
 
 ## 网络框架  
 
@@ -501,6 +539,12 @@
   - 适配器模式：`CallAdapter.adapt()`将Call对象，适配成其他类型的对象，如ExecutorCallbackCall，在Android中会将请求结果通过Handler发送到主线程。
   - 策略模式：`Retrofit.Builder().addConverterFactory()/addCallAdapterFactory()`设置不同的ConverterFactory/CallAdapterFactory，相当于设置不同的获取Converter/CallAdapter的策略。
 
+
+
+## RxJava
+
+## EventBus
+
 ## 组件化  
 
 ## 插件化
@@ -510,15 +554,19 @@
 ## 性能优化  
 
 - 布局优化
-  - 过渡渲染
+  - 过渡渲染：去除不必要的背景、降低嵌套层级、自定义View中绘制时裁剪掉不可见区域
+  - GPU耗时：建设onMeasure、onDraw等方法耗时
 - 内存优化
   - 内存抖动：大量对象的创建回收，gc频繁。
     - 如onDraw、onMeasure等**频繁调用**的方法中创建对象---------将方法内部对象改成成员变量，在其他地方创建
   - 内存泄漏：长生命周期对象，持有短生命周期对象的引用，导致短生命周期对象无法释放。
-    - 如handler发送延时消息，匿名内部类会默认持有外部类的引用------使用静态内部类、使用弱引用
-
+    - 如handler发送延时消息，匿名内部类会默认持有外部类的引用------使用静态内部类、使用弱引用，退出时取消消息
+  - 单例：如果有用到Context，要使用Application的，不要使用Activity的
+    - 资源型对象没有关闭，如IO流、数据库Cursor等
+  
 - 启动优化
   - 冷启动
+  - 启动白屏：设置带背景的主题、添加启动页
 
 ## 问题  
 

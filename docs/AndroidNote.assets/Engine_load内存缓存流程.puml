@@ -29,8 +29,11 @@ autoactivate on
     return
     note right: loadFromMemory返回值不为空，则结束流程
     |||
-    Engine -> Engine #yellow: waitForExistingOrStartNewJob()
-    note right: loadFromMemory返回值为空，才会执行该方法
+    Engine -[#blue]> Engine #yellow: waitForExistingOrStartNewJob()
+    note right
+    loadFromMemory返回值为空，才会执行该方法
+    该方法内部具体流程见下图（Engine load 硬盘缓存流程）
+    end note
     return
     note right
         获取成功后，会先放到activeResources里，

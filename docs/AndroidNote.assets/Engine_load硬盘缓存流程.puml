@@ -1,9 +1,10 @@
 @startuml
-title Engine load 内存缓存流程
+title Engine load 硬盘缓存流程
 
 autoactivate on
 [-> Engine: load()
-    Engine -> Engine #yellow: loadFromMemory()
+    Engine -[#blue]> Engine #yellow: loadFromMemory()
+    note right: 这个方法内部流程见上图（Engine load 内存缓存流程）
     return
     note right: loadFromMemory返回值不为空，则结束流程
     |||
@@ -20,7 +21,11 @@ autoactivate on
                         调用DataFetcherGenerator的实现类的startNext()
                         共3个实现类DataCacheGenerator、SourceGenerator、ResourceCacheGenerator
                         end note
-
+                            DataFetcherGenerator -> DataCacheGenerator: startNext()
+                                DataCacheGenerator -[#blue]> DataFetcher: loadData()
+                                note right: 在DataFetcher的具体实现类里获取数据
+                                return
+                            return
                         return
 
                         DecodeJob -> DecodeJob: getNextGenerator()
