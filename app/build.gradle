@@ -47,4 +47,6 @@ dependencies {
     implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     // 支持使用GsonConverterFactory，返回Json对象
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    // EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }

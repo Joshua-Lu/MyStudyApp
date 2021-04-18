@@ -142,6 +142,10 @@
 
 ### 6. ReentrantLock  
 
+- 等待队列结构图
+
+  ![ReentrantLock等待队列结构图](AndroidNote.assets/ReentrantLock等待队列结构图.png)
+
 - Condition 本质是不同的等待队列
 
 ### 7. CountDownLatch  
@@ -541,9 +545,15 @@
 
 
 
-## RxJava
+## RxJava  
 
-## EventBus
+- 特点：响应式编程、方便线程切换
+- 设计模式：观察者、装饰者
+
+## EventBus  
+
+- 特点：在不同组件之间方便的发送接收**任意类型**的消息
+- 原理：通过**注解**将接收消息的方法都存在一个**map里**，发送消息后，根据参数的类型，查找对应的方法，进行**反射**调用。
 
 ## 组件化  
 
