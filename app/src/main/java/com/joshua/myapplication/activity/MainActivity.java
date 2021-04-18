@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestGlideActivity.class);
         clsList.add(TestFrescoActivity.class);
         clsList.add(TestMapActivity.class);
+        clsList.add(TestRetrofitWithRxjavaActivity.class);
     }
 
     public void initData() {

@@ -41,4 +41,10 @@ dependencies {
     // butter knife
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
+    // RxJava Android扩展库
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    // 支持使用RxJava2CallAdapterFactory，将retrofit Call包装成RxJava的Observable
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    // 支持使用GsonConverterFactory，返回Json对象
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }

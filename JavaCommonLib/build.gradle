@@ -11,4 +11,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
+    // RxJava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+    // 支持使用RxJava2CallAdapterFactory，将retrofit Call包装成RxJava的Observable
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 }

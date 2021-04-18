@@ -51,6 +51,13 @@ public class CommonUtils {
         }
     }
 
+    /**
+     * 打印当前线程名字
+     */
+    public static void printThreadName() {
+        System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
+    }
+
     @Test
     public void testGetTimeFromNet() {
         long time = getTimeFromNet();
