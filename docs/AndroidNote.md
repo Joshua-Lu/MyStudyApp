@@ -93,6 +93,59 @@
 ### 16. 启动流程
 ### 17. 打包
 
+### 18. 加载大图
+
+- 获取原图尺寸
+
+  ```java
+  BitmapFactory.Options options = new BitmapFactory.Options();
+  options.inJustDecodeBounds = true;// 禁止
+  BitmapFactory.decodeResource(getResources(), R.id.myimage, options);
+  int imageHeight = options.outHeight;
+  int imageWidth = options.outWidth;
+  String imageType = options.outMimeType;
+  ```
+
+- 根据ImageView尺寸和原图尺寸，计算压缩比例
+
+  ```java
+  public static int calculateInSampleSize(BitmapFactory.Options options,
+  		int reqWidth, int reqHeight) {
+  	// 源图片的高度和宽度
+  	final int height = options.outHeight;
+  	final int width = options.outWidth;
+  	int inSampleSize = 1;
+  	if (height > reqHeight || width > reqWidth) {
+  		// 计算出实际宽高和目标宽高的比率
+  		final int heightRatio = Math.round((float) height / (float) reqHeight);
+  		final int widthRatio = Math.round((float) width / (float) reqWidth);
+  		// 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高
+  		// 一定都会大于等于目标的宽和高。
+  		inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+  	}
+  	return inSampleSize;
+  }
+  ```
+
+- 使用计算得到的压缩比例，解析图片
+
+  ```java
+  public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+          int reqWidth, int reqHeight) {
+  	// 第一次解析将inJustDecodeBounds设置为true，来获取图片大小
+      final BitmapFactory.Options options = new BitmapFactory.Options();
+      options.inJustDecodeBounds = true;
+      BitmapFactory.decodeResource(res, resId, options);
+      // 调用上面定义的方法计算inSampleSize值，使用获取到的inSampleSize值再次解析图片
+      options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+      // 将inJustDecodeBounds设回false
+      options.inJustDecodeBounds = false;
+      return BitmapFactory.decodeResource(res, resId, options);
+  }
+  ```
+
+  
+
 
 
 ## 多线程  
