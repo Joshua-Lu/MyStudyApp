@@ -634,3 +634,15 @@
 ## 问题  
 
 滑动冲突
+
+service生命周期、如何结束
+
+ANR 实例
+
+TouchEvent、onclick
+
+fragment的使用
+
+帧动画，内存问题
+
+Glide 圆角、gif

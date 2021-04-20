@@ -34,7 +34,7 @@ public class FloatingButtonService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate() called");
-        isStarted = true;
+//        isStarted = true;
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         layoutParams = new WindowManager.LayoutParams();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -49,19 +49,33 @@ public class FloatingButtonService extends Service {
         layoutParams.height = 200;
         layoutParams.x = 300;
         layoutParams.y = 300;
+        showFloatingWindow();
     }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind() called with: intent = [" + intent + "]");
         return null;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        showFloatingWindow();
+        Log.d(TAG, "onStartCommand() called with: intent = [" + intent + "], flags = [" + flags + "], startId = [" + startId + "]");
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy() called");
+        isStarted = false;
+        hideFloatingWindow();
+    }
+
+    private void hideFloatingWindow() {
+        windowManager.removeView(button);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

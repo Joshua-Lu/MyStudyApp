@@ -116,6 +116,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activity.TestServiceActivity"
+            android:label="TestServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activity.TestAnimatorActivity"
             android:label="TestAnimatorActivity">
             <intent-filter>

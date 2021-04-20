@@ -19,13 +19,21 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * test FloatView
+ * test Service
+ * <p>
+ * start方式启动，调用多次，只会走一次onCreate，但**每次会走onStartCommand**；
+ * stop方式结束，只要**调用一次**，即可结束。
+ * <p>
+ * bind方式启动，调用多次，也只会走一次onCreate，并且**onBind也只会走一次**；
+ * unbind方式结束，不同activity中bind过，就需要在那几个activity里**都掉unbind才行**
+ * <p>
+ * 混合方式启动，要结束需**所有activity调用unbind**，并且**调用一次stop**。
  * <p>
  * Created by Joshua on 2020-1-15 18:17:40.
  */
-public class TestFloatViewActivity extends AppCompatActivity {
+public class TestServiceActivity extends AppCompatActivity {
 
-    private static final String TAG = "TestFloatViewActivity";
+    private static final String TAG = "TestServiceActivity";
 
     public Intent service;
     public ServiceConnection conn;
@@ -34,7 +42,6 @@ public class TestFloatViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_float_view);
-        service = new Intent(TestFloatViewActivity.this, FloatingButtonService.class);
         conn = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -46,6 +53,7 @@ public class TestFloatViewActivity extends AppCompatActivity {
                 Log.d(TAG, "onServiceDisconnected() called with: name = [" + name + "]");
             }
         };
+        service = new Intent(TestServiceActivity.this, FloatingButtonService.class);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -87,9 +95,5 @@ public class TestFloatViewActivity extends AppCompatActivity {
 
     public void unbindService(View view) {
         unbindService(conn);
-    }
-
-    public void startAnotherActivity(View view) {
-        startActivity(new Intent(this, TestServiceActivity.class));
     }
 }
