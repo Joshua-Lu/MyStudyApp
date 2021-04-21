@@ -89,11 +89,10 @@
    - 从该文件中可以看到，它还自动添加了Object类的`equals()`、`toString()`、`hashCode()`3个方法，以及代理的接口中的所有方法。并且调用这些方法，都是转交给**InvocationHandler的`invoke()`方法**处理。
 
 ### 14. 统计：友盟
-### 15. IntentService：任务执行完毕，自动结束service
-### 16. 启动流程
-### 17. 打包
+### 15. 启动流程
+### 16. 打包
 
-### 18. 加载大图
+### 17. 加载大图
 
 - 获取原图尺寸
 
@@ -313,6 +312,51 @@
 
   - 没有返回值与有返回值
   - **同步与异步**？？
+
+### 16. AsyncTask
+
+- 封装了**线程池**以及**Handler**，方便处理耗时任务，以及回调更新UI。
+- 相关方法
+  - `onPreExecute()`：执行后台任务前调用到，可以做一些UI的初始化
+  - `doInBackground()`：执行后台任务，该方法是在**子线程**调用。
+  - `publishProgress()`：在`doInBackground()`方法中调用该方法，会回调到`onProgressUpdate()`
+  - `onProgressUpdate()`：后台任务执行过程中，更新UI进度等。
+  - `onPostExecute()`：后台任务执行完毕之后回调。
+
+### 17. HandlerThread
+
+- 继承Thread，并且封装了一个Handler，该handler不是主线程的，它使用的**Looper是HandlerThread的**，因此该handler的**handleMessage()**是在子线程，**可以处理耗时任务**。
+
+- 使用时，必须先创建HandlerThread，并调用`start()`后，才能创建Handler，绑定Looper，因为Looper是在`run()`里创建的。
+
+  ```java
+      private void initHandlerThread() {
+      	// 这三步顺序不能换
+          mHandlerThread = new HandlerThread("线程名");
+          mHandlerThread.start();
+          mThreadHandler = new Handler(mHandlerThread.getLooper()) {
+              @Override
+              public void handleMessage(Message msg) {
+                  checkForUpdate();
+                  if (isUpdate) {
+                      mThreadHandler.sendEmptyMessage(MSG_UPDATE_I NFO);
+                  }
+              }
+          };
+      }
+  ```
+
+- 使用完成后，需要调用`quit()`或`quitSafely()`方法，否则，线程中的`Looper.loop()`会一直运行，导致线程一直运行。
+
+### 18. IntentService
+
+- 在`onCreate()`里会创建一个HandlerThread，并创建对应的**子线程Handler**。
+- 调用`startService()`后，会将传进来的Intent封装到Message里，通过handler发送。`startService()`可以**多次调用**。
+- 然后在`onHandleIntent（）`里拿到Intent，进行相应的处理，该方法是在**子线程**里，可以做**耗时操作**。
+- 所有任务执行完毕后，自动结束service。
+- 对比
+  - 相比于Service，它是在子线程，可以**执行耗时任务**。并且任务结束后，会**自动结束服务**。
+  - 相比于Thread，它是服务，**优先级更高**，不容易被系统杀死。
 
 
 
@@ -645,4 +689,12 @@ fragment的使用
 
 帧动画，内存问题
 
+- 使用SurfaceView，并且逐帧解析
+
+  > 参考资料：[帧动画内存OOM？不存在的！—— SurfaceView逐帧解析](https://segmentfault.com/a/1190000019140030?utm_source=tag-newest)
+
 Glide 圆角、gif
+
+- 继承BitmapTransformation，在transform方法里对Bitmap处理，实现圆角
+
+  > 参考资料：[Android Glide自定义圆角处理](https://blog.csdn.net/shuai497331206/article/details/105449897/)
