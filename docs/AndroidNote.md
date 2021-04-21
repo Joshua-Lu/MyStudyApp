@@ -30,7 +30,8 @@
 
 ### 5. Dialog创建的Context
 
-- Dialog的创建必须使用**Activity**的Context不能使用Application的，因为Dialog必须在Activity上创建，属于Activity的一部分，这也是弹Dialog，**不会走**Activity的**onPause**方法的原因。
+- Dialog的创建必须使用**Activity**的Context不能使用Application的，会报BadTokenException，只有使用activity的context，获取到的token不为null才可以。
+- Dialog弹出后，activity会走onPause，如果Dialog是全屏不透明的，还会走onStop。不同于PopWindow，不会走任何生命周期。
 
 ### 6. 组件运行在同一线程
 
@@ -662,7 +663,7 @@
 
 - 布局优化
   - 过渡渲染：去除不必要的背景、降低嵌套层级、自定义View中绘制时裁剪掉不可见区域
-  - GPU耗时：建设onMeasure、onDraw等方法耗时
+  - GPU耗时：减少onMeasure、onDraw等方法耗时
 - 内存优化
   - 内存抖动：大量对象的创建回收，gc频繁。
     - 如onDraw、onMeasure等**频繁调用**的方法中创建对象---------将方法内部对象改成成员变量，在其他地方创建
@@ -698,3 +699,15 @@ Glide 圆角、gif
 - 继承BitmapTransformation，在transform方法里对Bitmap处理，实现圆角
 
   > 参考资料：[Android Glide自定义圆角处理](https://blog.csdn.net/shuai497331206/article/details/105449897/)
+
+mvp 生命周期回调
+
+性能优化，具体哪些方法耗时
+
+activity回收后，恢复List数据
+
+onCreateViewHolder，耗时的点
+
+滑动到一半，Fragment是否是onResume状态
+
+弹Dialog时，系统如何知道Dialog是否全屏

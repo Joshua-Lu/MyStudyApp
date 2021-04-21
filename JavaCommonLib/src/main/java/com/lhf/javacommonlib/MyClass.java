@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Locale;
 import java.util.Stack;
@@ -155,4 +156,18 @@ public class MyClass {
         new LinkedList<>().add(null);
         new ArrayDeque<>().offer(null);// ArrayDeque 不能添加null
     }
+
+    @Test
+    public void testLinkedHashMap() {
+        LinkedHashMap<Integer, String> linkedHashMap = new LinkedHashMap<>(5, 0.75f, true);
+        linkedHashMap.put(1, "1");
+        linkedHashMap.put(2, "2");
+        linkedHashMap.put(3, "3");
+        linkedHashMap.put(4, "4");
+        linkedHashMap.put(5, "5");
+        linkedHashMap.put(6, "6");
+        linkedHashMap.get(2);
+        System.out.println("MyClass.testLinkedHashMap: linkedHashMap = [" + linkedHashMap + "]");
+    }
+
 }

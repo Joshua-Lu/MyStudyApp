@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.text.format.Formatter;
 import android.util.Log;
+import android.util.LruCache;
 
 import com.joshua.myapplication.utils.Constants;
 
@@ -15,6 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.util.Map;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -67,5 +69,21 @@ public class ExampleInstrumentedTest {
         Log.d(TAG, "testFormatFileSize: totalSpace = [" + totalSpace + "]");
         String fileSize = Formatter.formatFileSize(appContext, totalSpace);
         Log.d(TAG, "testFormatFileSize: fileSize = [" + fileSize + "]");
+    }
+
+    @Test
+    public void testLruCache() {
+        LruCache<Integer, String> lruCache = new LruCache<>(5);
+        lruCache.put(1, "1");
+        lruCache.put(2, "2");
+        lruCache.put(3, "3");
+        lruCache.put(4, "4");
+        lruCache.put(5, "5");
+        lruCache.put(6, "6");
+        lruCache.get(2);
+        lruCache.get(1);
+        System.out.println("ExampleInstrumentedTest.testLruCache: lruCache = [" + lruCache + "]");
+        Map<Integer, String> snapshot = lruCache.snapshot();
+        System.out.println("ExampleInstrumentedTest.testLruCache: lruCache.map = [" + snapshot + "]");
     }
 }
