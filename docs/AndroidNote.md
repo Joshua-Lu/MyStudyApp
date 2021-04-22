@@ -676,6 +676,15 @@
   - 冷启动
   - 启动白屏：设置带背景的主题、添加启动页
 
+## IPC方式
+
+1. Intent
+2. 文件共享
+3. Messenger
+4. AIDL
+5. ContentProvider
+6. Socket
+
 ## 问题  
 
 滑动冲突
