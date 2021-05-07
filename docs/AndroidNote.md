@@ -723,3 +723,9 @@ onCreateViewHolder，耗时的点
 滑动到一半，Fragment是否是onResume状态
 
 弹Dialog时，系统如何知道Dialog是否全屏
+
+http
+
+surface flinger
+
+广播：除了BroadcastReceiver，还有啥？

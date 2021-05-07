@@ -9,8 +9,8 @@ import java.util.Objects;
  * Created by Joshua on 2021/1/28.
  */
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
     // 不为 -1 表示是有环列表的最后一个Node，
     // 并且该Node的next指向链表的第 cyclePosition 个Node
     int cyclePosition = -1;
@@ -18,7 +18,7 @@ public class ListNode {
     ListNode() {
     }
 
-    ListNode(int val) {
+    public ListNode(int val) {
         this.val = val;
     }
 
