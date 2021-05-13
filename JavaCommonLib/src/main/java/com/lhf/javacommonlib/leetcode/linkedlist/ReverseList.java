@@ -24,6 +24,7 @@ public class ReverseList {
         ListNode head = ListNode.createList(new int[]{1, 2, 3, 4, 5});
         ListNode expected = ListNode.createList(new int[]{5, 4, 3, 2, 1});
         ListNode result = reverseList(head);
+        System.out.println("ReverseList.test: result = [" + result + "]");
         Assert.assertEquals(expected, result);
     }
 
@@ -55,19 +56,8 @@ public class ReverseList {
      * 递归
      */
     public ListNode reverseList2(ListNode head) {
-        System.out.println("ReverseList.reverseList1() called with: head = [" + head + "]");
-        ListNode prev = null;
-        ListNode cur = head;
-        ListNode temp = null;
-        while (cur != null) {
-            temp = cur.next;// 先保存下一个节点
-            cur.next = prev;// 反转
-            // 更新prev、cur位置
-            prev = cur;
-            cur = temp;
-        }
-        System.out.println("ReverseList.reverseList1() returned: " + prev);
-        return prev;
+        System.out.println("ReverseList.reverseList2() called with: head = [" + head + "]");
+        return reverse(null, head);
     }
 
     private ListNode reverse(ListNode prev, ListNode cur) {

@@ -17,7 +17,7 @@ import java.util.Stack;
 public class PostorderTraversal {
     /*
     https://leetcode-cn.com/problems/binary-tree-postorder-traversal/
-    144. 二叉树的后序遍历
+    145. 二叉树的后序遍历
     给定一个二叉树的根节点 root ，返回它的 后序 遍历。
 
     示例 1：
