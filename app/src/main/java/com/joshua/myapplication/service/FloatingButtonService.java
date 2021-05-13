@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -78,14 +79,17 @@ public class FloatingButtonService extends Service {
         windowManager.removeView(button);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void showFloatingWindow() {
-        if (Settings.canDrawOverlays(this)) {
-            button = new Button(getApplicationContext());
-            button.setText("Floating Window");
-            button.setBackgroundColor(Color.BLUE);
-            windowManager.addView(button, layoutParams);
-            button.setOnTouchListener(new FloatingOnTouchListener());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.canDrawOverlays(this)) {
+                button = new Button(getApplicationContext());
+                button.setText("Floating Window");
+                button.setBackgroundColor(Color.BLUE);
+                windowManager.addView(button, layoutParams);
+                button.setOnTouchListener(new FloatingOnTouchListener());
+            }
+        } else {
+            Toast.makeText(this, "Call requires API level 23", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -5,14 +5,15 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.joshua.myapplication.R;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * Created by Joshua on 2020/4/18 11:37.
  */
-public class CustomView extends TextView {
+public class CustomView extends AppCompatTextView {
 
     private static final String TAG = "CustomView";
 
