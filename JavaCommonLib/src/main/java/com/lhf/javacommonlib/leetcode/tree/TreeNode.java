@@ -12,9 +12,9 @@ import java.util.Queue;
  * Created by Joshua on 2021/3/11 23:00
  */
 public class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
     TreeNode() {
     }
