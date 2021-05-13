@@ -16,7 +16,7 @@ Java基础、设计模式、数据结构与算法、Android基础知识的学习
 
 ## DesignPatternLib
 
-- 常用设计模式简单示例，具体内容见DesignPatternLib下的[README.md](DesignPatternLib/README.md)
+- 常用设计模式简单示例，具体内容见DesignPatternLib下的[README.md](DesignPatternlib/README.md)
 
 ##  JavaCommonLib  
 
