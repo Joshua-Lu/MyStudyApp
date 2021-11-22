@@ -718,6 +718,8 @@ Glide 圆角、gif
 
 mvp 生命周期回调
 
+mvp的缺点
+
 性能优化，具体哪些方法耗时
 
 activity回收后，恢复List数据
@@ -733,3 +735,11 @@ http
 surface flinger
 
 广播：除了BroadcastReceiver，还有啥？
+
+onCreate方法里能否取得wrap_content的View的确定尺寸
+
+okhttp的优缺点、动态代理解析结果缓存的key和Value分别是什么
+
+RecyclerView的自定义缓存为什么没人用
+
+Glide的缓存有几级？
