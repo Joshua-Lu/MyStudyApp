@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestMapActivity.class);
         clsList.add(TestRetrofitWithRxjavaActivity.class);
         clsList.add(TestEventBusActivity.class);
+        clsList.add(TestIntentChooserActivity.class);
     }
 
     public void initData() {
