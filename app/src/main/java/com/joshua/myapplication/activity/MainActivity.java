@@ -17,6 +17,12 @@ import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * 主界面
+ *
+ * @author Joshua
+ * @date 2022/3/3 0:37
+ */
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
@@ -77,12 +83,13 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestRetrofitWithRxjavaActivity.class);
         clsList.add(TestEventBusActivity.class);
         clsList.add(TestIntentChooserActivity.class);
+        clsList.add(TestFragmentActivity.class);
     }
 
     public void initData() {
         data = new ArrayList<>();
         for (Class<?> activity : clsList) {
-            Map<String, String> map = new HashMap<>();
+            Map<String, String> map = new HashMap<>(2);
             map.put("activity", "start " + activity.getSimpleName());
             data.add(map);
         }
