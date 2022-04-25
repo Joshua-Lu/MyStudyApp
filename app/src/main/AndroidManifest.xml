@@ -14,7 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.DetailFragmentActivity"></activity>
+        <activity android:name=".activity.TestIntentServiceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".service.MyIntentService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.joshua.myapplication.service.action.FOO" />
+                <action android:name="com.joshua.myapplication.service.action.FOO" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".activity.DetailFragmentActivity" />
         <activity android:name=".activity.TestFragmentActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

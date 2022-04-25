@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestEventBusActivity.class);
         clsList.add(TestIntentChooserActivity.class);
         clsList.add(TestFragmentActivity.class);
+        clsList.add(TestIntentServiceActivity.class);
     }
 
     public void initData() {
