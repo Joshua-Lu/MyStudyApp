@@ -11,3 +11,4 @@
 .externalNativeBuild
 .cxx
 /.idea/
+/JavaCommonLib/out/
