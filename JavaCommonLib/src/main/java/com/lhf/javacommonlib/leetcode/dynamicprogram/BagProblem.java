@@ -21,11 +21,15 @@ public class BagProblem {
         int bagSize = 4;
         int expRes = 35;
 
-        int res = bagProblem(weight, value, bagSize);
+//        int res = bagProblem(weight, value, bagSize);
+        int res = bagProblem1(weight, value, bagSize);
         System.out.println("BagProblem.main: res = [" + res + "]");
         Assert.assertEquals(expRes, res);
     }
 
+    /**
+     * dp使用二维数组实现
+     */
     private static int bagProblem(int[] weight, int[] value, int bagSize) {
         // 物品个数
         int count = weight.length;
@@ -44,5 +48,25 @@ public class BagProblem {
         }
 
         return dp[count][bagSize];
+    }
+
+    /**
+     * dp使用一维数组实现
+     */
+    private static int bagProblem1(int[] weight, int[] value, int bagSize) {
+        // 物品个数
+        int count = weight.length;
+
+        // dp[j]表示从前i个物品里取，放到容量为j的背包里，能装的最大价值
+        int[] dp = new int[bagSize + 1];
+
+        for (int i = 0; i < count; i++) {
+            // j倒序遍历，防止物品价值被多次加入
+            for (int j = bagSize; j >= weight[i]; j--) {
+                dp[j] = Math.max(dp[j], dp[j - weight[i]] + value[i]);
+            }
+        }
+
+        return dp[bagSize];
     }
 }
