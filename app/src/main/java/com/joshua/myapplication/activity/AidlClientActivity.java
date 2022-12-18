@@ -37,7 +37,10 @@ public class AidlClientActivity extends AppCompatActivity {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 Log.d("lhf-" + TAG, "onServiceConnected() called with: name = [" + name + "], service = [" + service + "]");
+                // service是BinderProxy对象
                 iMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
+                // iMyAidlInterface是Stub对象还是Proxy对象?是Proxy对象
+                Log.d(TAG, "onServiceConnected: iMyAidlInterface = [" + iMyAidlInterface.getClass() + "]");
                 try {
                     String data = iMyAidlInterface.getData();
                     Log.d("lhf-" + TAG, "onServiceConnected: data = [" + data + "]");

@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestSurfaceViewActivity.class);
         clsList.add(TestAnimationActivity.class);
         clsList.add(TestAnimatorActivity.class);
+        clsList.add(TestPointAnimViewActivity.class);
         clsList.add(TestFloatViewActivity.class);
         clsList.add(SystemInfoActivity.class);
         clsList.add(TestAlarmManagerActivity.class);

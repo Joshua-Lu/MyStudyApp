@@ -1,4 +1,3 @@
 include ':app', ':DesignPatternlib', ':JavaCommonLib'
 rootProject.name='MyStudyApp'
 include ':Jetpack'
-include ':Jetpack'
