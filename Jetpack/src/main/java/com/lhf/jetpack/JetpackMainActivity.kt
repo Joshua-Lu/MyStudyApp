@@ -6,6 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lhf.jetpack.room.RoomActivity
 import kotlinx.android.synthetic.main.activity_jetpack_main.*
 
+/**
+ * Jetpack模块主界面
+ *
+ * @author Joshua
+ * @date 2023/1/8 16:00
+ */
 class JetpackMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
