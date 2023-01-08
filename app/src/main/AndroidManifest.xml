@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.joshua.myapplication">
     <!-- add for FloatView -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- add for HeadsUp Notification -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- add for HeadsUp Notification -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,12 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.TestPointAnimViewActivity">
+        <activity
+            android:name=".activity.TestPointAnimViewActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestIntentServiceActivity">
+        <activity
+            android:name=".activity.TestIntentServiceActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -35,58 +41,80 @@
         </service>
 
         <activity android:name=".activity.DetailFragmentActivity" />
-        <activity android:name=".activity.TestFragmentActivity">
+        <activity
+            android:name=".activity.TestFragmentActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestIntentChooserActivity">
+        <activity
+            android:name=".activity.TestIntentChooserActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.TestEventBusActivity2" />
-        <activity android:name=".activity.TestEventBusActivity">
+        <activity
+            android:name=".activity.TestEventBusActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestRetrofitWithRxjavaActivity">
+        <activity
+            android:name=".activity.TestRetrofitWithRxjavaActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestMapActivity">
+        <activity
+            android:name=".activity.TestMapActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestFrescoActivity">
+        <activity
+            android:name=".activity.TestFrescoActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestGlideActivity">
+        <activity
+            android:name=".activity.TestGlideActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestViewPagerActivity">
+        <activity
+            android:name=".activity.TestViewPagerActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestHandlerInThreadActivity">
+        <activity
+            android:name=".activity.TestHandlerInThreadActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestViewUtilsActivity">
+        <activity
+            android:name=".activity.TestViewUtilsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestContentObserverActivity">
+        <activity
+            android:name=".activity.TestContentObserverActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -98,132 +126,162 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".activity.TestNotificationActivity">
+        <activity
+            android:name=".activity.TestNotificationActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestMaterialDesignActivity">
+        <activity
+            android:name=".activity.TestMaterialDesignActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestSceneTransitionActivityA">
+        <activity
+            android:name=".activity.TestSceneTransitionActivityA"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity android:name=".activity.TestSceneTransitionActivityB" />
-        <activity android:name=".activity.TestClipChildrenActivity">
+        <activity
+            android:name=".activity.TestClipChildrenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.AidlClientActivity">
+        <activity
+            android:name=".activity.AidlClientActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestCustomViewActivity">
+        <activity
+            android:name=".activity.TestCustomViewActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestAlarmManagerActivity">
+        <activity
+            android:name=".activity.TestAlarmManagerActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SystemInfoActivity">
+        <activity
+            android:name=".activity.SystemInfoActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestFloatViewActivity"
-            android:label="TestFloatViewActivity">
+            android:label="TestFloatViewActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestServiceActivity"
-            android:label="TestServiceActivity">
+            android:label="TestServiceActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestAnimatorActivity"
-            android:label="TestAnimatorActivity">
+            android:label="TestAnimatorActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestAnimationActivity"
-            android:label="TestAnimationActivity">
+            android:label="TestAnimationActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestSurfaceViewActivity"
-            android:label="TestSurfaceViewActivity">
+            android:label="TestSurfaceViewActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestShaderActivity"
-            android:label="TestShaderActivity">
+            android:label="TestShaderActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestPorterDuffModeActivity"
-            android:label="TestPorterDuffModeActivity">
+            android:label="TestPorterDuffModeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestImagePsActivity"
-            android:label="TestImagePsActivity">
+            android:label="TestImagePsActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestXmlDrawActivity"
-            android:label="TestXmlDrawActivity">
+            android:label="TestXmlDrawActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestDrawActivity"
-            android:label="TestDrawActivity">
+            android:label="TestDrawActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestViewDragHelperActivity"
-            android:label="TestViewDragHelperActivity">
+            android:label="TestViewDragHelperActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestDragActivity"
-            android:label="TestDragActivity">
+            android:label="TestDragActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
