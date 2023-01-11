@@ -3,6 +3,9 @@ package com.lhf.jetpack
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.lhf.jetpack.coroutine.CoroutineActivity
+import com.lhf.jetpack.flow.FlowActivity
+import com.lhf.jetpack.hilt.HiltActivity
 import com.lhf.jetpack.room.RoomActivity
 import kotlinx.android.synthetic.main.activity_jetpack_main.*
 
@@ -19,6 +22,15 @@ class JetpackMainActivity : AppCompatActivity() {
 
         btnTestRoom.setOnClickListener {
             startActivity(Intent(this, RoomActivity::class.java))
+        }
+        btnTestHilt.setOnClickListener {
+            startActivity(Intent(this, HiltActivity::class.java))
+        }
+        btnTestCoroutine.setOnClickListener {
+            startActivity(Intent(this, CoroutineActivity::class.java))
+        }
+        btnTestFlow.setOnClickListener {
+            startActivity(Intent(this, FlowActivity::class.java))
         }
     }
 }

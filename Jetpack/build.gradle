@@ -63,6 +63,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
+    // 包含协程lifecycleScope
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    // 包含协程viewModelScope
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
     //Dagger - Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
@@ -70,4 +75,7 @@ dependencies {
     // Android - Hilt
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$android_hilt_version"
     kapt "androidx.hilt:hilt-compiler:$android_hilt_version"
+
+    // 可以使用 by viewModels 创建ViewModel对象
+    implementation 'androidx.activity:activity-ktx:1.6.1'
 }
