@@ -30,4 +30,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TestFlow" />
+
+    <Button
+        android:id="@+id/btnTestCompose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TestCompose" />
 </LinearLayout>

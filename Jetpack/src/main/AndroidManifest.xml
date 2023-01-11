@@ -11,33 +11,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".compose.ComposeActivity"
+            android:exported="true"
+            android:label="@string/title_activity_compose"
+            android:theme="@style/ComposeAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".flow.FlowActivity"
-            android:label="FlowActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="FlowActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".coroutine.CoroutineActivity"
-            android:label="CoroutineActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="CoroutineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".hilt.HiltActivity"
-            android:label="HiltActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="HiltActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".room.RoomActivity"
-            android:label="RoomActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="RoomActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

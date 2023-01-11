@@ -1,8 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    // 可以不用写FindViewById，直接使用id
-    id 'kotlin-android-extensions'
     // dependencies中使用kapt用到
     id 'kotlin-kapt'
     // hilt插件
@@ -10,15 +8,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
-    buildToolsVersion '30.0.3'
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
         applicationId "com.lhf.jetpack"
-        minSdkVersion 21
-        targetSdkVersion 32
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion min_sdk_version
+        targetSdkVersion compile_sdk_version
+        versionCode version_code
+        versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -27,6 +25,9 @@ android {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
+        }
+        vectorDrawables {
+            useSupportLibrary true
         }
     }
 
@@ -43,6 +44,23 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_ui_version
+        kotlinCompilerVersion kotlin_version
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -51,9 +69,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
@@ -78,4 +93,31 @@ dependencies {
 
     // 可以使用 by viewModels 创建ViewModel对象
     implementation 'androidx.activity:activity-ktx:1.6.1'
+
+    // okhttp
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttp_version")
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    // 支持使用GsonConverterFactory，返回Json对象
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // paging3
+    implementation("androidx.paging:paging-runtime:$paging_version")
+    implementation("androidx.paging:paging-common:$paging_version")
+
+    // Compose
+    implementation 'androidx.activity:activity-compose:1.3.1'
+    implementation "androidx.compose.ui:ui:$compose_ui_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
+    implementation 'androidx.compose.material:material:1.1.1'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+
+    // viewbinding
+//    implementation("androidx.databinding:viewbinding:$viewbinding_version")
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

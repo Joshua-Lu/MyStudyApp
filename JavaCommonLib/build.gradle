@@ -1,16 +1,15 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
-apply plugin: 'kotlin-android-extensions'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'junit:junit:4.13.2'
     // okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:okhttp:$okhttp_version")
     // retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     // 支持使用GsonConverterFactory，返回Json对象
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     // Gson
     implementation 'com.google.code.gson:gson:2.8.6'
     // RxJava
@@ -20,4 +19,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
