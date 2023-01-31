@@ -1,0 +1,1 @@
+D:\Code\GitHub\MyStudyApp\buildSrc\build\classes\kotlin\main\Libs.class;D:\Code\GitHub\MyStudyApp\buildSrc\build\classes\kotlin\main\Versions.class
