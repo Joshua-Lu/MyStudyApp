@@ -5,9 +5,9 @@ request()
 class Adaptee {
 specificRequest()
 }
-class ClassAdapter implements Target{
+class ObjectAdapter implements Target{
 Adaptee adaptee
 request()
 }
-ClassAdapter o- Adaptee
+ObjectAdapter o- Adaptee
 @enduml
