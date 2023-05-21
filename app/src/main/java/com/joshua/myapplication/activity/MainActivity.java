@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestIntentChooserActivity.class);
         clsList.add(TestFragmentActivity.class);
         clsList.add(TestIntentServiceActivity.class);
+        clsList.add(TestCustomFontActivity.class);
     }
 
     public void initData() {

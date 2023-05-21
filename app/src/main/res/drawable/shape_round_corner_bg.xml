@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--10dp圆角矩形背景-->
+    <corners android:radius="10dp" />
+    <!--红色背景颜色-->
+    <solid android:color="#FF0000" />
+    <!--边框-->
+    <stroke
+        android:width="1dp"
+        android:color="#CCCCCC" />
+    <!--红蓝竖直方向渐变色背景-->
+    <gradient
+        android:angle="90"
+        android:endColor="#FF0000"
+        android:startColor="#0000FF" />
+    <!--虚线边框-->
+    <stroke
+        android:width="1dp"
+        android:color="#CCCCCC"
+        android:dashGap="2dp"
+        android:dashWidth="2dp" />
+</shape>

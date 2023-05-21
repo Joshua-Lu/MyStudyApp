@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- add for HeadsUp Notification -->
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,6 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".activity.TestCustomFontActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activity.TestPointAnimViewActivity"
             android:exported="true">
@@ -185,96 +191,96 @@
         </activity>
         <activity
             android:name=".activity.TestFloatViewActivity"
-            android:label="TestFloatViewActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestFloatViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestServiceActivity"
-            android:label="TestServiceActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestServiceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestAnimatorActivity"
-            android:label="TestAnimatorActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestAnimatorActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestAnimationActivity"
-            android:label="TestAnimationActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestAnimationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestSurfaceViewActivity"
-            android:label="TestSurfaceViewActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestSurfaceViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestShaderActivity"
-            android:label="TestShaderActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestShaderActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestPorterDuffModeActivity"
-            android:label="TestPorterDuffModeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestPorterDuffModeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestImagePsActivity"
-            android:label="TestImagePsActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestImagePsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestXmlDrawActivity"
-            android:label="TestXmlDrawActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestXmlDrawActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestDrawActivity"
-            android:label="TestDrawActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestDrawActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestViewDragHelperActivity"
-            android:label="TestViewDragHelperActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestViewDragHelperActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.TestDragActivity"
-            android:label="TestDragActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="TestDragActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
