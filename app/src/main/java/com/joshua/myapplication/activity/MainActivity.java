@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestFragmentActivity.class);
         clsList.add(TestIntentServiceActivity.class);
         clsList.add(TestCustomFontActivity.class);
+        clsList.add(TestMotionLayoutActivity.class);
     }
 
     public void initData() {
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTestActivity(int position) {
         if (position < 0 || position >= clsList.size()) {
-            Log.e(TAG, "startTestActivity: positon is invalid！");
+            Log.e(TAG, "startTestActivity: position is invalid！");
             return;
         }
         startTestActivity(clsList.get(position));
