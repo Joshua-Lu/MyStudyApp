@@ -1,5 +1,6 @@
 package com.joshua.myapplication.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -17,6 +18,7 @@ public class DatabaseUtil {
         return values;
     }
 
+    @SuppressLint("Range")
     public static Person getPerson(Cursor cursor) {
         Person person;
         person = new Person();

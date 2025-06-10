@@ -10,8 +10,6 @@ import com.joshua.myapplication.R;
 import com.joshua.myapplication.utils.Constants;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 测试Fresco使用
@@ -22,15 +20,14 @@ import butterknife.ButterKnife;
 public class TestFrescoActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.iv_fresco)
     SimpleDraweeView ivFresco;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_fresco);
-        ButterKnife.bind(this);
 
+        ivFresco = findViewById(R.id.iv_fresco);
 //        ivFresco.setImageURI(Constants.imageUrl);
         ivFresco.setImageURI(Constants.gifUrl);
 

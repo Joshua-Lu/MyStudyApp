@@ -13,8 +13,6 @@ import com.lhf.javacommonlib.utils.CommonUtils;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,16 +29,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class TestRetrofitWithRxjavaActivity extends AppCompatActivity {
 
-    @BindView(R.id.btn_download_update)
     Button btnDownloadUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_retrofit_with_rxjava);
-        ButterKnife.bind(this);
 
-
+        btnDownloadUpdate = findViewById(R.id.btn_download_update);
     }
 
     public void downloadAndUpdate(View view) {

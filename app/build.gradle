@@ -43,8 +43,8 @@ dependencies {
     // fresco
     implementation Libs.fresco
     // butter knife
-    implementation Libs.butterknife
-    annotationProcessor Libs.butterknife_compiler
+//    implementation Libs.butterknife
+//    annotationProcessor Libs.butterknife_compiler
     // RxJava Android扩展库
     implementation Libs.rxandroid
     // 支持使用RxJava2CallAdapterFactory，将retrofit Call包装成RxJava的Observable
@@ -53,4 +53,6 @@ dependencies {
     implementation Libs.retrofit_converter_gson
     // EventBus
     implementation Libs.eventbus
+    // ExoPlayer
+    implementation Libs.exoplayer
 }

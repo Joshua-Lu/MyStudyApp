@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         clsList.add(TestCustomFontActivity.class);
         clsList.add(TestMotionLayoutActivity.class);
         clsList.add(TestContextExtActivity.class);
+        clsList.add(TestExoPlayerActivity.class);
     }
 
     public void initData() {

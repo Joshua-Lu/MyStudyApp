@@ -8,7 +8,7 @@ object Versions {
     const val arouter_api_version = "1.5.0"
     const val arouter_compiler_version = "1.2.2"
 
-    const val kotlin_version = "1.6.10"
+    const val kotlin_version = "1.7.10"
     const val room_version = "2.4.3"
     const val coroutines_version = "1.3.9"
     const val hilt_version = "2.28-alpha"
@@ -117,4 +117,6 @@ object Libs {
     const val compose_ui_tooling = "androidx.compose.ui:ui-tooling:$${Versions.compose_ui_version}"
     const val compose_ui_test_manifest = "androidx.compose.ui:ui-test-manifest:$${Versions.compose_ui_version}"
 
+    // ExoPlayer
+    const val exoplayer = "com.google.android.exoplayer:exoplayer:2.16.1"
 }
